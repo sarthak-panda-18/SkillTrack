@@ -81,7 +81,66 @@ export class CareerOutcomeService {
       await Notification.insertMany(notifications);
     }
 
+    // Auto-update placementStage on User profile
+    if (outcomeType === 'EMPLOYED') {
+      user.placementStage = 'EMPLOYED';
+    } else if (outcomeType === 'SEEKING_EMPLOYMENT' || outcomeType === 'LOOKING_FOR_EMPLOYMENT' || outcomeType === 'UNEMPLOYED') {
+      user.placementStage = 'SEEKING_EMPLOYMENT';
+    }
+    await user.save();
+
+    // Initialize/update 30/90/180/365 longitudinal follow-up checkpoints asynchronously
+    import('./followUp.service').then(({ followUpService }) => {
+      followUpService.initializeStudentFollowUps(userId).catch(err => console.warn('[FollowUp] Error initializing follow-ups:', err));
+    });
+
     return newOutcome;
+  }
+
+  async updateConsent(userId: string, payload: { consentGiven: boolean; consentPurpose?: string[] }) {
+    const user = await User.findById(userId);
+    if (!user) throw new ApiError(404, 'User profile not found.');
+
+    user.consentGiven = payload.consentGiven;
+    user.consentDate = new Date();
+    user.consentVersion = '1.0';
+    if (payload.consentPurpose) {
+      user.consentPurpose = payload.consentPurpose;
+    } else {
+      user.consentPurpose = [
+        'Employment outcome tracking',
+        'Training effectiveness evaluation',
+        'Career progression tracking',
+        'Programme impact measurement',
+        'Institutional accountability',
+      ];
+    }
+    await user.save();
+
+    return {
+      consentGiven: user.consentGiven,
+      consentDate: user.consentDate,
+      consentVersion: user.consentVersion,
+      consentPurpose: user.consentPurpose,
+    };
+  }
+
+  async getConsentStatus(userId: string) {
+    const user = await User.findById(userId).select('consentGiven consentDate consentVersion consentPurpose');
+    if (!user) throw new ApiError(404, 'User profile not found.');
+
+    return {
+      consentGiven: user.consentGiven || false,
+      consentDate: user.consentDate || null,
+      consentVersion: user.consentVersion || '1.0',
+      consentPurpose: user.consentPurpose || [
+        'Employment outcome tracking',
+        'Training effectiveness evaluation',
+        'Career progression tracking',
+        'Programme impact measurement',
+        'Institutional accountability',
+      ],
+    };
   }
 
   async updateOutcome(userId: string, outcomeId: string, payload: any): Promise<ICareerOutcome> {

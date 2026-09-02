@@ -17,11 +17,83 @@ export const getDashboardStats = async (req: Request, res: Response, next: NextF
 
 export const getTrainerDashboardStats = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const stats = await adminService.getTrainerDashboardStats();
+    const filters = {
+      cohort: req.query.cohort as string,
+      course: req.query.course as string,
+      district: req.query.district as string,
+      provider: req.query.provider as string,
+    };
+    const stats = await adminService.getTrainerDashboardStats(filters);
     res.status(200).json({
       success: true,
       data: stats,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCohortAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getCohortAnalytics({
+      district: req.query.district as string,
+      course: req.query.course as string,
+    });
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCourseAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getCourseAnalytics();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProviderAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getProviderAnalytics();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getDistrictAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getDistrictAnalytics();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getDemographicAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getDemographicAnalytics();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getNonPlacementAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getNonPlacementAnalytics();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAttritionAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const data = await adminService.getAttritionAnalytics();
+    res.status(200).json({ success: true, data });
   } catch (error) {
     next(error);
   }

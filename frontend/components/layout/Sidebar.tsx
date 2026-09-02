@@ -46,10 +46,13 @@ export const studentNavItems = [
 export const adminNavItems = [
   { name: 'Trainer Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Trainees & Students', href: '/admin/users', icon: Users },
+  { name: 'Placement Pipeline', href: '/admin/placement', icon: TrendingUp },
+  { name: 'Longitudinal Follow-ups', href: '/admin/follow-ups', icon: Calendar },
   { name: 'Outcome Verification', href: '/admin/outcome-verification', icon: FileCheck },
-  { name: 'Employment Analytics', href: '/admin/analytics', icon: LineChart },
+  { name: 'Skill Gaps & Remedial AI', href: '/admin/skill-gaps', icon: Target },
+  { name: 'Programme Analytics', href: '/admin/analytics', icon: LineChart },
   { name: 'Skills Catalog', href: '/admin/skills', icon: Sliders },
-  { name: 'Colleges Catalog', href: '/admin/colleges', icon: Building2 },
+  { name: 'Colleges & Providers', href: '/admin/colleges', icon: Building2 },
   { name: 'Career Roles', href: '/admin/career-roles', icon: Briefcase },
   { name: 'Assessments Bank', href: '/admin/assessments', icon: Brain },
 ];

@@ -330,6 +330,76 @@ CRITICAL RULE: Return ONLY valid raw JSON without markdown code fences or backti
       return { summary: fallbackSummary, priorityInsights: fallbackInsights, recommendations: fallbackRecommendations };
     }
   }
+
+  /**
+   * SIH AI Impact Loop: Generate AI remedial action recommendations for a cohort with skill gaps or non-placement.
+   */
+  async generateCohortRemedialIntervention(params: {
+    cohort?: string;
+    trainingProgram?: string;
+    district?: string;
+    commonSkillGaps: Array<{ skillName: string; gapPercentage: number; affectedStudents: number }>;
+    nonPlacementReasons: Array<{ reason: string; count: number }>;
+  }): Promise<{
+    executiveSummary: string;
+    trainerActions: string[];
+    traineeRemedialPlan: string[];
+    priorityModules: string[];
+    expectedImpact: string;
+  }> {
+    const fallbackResponse = {
+      executiveSummary: `Analysis for cohort "${params.cohort || 'All Cohorts'}" indicates main non-placement drivers are technical skill gaps and interview preparedness. Targeted remedial modules are recommended.`,
+      trainerActions: [
+        'Conduct 2-week intensive bootcamps on primary technical skill gaps.',
+        'Organize mock technical interviews and resume review workshops.',
+        'Connect unplaced trainees with employer partner apprenticeship slots.',
+      ],
+      traineeRemedialPlan: [
+        'Complete targeted adaptive assessments for weak skill areas.',
+        'Review study plan milestones for core technical competencies.',
+        'Participate in peer mock interview sessions.',
+      ],
+      priorityModules: params.commonSkillGaps.map((g) => g.skillName).slice(0, 4),
+      expectedImpact: 'Closing top technical skill gaps is projected to increase cohort employment rate by 15-25%.',
+    };
+
+    if (!this.genAI) return fallbackResponse;
+
+    try {
+      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const prompt = `You are a chief skilling & employment strategist advising a vocational training program director.
+Analyze this cohort performance & non-placement report:
+- Cohort: ${params.cohort || 'All Cohorts'}
+- Program: ${params.trainingProgram || 'All Programs'}
+- District: ${params.district || 'All Districts'}
+- Common Skill Gaps: ${JSON.stringify(params.commonSkillGaps)}
+- Non-Placement Reasons: ${JSON.stringify(params.nonPlacementReasons)}
+
+Provide a structured, practical, high-impact remedial intervention action plan in strict JSON format:
+{
+  "executiveSummary": "2-sentence overview of cohort bottlenecks",
+  "trainerActions": ["Action 1", "Action 2", "Action 3"],
+  "traineeRemedialPlan": ["Step 1", "Step 2", "Step 3"],
+  "priorityModules": ["Module/Skill 1", "Module/Skill 2"],
+  "expectedImpact": "Estimated employment outcome boost percentage and timeline"
+}
+CRITICAL: Return ONLY raw JSON without markdown code fences.`;
+
+      const result = await model.generateContent(prompt);
+      const text = result.response.text().replace(/```json/g, '').replace(/```/g, '').trim();
+      const parsed = JSON.parse(text);
+      return {
+        executiveSummary: parsed.executiveSummary || fallbackResponse.executiveSummary,
+        trainerActions: parsed.trainerActions || fallbackResponse.trainerActions,
+        traineeRemedialPlan: parsed.traineeRemedialPlan || fallbackResponse.traineeRemedialPlan,
+        priorityModules: parsed.priorityModules || fallbackResponse.priorityModules,
+        expectedImpact: parsed.expectedImpact || fallbackResponse.expectedImpact,
+      };
+    } catch (err) {
+      console.warn('[AiSkillGapService] Gemini API cohort intervention failed. Using fallback.', err);
+      return fallbackResponse;
+    }
+  }
 }
 
 export const aiSkillGapService = new AiSkillGapService();

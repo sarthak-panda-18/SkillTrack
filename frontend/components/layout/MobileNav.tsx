@@ -13,7 +13,7 @@ export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { user } = useAuth();
-  const isAdmin = user?.role === 'ADMIN';
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'TRAINER';
 
   return (
     <div className="md:hidden flex items-center gap-2">

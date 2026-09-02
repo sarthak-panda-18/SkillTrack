@@ -17,12 +17,20 @@ export interface AdminStats {
 export interface TrainerStats {
   totalStudents: number;
   employedStudents: number;
+  seekingEmploymentStudents?: number;
   unemployedStudents: number;
   placementInProgressStudents: number;
+  offerReceivedStudents?: number;
+  joiningPendingStudents?: number;
   higherStudiesStudents: number;
   selfEmployedStudents: number;
   apprenticeshipStudents: number;
   employmentRate: number;
+  placementRate?: number;
+  retentionRate?: number;
+  attritionRate?: number;
+  trainingToEmploymentRate?: number;
+  averageStartingSalary?: number;
   averageCurrentSalary: number;
   averageSalaryGrowth: number;
   averageJobRelevance: number;
@@ -105,6 +113,7 @@ export interface AdminStudentDetailResponse {
   careerOutcomeEvidence?: any[];
   readinessSnapshot?: any;
   communicationLogs?: any[];
+  followUps?: any[];
 }
 
 export const adminService = {
@@ -113,9 +122,65 @@ export const adminService = {
     return res.data.data!;
   },
 
-  async getTrainerStats(): Promise<TrainerStats> {
-    const res = await apiClient.get<ApiResponse<TrainerStats>>('/admin/trainer-stats');
+  async getTrainerStats(filters?: { cohort?: string; course?: string; district?: string; provider?: string }): Promise<TrainerStats> {
+    const res = await apiClient.get<ApiResponse<TrainerStats>>('/admin/trainer-stats', { params: filters });
     return res.data.data!;
+  },
+
+  async getCohortAnalytics(params?: { district?: string; course?: string }): Promise<any[]> {
+    const res = await apiClient.get<ApiResponse<any[]>>('/admin/analytics/cohort', { params });
+    return res.data.data || [];
+  },
+
+  async getCourseAnalytics(): Promise<any[]> {
+    const res = await apiClient.get<ApiResponse<any[]>>('/admin/analytics/course');
+    return res.data.data || [];
+  },
+
+  async getProviderAnalytics(): Promise<any[]> {
+    const res = await apiClient.get<ApiResponse<any[]>>('/admin/analytics/provider');
+    return res.data.data || [];
+  },
+
+  async getDistrictAnalytics(): Promise<any[]> {
+    const res = await apiClient.get<ApiResponse<any[]>>('/admin/analytics/district');
+    return res.data.data || [];
+  },
+
+  async getDemographicAnalytics(): Promise<any> {
+    const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/demographic');
+    return res.data.data;
+  },
+
+  async getNonPlacementAnalytics(): Promise<any> {
+    const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/non-placement');
+    return res.data.data;
+  },
+
+  async getAttritionAnalytics(): Promise<any> {
+    const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/attrition');
+    return res.data.data;
+  },
+
+  async getTrainerFollowUps(query?: { status?: string; checkpoint?: string; search?: string; page?: number; limit?: number }): Promise<any> {
+    const res = await apiClient.get<ApiResponse<any>>('/admin/follow-ups', { params: query });
+    return res.data.data;
+  },
+
+  async triggerFollowUpReminders(): Promise<{ notifiedCount: number }> {
+    const res = await apiClient.post<ApiResponse<{ notifiedCount: number }>>('/admin/follow-ups/trigger-reminders');
+    return res.data.data!;
+  },
+
+  async generateCohortRemedialIntervention(payload: {
+    cohort?: string;
+    trainingProgram?: string;
+    district?: string;
+    commonSkillGaps: Array<{ skillName: string; gapPercentage: number; affectedStudents: number }>;
+    nonPlacementReasons: Array<{ reason: string; count: number }>;
+  }): Promise<any> {
+    const res = await apiClient.post<ApiResponse<any>>('/admin/ai-remedial-intervention', payload);
+    return res.data.data;
   },
 
   async getUsers(query?: AdminUsersQuery): Promise<PaginatedUsers> {

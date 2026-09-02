@@ -137,3 +137,34 @@ export interface CareerOutcomeData {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface FollowUpItem {
+  _id: string;
+  userId: string | any;
+  careerOutcomeId?: string;
+  checkpoint: '30_DAY' | '90_DAY' | '180_DAY' | '365_DAY';
+  dueDate: string;
+  completedDate?: string;
+  status: 'UPCOMING' | 'DUE' | 'COMPLETED' | 'OVERDUE';
+  employmentStatus?: OutcomeType;
+  companyName?: string;
+  jobRole?: string;
+  currentSalary?: number;
+  location?: string;
+  skillsUsed?: string[];
+  trainingRelevance?: number;
+  jobSatisfaction?: number;
+  employmentContinuity?: boolean;
+  jobChangesCount?: number;
+  reasonForNonPlacement?: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConsentStatus {
+  consentGiven: boolean;
+  consentDate?: string;
+  consentVersion?: string;
+  consentPurpose?: string[];
+}

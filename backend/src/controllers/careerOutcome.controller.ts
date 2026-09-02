@@ -64,3 +64,28 @@ export const archiveOutcome = async (req: AuthenticatedRequest, res: Response, n
     next(error);
   }
 };
+
+export const getConsentStatus = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const consent = await careerOutcomeService.getConsentStatus(req.user!.userId);
+    res.status(200).json({
+      success: true,
+      data: consent,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateConsent = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const consent = await careerOutcomeService.updateConsent(req.user!.userId, req.body);
+    res.status(200).json({
+      success: true,
+      message: 'Consent preferences updated successfully.',
+      data: consent,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -405,6 +405,19 @@ export default function CareerOutcomePage() {
     },
   ];
 
+  const { data: consentData } = useQuery({
+    queryKey: ['consentStatus'],
+    queryFn: () => careerOutcomeService.getConsentStatus(),
+  });
+
+  const consentMutation = useMutation({
+    mutationFn: (given: boolean) => careerOutcomeService.updateConsent(given),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['consentStatus'] });
+      toast.success('Consent preferences updated successfully.');
+    },
+  });
+
   return (
     <PageWrapper className="max-w-5xl mx-auto space-y-6">
       {/* Header Banner */}
@@ -412,7 +425,7 @@ export default function CareerOutcomePage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Phase 4.3 Career Evidence Intelligence</span>
+            <span>SIH 2026 Longitudinal Skilling & Outcome Tracking</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
             Career Outcome & Supporting Evidence
@@ -443,6 +456,38 @@ export default function CareerOutcomePage() {
           </Button>
         </div>
       </div>
+
+      {/* Consent-Based Outcome Tracking Banner */}
+      <Card className="p-5 border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-xs font-extrabold text-emerald-900 dark:text-emerald-100">
+              <ShieldCheck className="h-4 w-4 text-emerald-600" />
+              <span>Consent-Based Outcome Tracking (SIH 2026 SIH26135 Standard)</span>
+            </div>
+            <p className="text-xs text-emerald-800 dark:text-emerald-300">
+              Outcome information is collected strictly for: <b>Employment tracking</b>, <b>Training effectiveness evaluation</b>, <b>Career progression</b>, <b>Programme impact measurement</b>, and <b>Institutional accountability</b>.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            {consentData?.consentGiven ? (
+              <Badge className="bg-emerald-600 text-white font-bold text-xs py-1 px-3">
+                ✓ Consent Active
+              </Badge>
+            ) : (
+              <Button
+                size="sm"
+                onClick={() => consentMutation.mutate(true)}
+                isLoading={consentMutation.isPending}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs"
+              >
+                Grant Explicit Consent
+              </Button>
+            )}
+          </div>
+        </div>
+      </Card>
 
       {activeTab === 'history' ? (
         /* History Timeline Tab */

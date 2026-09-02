@@ -10,6 +10,11 @@ export interface User {
   degree?: string;
   branch?: string;
   graduationYear?: number;
+  district?: string;
+  state?: string;
+  cohort?: string;
+  consentGiven?: boolean;
+  placementStage?: 'TRAINING_COMPLETED' | 'PLACEMENT_READY' | 'SEEKING_EMPLOYMENT' | 'INTERVIEW_STAGE' | 'OFFER_RECEIVED' | 'JOINING_PENDING' | 'EMPLOYED' | string;
   targetCareerRoleId?: string;
   targetRole?: string;
   targetDomain?: string;

@@ -3,6 +3,7 @@ import { authenticate, authorizeRoles } from '../middleware/auth.middleware';
 import { validateRequest } from '../middleware/validate.middleware';
 import {
   getDashboardStats,
+  getTrainerDashboardStats,
   getUsersList,
   getUserById,
   updateUserStatus,
@@ -52,11 +53,12 @@ import { createCollegeSchema, updateCollegeSchema } from '../validators/college.
 
 const router = Router();
 
-// Protect ALL admin routes with JWT Auth + ADMIN Role Authorization
-router.use(authenticate, authorizeRoles('ADMIN'));
+// Protect ALL admin/trainer routes with JWT Auth + ADMIN or TRAINER Role Authorization
+router.use(authenticate, authorizeRoles('ADMIN', 'TRAINER'));
 
-// Admin Platform Dashboard Metrics
+// Trainer & Admin Platform Dashboard Metrics
 router.get('/dashboard', getDashboardStats);
+router.get('/trainer-stats', getTrainerDashboardStats);
 
 // Admin User Management
 router.get('/users', getUsersList);

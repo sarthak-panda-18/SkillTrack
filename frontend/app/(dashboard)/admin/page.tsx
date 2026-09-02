@@ -3,22 +3,44 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { adminService } from '@/services/admin.service';
+import { adminService, TrainerStats } from '@/services/admin.service';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+} from 'recharts';
+import {
   Users,
+  Briefcase,
   UserCheck,
   UserX,
+  Clock,
+  GraduationCap,
+  Rocket,
+  Wrench,
+  TrendingUp,
+  IndianRupee,
   ShieldCheck,
   ArrowRight,
   Sliders,
   Brain,
   Building2,
-  Briefcase,
+  FileCheck,
+  LineChart as LineChartIcon,
+  Award,
 } from 'lucide-react';
 
 const containerVariants = {
@@ -34,62 +56,75 @@ const cardItemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
 };
 
-export default function AdminOverviewPage() {
-  const { data: stats, isLoading } = useQuery({
-    queryKey: ['adminDashboardStats'],
-    queryFn: () => adminService.getDashboardStats(),
+export default function TrainerDashboardPage() {
+  const { data: stats, isLoading } = useQuery<TrainerStats>({
+    queryKey: ['trainerDashboardStats'],
+    queryFn: () => adminService.getTrainerStats(),
   });
+
+  const formatLPA = (amountInINR?: number) => {
+    if (!amountInINR || amountInINR === 0) return '₹0.0 LPA';
+    const lpa = (amountInINR / 100000).toFixed(1);
+    return `₹${lpa} LPA`;
+  };
 
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <Skeleton className="h-28 w-full rounded-2xl" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Skeleton className="h-32 rounded-xl" />
-          <Skeleton className="h-32 rounded-xl" />
-          <Skeleton className="h-32 rounded-xl" />
-          <Skeleton className="h-32 rounded-xl" />
+        <Skeleton className="h-32 w-full rounded-2xl" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <Skeleton key={i} className="h-28 rounded-xl" />
+          ))}
         </div>
-        <Skeleton className="h-80 w-full rounded-xl" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Skeleton className="h-80 rounded-xl" />
+          <Skeleton className="h-80 rounded-xl" />
+        </div>
       </div>
     );
   }
 
+  const statusData = stats?.statusDistribution || [];
+  const pipelineData = stats?.pipeline || [];
+  const salaryData = stats?.salaryDistributionChart || [];
+
   return (
     <PageWrapper className="space-y-8">
-      {/* Admin Header Banner */}
+      {/* Trainer Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
-        className="p-6 sm:p-8 rounded-2xl bg-slate-900 dark:bg-slate-950 text-white shadow-md border border-slate-800 relative overflow-hidden"
+        className="p-6 sm:p-8 rounded-3xl bg-slate-900 dark:bg-slate-950 text-white shadow-xl border border-slate-800 relative overflow-hidden"
       >
         <div className="relative z-10 space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-200 text-xs font-semibold">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
             <ShieldCheck className="h-3.5 w-3.5 text-indigo-400" />
-            <span>Platform Administration & Access Control</span>
+            <span>Trainer Portal & Placement Intelligence</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-            Administrator Workspace 🛡️
+            Trainer Dashboard 🎯
           </h1>
-          <p className="text-slate-300 text-sm sm:text-base max-w-2xl">
-            Manage student registrations, role-based permissions, bulk communications, 20-question assessments, and platform data catalogs.
+          <p className="text-slate-300 text-sm sm:text-base max-w-3xl">
+            Real-time trainee monitoring, placement pipeline tracking, salary growth analytics, and longitudinal career development metrics calculated from actual student outcome records.
           </p>
         </div>
       </motion.div>
 
-      {/* Overview Stat Cards with Stagger */}
+      {/* Top 10 Core Metrics Grid */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
       >
+        {/* 1. Total Students */}
         <motion.div variants={cardItemVariants}>
-          <Card className="hover:border-slate-300 dark:hover:border-slate-700 transition-colors border-slate-200 dark:border-slate-800">
+          <Card className="hover:border-indigo-400 transition-all border-slate-200 dark:border-slate-800">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                Total Students
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Total Trainees
               </CardTitle>
               <Users className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
             </CardHeader>
@@ -97,65 +132,257 @@ export default function AdminOverviewPage() {
               <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
                 {stats?.totalStudents || 0}
               </div>
-              <p className="text-xs text-slate-500 mt-1">Registered student profiles</p>
+              <p className="text-xs text-slate-500 mt-1">Enrolled student profiles</p>
             </CardContent>
           </Card>
         </motion.div>
 
+        {/* 2. Employed Students */}
         <motion.div variants={cardItemVariants}>
-          <Card className="hover:border-slate-300 dark:hover:border-slate-700 transition-colors border-slate-200 dark:border-slate-800">
+          <Card className="hover:border-emerald-400 transition-all border-slate-200 dark:border-slate-800">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                Active Accounts
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Employed
+              </CardTitle>
+              <Briefcase className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">
+                {stats?.employedStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Full-time / Contract roles</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 3. Unemployed */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-rose-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Unemployed
+              </CardTitle>
+              <UserX className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-rose-600 dark:text-rose-400">
+                {stats?.unemployedStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Seeking opportunities</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 4. Placement In Progress */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-amber-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Getting Employed
+              </CardTitle>
+              <Clock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-amber-600 dark:text-amber-400">
+                {stats?.placementInProgressStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Internships & Pipeline</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 5. Higher Studies */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-sky-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Higher Studies
+              </CardTitle>
+              <GraduationCap className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-sky-600 dark:text-sky-400">
+                {stats?.higherStudiesStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Master's & Research</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 6. Self-Employed */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-purple-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Self-Employed
+              </CardTitle>
+              <Rocket className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-purple-600 dark:text-purple-400">
+                {stats?.selfEmployedStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Founders & Freelancers</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 7. Apprenticeship */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-indigo-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Apprenticeship
+              </CardTitle>
+              <Wrench className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">
+                {stats?.apprenticeshipStudents || 0}
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Technical training roles</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 8. Employment Rate */}
+        <motion.div variants={cardItemVariants}>
+          <Card className="hover:border-emerald-400 transition-all border-slate-200 dark:border-slate-800">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Employment Rate
               </CardTitle>
               <UserCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
-                {stats?.activeStudents || 0}
+                {stats?.employmentRate || 0}%
               </div>
-              <p className="text-xs text-slate-500 mt-1">Active student accounts</p>
+              <p className="text-xs text-emerald-600 font-semibold mt-1">Active placement success</p>
             </CardContent>
           </Card>
         </motion.div>
 
+        {/* 9. Average Current Salary */}
         <motion.div variants={cardItemVariants}>
-          <Card className="hover:border-slate-300 dark:hover:border-slate-700 transition-colors border-slate-200 dark:border-slate-800">
+          <Card className="hover:border-indigo-400 transition-all border-slate-200 dark:border-slate-800">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                Suspended Accounts
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Average Salary
               </CardTitle>
-              <UserX className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+              <IndianRupee className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
-                {stats?.suspendedStudents || 0}
+                {formatLPA(stats?.averageCurrentSalary)}
               </div>
-              <p className="text-xs text-slate-500 mt-1">Suspended access</p>
+              <p className="text-xs text-slate-500 mt-1">Current average LPA</p>
             </CardContent>
           </Card>
         </motion.div>
 
+        {/* 10. Average Salary Growth */}
         <motion.div variants={cardItemVariants}>
-          <Card className="hover:border-slate-300 dark:hover:border-slate-700 transition-colors border-slate-200 dark:border-slate-800">
+          <Card className="hover:border-emerald-400 transition-all border-slate-200 dark:border-slate-800">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                Skill Catalog
+              <CardTitle className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
+                Avg Salary Growth
               </CardTitle>
-              <Sliders className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+              <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
-                {stats?.totalSkills || 0}
+              <div className="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">
+                +{stats?.averageSalaryGrowth || 0}%
               </div>
-              <p className="text-xs text-slate-500 mt-1">Verified engineering skills</p>
+              <p className="text-xs text-slate-500 mt-1">Calculated from history</p>
             </CardContent>
           </Card>
         </motion.div>
       </motion.div>
 
-      {/* Admin Quick Link Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Analytics Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Chart 1: Employment Status Distribution */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Briefcase className="h-5 w-5 text-indigo-600" />
+              Trainee Employment Status Distribution
+            </CardTitle>
+            <CardDescription className="text-xs">Real-time breakdown of current student career outcomes.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={statusData}
+                  dataKey="count"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={90}
+                  paddingAngle={3}
+                  label={({ name, count }) => (count > 0 ? `${name}: ${count}` : '')}
+                >
+                  {statusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value: number) => [`${value} Trainees`, 'Count']} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Chart 2: Placement Pipeline */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-emerald-600" />
+              Placement & Employment Pipeline
+            </CardTitle>
+            <CardDescription className="text-xs">Trainee progression across enrollment, interviews, and hiring.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={pipelineData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
+                <XAxis dataKey="stage" tick={{ fontSize: 11 }} />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Bar dataKey="count" name="Trainee Count" fill="#4F46E5" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Chart 3: Salary Distribution */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800 lg:col-span-2">
+          <CardHeader className="p-0 pb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <IndianRupee className="h-5 w-5 text-amber-600" />
+              Employed Trainee Salary Distribution (LPA)
+            </CardTitle>
+            <CardDescription className="text-xs">Annual compensation breakdown for employed students.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={salaryData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
+                <XAxis dataKey="range" tick={{ fontSize: 12 }} />
+                <YAxis allowDecimals={false} />
+                <Tooltip formatter={(val: number) => [`${val} Students`, 'Students']} />
+                <Bar dataKey="count" name="Students in Bracket" fill="#10B981" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Trainer Quick Links Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link href="/admin/users" className="block group">
           <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
             <div className="flex items-center gap-3">
@@ -164,46 +391,46 @@ export default function AdminOverviewPage() {
               </div>
               <div>
                 <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  Students & Emails
+                  Trainees & Students
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Manage accounts & send bulk emails.
+                  Monitor trainee profiles & outcomes.
                 </p>
               </div>
             </div>
           </Card>
         </Link>
 
-        <Link href="/admin/skills" className="block group">
-          <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform">
-                <Sliders className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  Skill Catalog
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Add, edit, or toggle skill definitions.
-                </p>
-              </div>
-            </div>
-          </Card>
-        </Link>
-
-        <Link href="/admin/career-roles" className="block group">
-          <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
+        <Link href="/admin/outcome-verification" className="block group">
+          <Card className="p-5 hover:border-emerald-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform">
-                <Briefcase className="h-5 w-5" />
+                <FileCheck className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  Career Roles
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  Outcome Verification
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Configure role skill requirements.
+                  Verify evidence documents & offers.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </Link>
+
+        <Link href="/admin/analytics" className="block group">
+          <Card className="p-5 hover:border-sky-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform">
+                <LineChartIcon className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  Employment Analytics
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Filter analytics by role & location.
                 </p>
               </div>
             </div>
@@ -211,17 +438,17 @@ export default function AdminOverviewPage() {
         </Link>
 
         <Link href="/admin/assessments" className="block group">
-          <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
+          <Card className="p-5 hover:border-amber-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 group-hover:scale-105 transition-transform">
                 <Brain className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  Assessment Bank
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                  Assessments Bank
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Manage 20-question evaluation banks.
+                  Manage evaluation question sets.
                 </p>
               </div>
             </div>

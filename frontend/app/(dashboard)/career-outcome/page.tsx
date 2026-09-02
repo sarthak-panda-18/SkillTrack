@@ -953,7 +953,7 @@ export default function CareerOutcomePage() {
                                 <input
                                   type="text"
                                   required
-                                  placeholder="e.g. ABC Technologies"
+                                  placeholder="e.g. Google / Microsoft / ABC Tech"
                                   value={formData.employment.companyName}
                                   onChange={(e) =>
                                     setFormData({
@@ -981,6 +981,60 @@ export default function CareerOutcomePage() {
                                   className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 font-medium"
                                 />
                               </div>
+
+                              <div className="space-y-1.5">
+                                <label className="font-bold text-zinc-700 dark:text-zinc-300">Current Salary (INR per annum) *</label>
+                                <input
+                                  type="number"
+                                  required
+                                  placeholder="e.g. 600000 (for ₹6.0 LPA)"
+                                  value={formData.employment.compensationAmount || ''}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      employment: { ...formData.employment, compensationAmount: e.target.value },
+                                    })
+                                  }
+                                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 font-medium"
+                                />
+                              </div>
+
+                              <div className="space-y-1.5">
+                                <label className="font-bold text-zinc-700 dark:text-zinc-300">Previous Salary (INR per annum)</label>
+                                <input
+                                  type="number"
+                                  placeholder="e.g. 450000 (if previous role existed)"
+                                  value={formData.employment.previousCompensationAmount || ''}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      employment: { ...formData.employment, previousCompensationAmount: e.target.value },
+                                    })
+                                  }
+                                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 font-medium"
+                                />
+                              </div>
+
+                              {/* Calculated Salary Growth Display */}
+                              {Number(formData.employment.compensationAmount) > 0 && Number(formData.employment.previousCompensationAmount) > 0 && (
+                                <div className="sm:col-span-2 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 flex items-center justify-between text-xs">
+                                  <div>
+                                    <span className="font-extrabold text-emerald-900 dark:text-emerald-200 block">Auto-Calculated Salary Progression:</span>
+                                    <span className="text-[11px] text-emerald-700 dark:text-emerald-300">
+                                      Growth Amount: ₹{(Number(formData.employment.compensationAmount) - Number(formData.employment.previousCompensationAmount)).toLocaleString()}
+                                    </span>
+                                  </div>
+                                  <Badge variant="success" className="text-xs font-bold font-mono">
+                                    +
+                                    {(
+                                      ((Number(formData.employment.compensationAmount) - Number(formData.employment.previousCompensationAmount)) /
+                                        Number(formData.employment.previousCompensationAmount)) *
+                                      100
+                                    ).toFixed(1)}
+                                    % Salary Growth
+                                  </Badge>
+                                </div>
+                              )}
 
                               <div className="space-y-1.5">
                                 <label className="font-bold text-zinc-700 dark:text-zinc-300">Joining Date *</label>
@@ -1014,6 +1068,41 @@ export default function CareerOutcomePage() {
                                   <option value="PART_TIME">Part Time</option>
                                   <option value="CONTRACT">Contract</option>
                                 </select>
+                              </div>
+
+                              <div className="space-y-1.5">
+                                <label className="font-bold text-zinc-700 dark:text-zinc-300">Work Location (City / Region)</label>
+                                <input
+                                  type="text"
+                                  placeholder="e.g. Bangalore, Karnataka"
+                                  value={formData.employment.workLocation?.city || ''}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      employment: {
+                                        ...formData.employment,
+                                        workLocation: { ...formData.employment.workLocation, city: e.target.value },
+                                      },
+                                    })
+                                  }
+                                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 font-medium"
+                                />
+                              </div>
+
+                              <div className="space-y-1.5">
+                                <label className="font-bold text-zinc-700 dark:text-zinc-300">Industry</label>
+                                <input
+                                  type="text"
+                                  placeholder="e.g. Software & Tech / FinTech"
+                                  value={formData.employment.industry || ''}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      employment: { ...formData.employment, industry: e.target.value },
+                                    })
+                                  }
+                                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 font-medium"
+                                />
                               </div>
                             </div>
                           )}

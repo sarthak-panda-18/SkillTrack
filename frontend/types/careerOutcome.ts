@@ -4,7 +4,9 @@ export type OutcomeType =
   | 'HIGHER_STUDIES'
   | 'APPRENTICESHIP'
   | 'INTERNSHIP'
-  | 'SEEKING_EMPLOYMENT';
+  | 'SEEKING_EMPLOYMENT'
+  | 'LOOKING_FOR_EMPLOYMENT'
+  | 'UNEMPLOYED';
 
 export type OutcomeStatus = 'ACTIVE' | 'HISTORICAL' | 'DRAFT';
 
@@ -22,6 +24,9 @@ export interface EmploymentDetails {
   employmentType: 'FULL_TIME' | 'PART_TIME' | 'CONTRACT';
   workArrangement: 'REMOTE' | 'HYBRID' | 'ON_SITE';
   compensationAmount?: number;
+  previousCompensationAmount?: number;
+  salaryGrowthAmount?: number;
+  salaryGrowthPercentage?: number;
   compensationPeriod?: 'ANNUAL' | 'MONTHLY';
   currency?: string;
   joiningDate: string;
@@ -33,6 +38,8 @@ export interface EmploymentDetails {
   industry?: string;
   jobDescription?: string;
   skillsUsed?: string[];
+  jobRelevance?: number;
+  jobSatisfaction?: number;
 }
 
 export interface SelfEmploymentDetails {
@@ -40,12 +47,14 @@ export interface SelfEmploymentDetails {
   businessType: 'STARTUP' | 'FREELANCE' | 'CONSULTANCY' | 'AGENCY' | 'SMALL_BUSINESS' | 'FAMILY_BUSINESS' | 'ONLINE_BUSINESS' | 'OTHER' | string;
   businessStartDate: string;
   currentStatus?: 'ACTIVE' | 'EARLY_STAGE' | 'GROWING' | 'PAUSED' | 'CLOSED' | string;
+  currentIncome?: number;
   incomeRange?: 'NO_REVENUE' | 'BELOW_2L' | '2L_5L' | '5L_10L' | '10L_25L' | '25L_50L' | '50L_PLUS' | string;
   teamSizeRange?: '1' | '2-5' | '6-10' | '11-25' | '26-50' | '51-100' | '100+' | string;
   teamSize?: number;
   industry?: string;
   website?: string;
   description?: string;
+  skillsUsed?: string[];
   businessLocation?: {
     city?: string;
     state?: string;
@@ -56,10 +65,12 @@ export interface SelfEmploymentDetails {
 export interface HigherStudiesDetails {
   institution: string;
   program: string;
+  fieldOfStudy?: string;
   degree?: string;
   specialization?: string;
   country?: string;
   city?: string;
+  location?: string;
   startDate: string;
   expectedCompletionDate?: string;
   admissionStatus?: 'APPLIED' | 'ACCEPTED' | 'ENROLLED' | 'COMPLETED' | 'WITHDRAWN' | 'DEFERRED' | string;
@@ -70,11 +81,13 @@ export interface HigherStudiesDetails {
 export interface ApprenticeshipDetails {
   organization: string;
   role: string;
+  stipend?: number;
   startDate: string;
   endDate?: string;
   workArrangement?: 'REMOTE' | 'HYBRID' | 'ON_SITE';
   location?: string;
   industry?: string;
+  skillsUsed?: string[];
 }
 
 export interface InternshipDetails {
@@ -92,10 +105,16 @@ export interface InternshipDetails {
 }
 
 export interface SeekingEmploymentDetails {
-  seekingSince: string;
+  seekingSince?: string;
+  activelyLooking?: boolean;
+  targetJobRole?: string;
   preferredRole?: string;
   preferredLocation?: string;
   preferredWorkArrangement?: 'REMOTE' | 'HYBRID' | 'ON_SITE';
+  skillsDeveloping?: string[];
+  expectedSalary?: number;
+  reasonForUnemployment?: string;
+  lastUpdatedDate?: string;
   notes?: string;
 }
 

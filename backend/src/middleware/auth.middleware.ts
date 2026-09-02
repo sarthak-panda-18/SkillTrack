@@ -63,7 +63,7 @@ export const authenticate = async (
   }
 };
 
-export const authorizeRoles = (...roles: ('STUDENT' | 'ADMIN')[]) => {
+export const authorizeRoles = (...roles: ('STUDENT' | 'ADMIN' | 'TRAINER')[]) => {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
     if (!req.user) {
       return next(new ApiError(401, 'Authentication required.'));

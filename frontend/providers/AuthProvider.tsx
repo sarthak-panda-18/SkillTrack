@@ -7,7 +7,7 @@ import { authService } from '@/services/auth.service';
 
 interface AuthContextType {
   user: User | null;
-  role: 'STUDENT' | 'ADMIN' | null;
+  role: 'STUDENT' | 'ADMIN' | 'TRAINER' | null;
   isLoading: boolean;
   login: (data: LoginInput) => Promise<void>;
   register: (data: RegisterInput) => Promise<void>;
@@ -67,15 +67,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!user && isDashboardPage) {
       router.push('/login');
     } else if (user && isAuthPage) {
-      if (user.role === 'ADMIN') {
+      if (user.role === 'ADMIN' || user.role === 'TRAINER') {
         router.push('/admin');
       } else if (!user.onboardingCompleted) {
         router.push('/onboarding');
       } else {
         router.push('/dashboard');
       }
-    } else if (user && user.role === 'ADMIN') {
-      // ADMIN user routing rules:
+    } else if (user && (user.role === 'ADMIN' || user.role === 'TRAINER')) {
+      // ADMIN/TRAINER user routing rules:
       // If visiting /dashboard or landing auth pages, direct them to /admin
       if (pathname === '/dashboard') {
         router.push('/admin');

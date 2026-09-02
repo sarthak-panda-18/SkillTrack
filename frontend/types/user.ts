@@ -2,7 +2,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
-  role: 'STUDENT' | 'ADMIN';
+  role: 'STUDENT' | 'ADMIN' | 'TRAINER';
   status: 'ACTIVE' | 'SUSPENDED';
   authProviders?: string[];
   profileImage?: string;

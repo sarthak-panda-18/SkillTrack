@@ -14,9 +14,27 @@ export interface AdminStats {
   recentUsers: User[];
 }
 
+export interface TrainerStats {
+  totalStudents: number;
+  employedStudents: number;
+  unemployedStudents: number;
+  placementInProgressStudents: number;
+  higherStudiesStudents: number;
+  selfEmployedStudents: number;
+  apprenticeshipStudents: number;
+  employmentRate: number;
+  averageCurrentSalary: number;
+  averageSalaryGrowth: number;
+  averageJobRelevance: number;
+  averageJobSatisfaction: number;
+  statusDistribution: Array<{ name: string; count: number; fill: string }>;
+  pipeline: Array<{ stage: string; count: number }>;
+  salaryDistributionChart: Array<{ range: string; count: number }>;
+}
+
 export interface AdminUsersQuery {
   search?: string;
-  role?: 'STUDENT' | 'ADMIN';
+  role?: 'STUDENT' | 'ADMIN' | 'TRAINER';
   status?: 'ACTIVE' | 'SUSPENDED';
   page?: number;
   limit?: number;
@@ -81,14 +99,22 @@ export interface AdminStudentDetailResponse {
   assessmentAttempts?: any[];
   skillGap?: any;
   studyPlan?: any;
+  learningRoadmap?: any;
   careerOutcome?: any;
+  outcomeHistory?: any[];
   careerOutcomeEvidence?: any[];
+  readinessSnapshot?: any;
   communicationLogs?: any[];
 }
 
 export const adminService = {
   async getDashboardStats(): Promise<AdminStats> {
     const res = await apiClient.get<ApiResponse<AdminStats>>('/admin/dashboard');
+    return res.data.data!;
+  },
+
+  async getTrainerStats(): Promise<TrainerStats> {
+    const res = await apiClient.get<ApiResponse<TrainerStats>>('/admin/trainer-stats');
     return res.data.data!;
   },
 

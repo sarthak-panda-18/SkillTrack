@@ -15,6 +15,18 @@ export const getDashboardStats = async (req: Request, res: Response, next: NextF
   }
 };
 
+export const getTrainerDashboardStats = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const stats = await adminService.getTrainerDashboardStats();
+    res.status(200).json({
+      success: true,
+      data: stats,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getUsersList = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const search = req.query.search as string | undefined;

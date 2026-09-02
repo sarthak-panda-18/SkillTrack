@@ -4,7 +4,7 @@ import { env } from '../config/env';
 export interface JwtPayload {
   userId: string;
   email: string;
-  role: 'STUDENT' | 'ADMIN';
+  role: 'STUDENT' | 'ADMIN' | 'TRAINER';
 }
 
 const getSecret = (): string => {

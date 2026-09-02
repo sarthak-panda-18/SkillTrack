@@ -1,6 +1,7 @@
 import { CareerOutcome, ICareerOutcome, OutcomeType } from '../models/careerOutcome.model';
 import { CareerOutcomeVerification } from '../models/careerOutcomeVerification.model';
 import { User } from '../models/user.model';
+import { Notification } from '../models/notification.model';
 import { ApiError } from '../utils/apiError';
 
 export class CareerOutcomeService {
@@ -17,14 +18,26 @@ export class CareerOutcomeService {
     const user = await User.findById(userId);
     if (!user) throw new ApiError(404, 'User profile not found.');
 
-    const { outcomeType, employment, selfEmployment, higherStudies, apprenticeship, internship, seekingEmployment } = payload;
+    let { outcomeType, employment, selfEmployment, higherStudies, apprenticeship, internship, seekingEmployment } = payload;
 
     if (!outcomeType) {
       throw new ApiError(400, 'Career outcome type is required.');
     }
 
+    // Map aliased outcome types
+    if (outcomeType === 'LOOKING_FOR_EMPLOYMENT' || outcomeType === 'UNEMPLOYED') {
+      if (!seekingEmployment && (payload.unemployed || payload.lookingForEmployment)) {
+        seekingEmployment = payload.unemployed || payload.lookingForEmployment;
+      }
+    }
+
     // Validate minimum required fields per outcome type
     this.validateOutcomePayload(outcomeType, payload);
+
+    // Calculate Salary Growth if EMPLOYED
+    if (outcomeType === 'EMPLOYED' && employment) {
+      employment = await this.enrichEmploymentSalaryGrowth(userId, employment);
+    }
 
     // Archive previous active outcomes
     await CareerOutcome.updateMany(
@@ -42,7 +55,7 @@ export class CareerOutcomeService {
       higherStudies: outcomeType === 'HIGHER_STUDIES' ? higherStudies : undefined,
       apprenticeship: outcomeType === 'APPRENTICESHIP' ? apprenticeship : undefined,
       internship: outcomeType === 'INTERNSHIP' ? internship : undefined,
-      seekingEmployment: outcomeType === 'SEEKING_EMPLOYMENT' ? seekingEmployment : undefined,
+      seekingEmployment: (outcomeType === 'SEEKING_EMPLOYMENT' || outcomeType === 'LOOKING_FOR_EMPLOYMENT' || outcomeType === 'UNEMPLOYED') ? seekingEmployment : undefined,
     });
 
     await CareerOutcomeVerification.create({
@@ -50,8 +63,23 @@ export class CareerOutcomeService {
       studentId: userId,
       action: 'SUBMITTED',
       newStatus: 'NOT_SUBMITTED',
-      notes: `New ${outcomeType.replace('_', ' ')} career outcome recorded by student.`,
+      notes: `New ${outcomeType.replace(/_/g, ' ')} career outcome recorded by student.`,
     });
+
+    // Notify admins / trainers about career outcome update
+    const admins = await User.find({ role: { $in: ['ADMIN', 'TRAINER'] } }).select('_id');
+    if (admins.length > 0) {
+      const formattedType = outcomeType.replace(/_/g, ' ');
+      const notifications = admins.map(admin => ({
+        userId: admin._id,
+        type: 'SYSTEM' as const,
+        title: 'Student Career Outcome Updated',
+        message: `Student ${user.name} updated their career outcome to ${formattedType}.`,
+        link: `/admin/users/${userId}`,
+        entityId: newOutcome._id.toString(),
+      }));
+      await Notification.insertMany(notifications);
+    }
 
     return newOutcome;
   }
@@ -60,20 +88,26 @@ export class CareerOutcomeService {
     const outcome = await CareerOutcome.findOne({ _id: outcomeId, userId });
     if (!outcome) throw new ApiError(404, 'Career outcome record not found or access denied.');
 
-    const { outcomeType, employment, selfEmployment, higherStudies, apprenticeship, internship, seekingEmployment } = payload;
+    let { outcomeType, employment, selfEmployment, higherStudies, apprenticeship, internship, seekingEmployment } = payload;
     const typeToValidate = outcomeType || outcome.outcomeType;
 
     this.validateOutcomePayload(typeToValidate, payload);
 
+    if (typeToValidate === 'EMPLOYED' && employment) {
+      employment = await this.enrichEmploymentSalaryGrowth(userId, employment, outcome);
+    }
+
     const prevVerificationStatus = outcome.verificationStatus;
 
     if (outcomeType) outcome.outcomeType = outcomeType;
-    if (employment && typeToValidate === 'EMPLOYED') outcome.employment = employment;
-    if (selfEmployment && typeToValidate === 'SELF_EMPLOYED') outcome.selfEmployment = selfEmployment;
-    if (higherStudies && typeToValidate === 'HIGHER_STUDIES') outcome.higherStudies = higherStudies;
-    if (apprenticeship && typeToValidate === 'APPRENTICESHIP') outcome.apprenticeship = apprenticeship;
-    if (internship && typeToValidate === 'INTERNSHIP') outcome.internship = internship;
-    if (seekingEmployment && typeToValidate === 'SEEKING_EMPLOYMENT') outcome.seekingEmployment = seekingEmployment;
+    if (employment && (typeToValidate === 'EMPLOYED')) outcome.employment = employment;
+    if (selfEmployment && (typeToValidate === 'SELF_EMPLOYED')) outcome.selfEmployment = selfEmployment;
+    if (higherStudies && (typeToValidate === 'HIGHER_STUDIES')) outcome.higherStudies = higherStudies;
+    if (apprenticeship && (typeToValidate === 'APPRENTICESHIP')) outcome.apprenticeship = apprenticeship;
+    if (internship && (typeToValidate === 'INTERNSHIP')) outcome.internship = internship;
+    if (seekingEmployment && (typeToValidate === 'SEEKING_EMPLOYMENT' || typeToValidate === 'LOOKING_FOR_EMPLOYMENT' || typeToValidate === 'UNEMPLOYED')) {
+      outcome.seekingEmployment = seekingEmployment;
+    }
 
     // Reset verification status to SUBMITTED if outcome details are modified while VERIFIED
     if (prevVerificationStatus === 'VERIFIED') {
@@ -99,6 +133,44 @@ export class CareerOutcomeService {
     outcome.status = 'HISTORICAL';
     await outcome.save();
     return outcome;
+  }
+
+  private async enrichEmploymentSalaryGrowth(userId: string, employment: any, existingOutcome?: ICareerOutcome): Promise<any> {
+    const currentSal = Number(employment.compensationAmount) || 0;
+    let prevSal = Number(employment.previousCompensationAmount) || 0;
+
+    // If previous compensation amount not passed explicitly, lookup historical outcomes
+    if (!prevSal) {
+      const historicalEmpl = await CareerOutcome.findOne({
+        userId,
+        _id: { $ne: existingOutcome?._id },
+        'employment.compensationAmount': { $gt: 0 }
+      }).sort({ createdAt: -1 });
+
+      if (historicalEmpl?.employment?.compensationAmount) {
+        prevSal = historicalEmpl.employment.compensationAmount;
+      }
+    }
+
+    if (currentSal > 0 && prevSal > 0) {
+      const growthAmount = currentSal - prevSal;
+      const growthPct = Number(((growthAmount / prevSal) * 100).toFixed(2));
+      return {
+        ...employment,
+        compensationAmount: currentSal,
+        previousCompensationAmount: prevSal,
+        salaryGrowthAmount: growthAmount,
+        salaryGrowthPercentage: growthPct,
+      };
+    }
+
+    return {
+      ...employment,
+      compensationAmount: currentSal,
+      previousCompensationAmount: prevSal || undefined,
+      salaryGrowthAmount: 0,
+      salaryGrowthPercentage: 0,
+    };
   }
 
   private validateOutcomePayload(outcomeType: OutcomeType, payload: any): void {
@@ -148,9 +220,12 @@ export class CareerOutcomeService {
           throw new ApiError(400, 'End date cannot be before start date.');
         }
       }
-    } else if (outcomeType === 'SEEKING_EMPLOYMENT') {
-      const seek = payload.seekingEmployment || {};
-      if (!seek.seekingSince) throw new ApiError(400, 'Seeking since date is required.');
+    } else if (outcomeType === 'SEEKING_EMPLOYMENT' || outcomeType === 'LOOKING_FOR_EMPLOYMENT' || outcomeType === 'UNEMPLOYED') {
+      const seek = payload.seekingEmployment || payload.unemployed || payload.lookingForEmployment || {};
+      if (!seek.seekingSince && !seek.lastUpdatedDate) {
+        // Default to current date if missing
+        seek.seekingSince = new Date();
+      }
     } else {
       throw new ApiError(400, `Unsupported career outcome type: ${outcomeType}`);
     }
@@ -158,3 +233,4 @@ export class CareerOutcomeService {
 }
 
 export const careerOutcomeService = new CareerOutcomeService();
+

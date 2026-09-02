@@ -4,7 +4,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password?: string;
-  role: 'STUDENT' | 'ADMIN';
+  role: 'STUDENT' | 'ADMIN' | 'TRAINER';
   status: 'ACTIVE' | 'SUSPENDED';
   authProviders: string[];
   resetPasswordToken?: string;
@@ -32,7 +32,7 @@ const userSchema = new Schema<IUser>(
     password: { type: String, select: false },
     role: {
       type: String,
-      enum: ['STUDENT', 'ADMIN'],
+      enum: ['STUDENT', 'ADMIN', 'TRAINER'],
       default: 'STUDENT',
     },
     status: {

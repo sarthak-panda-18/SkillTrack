@@ -37,9 +37,117 @@ export class AdminService {
     };
   }
 
+  async getTrainerDashboardStats() {
+    const totalStudents = await User.countDocuments({ role: 'STUDENT' });
+    const activeOutcomes = await CareerOutcome.find({ status: 'ACTIVE' });
+
+    let employedCount = 0;
+    let unemployedCount = 0;
+    let inProgressCount = 0;
+    let higherStudiesCount = 0;
+    let selfEmployedCount = 0;
+    let apprenticeshipCount = 0;
+
+    let totalEmployedSalary = 0;
+    let employedSalaryCount = 0;
+
+    let totalSalaryGrowthPct = 0;
+    let salaryGrowthCount = 0;
+
+    let totalJobRelevance = 0;
+    let totalJobSatisfaction = 0;
+    let feedbackCount = 0;
+
+    const salaryBins: Record<string, number> = {
+      '< ₹3 LPA': 0,
+      '₹3-6 LPA': 0,
+      '₹6-10 LPA': 0,
+      '₹10-15 LPA': 0,
+      '₹15+ LPA': 0,
+    };
+
+    activeOutcomes.forEach((o) => {
+      if (o.outcomeType === 'EMPLOYED') {
+        employedCount++;
+        if (o.employment?.compensationAmount) {
+          const sal = o.employment.compensationAmount;
+          totalEmployedSalary += sal;
+          employedSalaryCount++;
+
+          if (sal < 300000) salaryBins['< ₹3 LPA']++;
+          else if (sal < 600000) salaryBins['₹3-6 LPA']++;
+          else if (sal < 1000000) salaryBins['₹6-10 LPA']++;
+          else if (sal < 1500000) salaryBins['₹10-15 LPA']++;
+          else salaryBins['₹15+ LPA']++;
+        }
+        if (o.employment?.salaryGrowthPercentage && o.employment.salaryGrowthPercentage > 0) {
+          totalSalaryGrowthPct += o.employment.salaryGrowthPercentage;
+          salaryGrowthCount++;
+        }
+        if (o.employment?.jobRelevance || o.employment?.jobSatisfaction) {
+          if (o.employment.jobRelevance) totalJobRelevance += o.employment.jobRelevance;
+          if (o.employment.jobSatisfaction) totalJobSatisfaction += o.employment.jobSatisfaction;
+          feedbackCount++;
+        }
+      } else if (o.outcomeType === 'UNEMPLOYED' || o.outcomeType === 'SEEKING_EMPLOYMENT') {
+        unemployedCount++;
+      } else if (o.outcomeType === 'LOOKING_FOR_EMPLOYMENT' || o.outcomeType === 'INTERNSHIP') {
+        inProgressCount++;
+      } else if (o.outcomeType === 'HIGHER_STUDIES') {
+        higherStudiesCount++;
+      } else if (o.outcomeType === 'SELF_EMPLOYED') {
+        selfEmployedCount++;
+      } else if (o.outcomeType === 'APPRENTICESHIP') {
+        apprenticeshipCount++;
+      }
+    });
+
+    const employmentRate = totalStudents > 0 ? Number(((employedCount / totalStudents) * 100).toFixed(1)) : 0;
+    const avgSalary = employedSalaryCount > 0 ? Math.round(totalEmployedSalary / employedSalaryCount) : 0;
+    const avgSalaryGrowth = salaryGrowthCount > 0 ? Number((totalSalaryGrowthPct / salaryGrowthCount).toFixed(1)) : 0;
+    const avgJobRelevance = feedbackCount > 0 ? Number((totalJobRelevance / feedbackCount).toFixed(1)) : 0;
+    const avgJobSatisfaction = feedbackCount > 0 ? Number((totalJobSatisfaction / feedbackCount).toFixed(1)) : 0;
+
+    const statusDistribution = [
+      { name: 'Employed', count: employedCount, fill: '#10B981' },
+      { name: 'Unemployed', count: unemployedCount, fill: '#EF4444' },
+      { name: 'Placement In Progress', count: inProgressCount, fill: '#F59E0B' },
+      { name: 'Higher Studies', count: higherStudiesCount, fill: '#3B82F6' },
+      { name: 'Self-Employed', count: selfEmployedCount, fill: '#8B5CF6' },
+      { name: 'Apprenticeship', count: apprenticeshipCount, fill: '#6366F1' },
+    ];
+
+    const pipeline = [
+      { stage: 'Total Trainees', count: totalStudents },
+      { stage: 'Placement In Progress', count: inProgressCount },
+      { stage: 'Offers / Employed', count: employedCount },
+      { stage: 'Higher Studies / Other', count: higherStudiesCount + selfEmployedCount + apprenticeshipCount },
+    ];
+
+    const salaryDistributionChart = Object.entries(salaryBins).map(([range, count]) => ({ range, count }));
+
+    return {
+      totalStudents,
+      employedStudents: employedCount,
+      unemployedStudents: unemployedCount,
+      placementInProgressStudents: inProgressCount,
+      higherStudiesStudents: higherStudiesCount,
+      selfEmployedStudents: selfEmployedCount,
+      apprenticeshipStudents: apprenticeshipCount,
+      employmentRate,
+      averageCurrentSalary: avgSalary,
+      averageSalaryGrowth: avgSalaryGrowth,
+      averageJobRelevance: avgJobRelevance,
+      averageJobSatisfaction: avgJobSatisfaction,
+      statusDistribution,
+      pipeline,
+      salaryDistributionChart,
+    };
+  }
+
   async getUsersList(query: {
     search?: string;
-    role?: 'STUDENT' | 'ADMIN';
+    role?: 'STUDENT' | 'ADMIN' | 'TRAINER';
     status?: 'ACTIVE' | 'SUSPENDED';
     page?: number;
     limit?: number;
@@ -85,7 +193,9 @@ export class AdminService {
   }
 
   async getUserById(userId: string) {
-    const user = await User.findById(userId).select('-password -resetPasswordToken -resetPasswordExpires');
+    const user = await User.findById(userId)
+      .populate('targetCareerRoleId')
+      .select('-password -resetPasswordToken -resetPasswordExpires');
     if (!user) throw new ApiError(404, 'User not found');
 
     const [
@@ -94,8 +204,11 @@ export class AdminService {
       assessmentAttempts,
       skillGap,
       studyPlan,
+      learningRoadmap,
       careerOutcome,
+      outcomeHistory,
       careerOutcomeEvidence,
+      readinessSnapshot,
       communicationLogs,
     ] = await Promise.all([
       UserSkill.find({ userId }).populate('skillId'),
@@ -103,8 +216,11 @@ export class AdminService {
       AssessmentAttempt.find({ userId }).sort({ createdAt: -1 }).limit(20),
       SkillGapAnalysis.findOne({ userId }).sort({ createdAt: -1 }),
       StudyPlan.findOne({ userId }),
-      CareerOutcome.findOne({ userId }),
+      LearningRoadmap.findOne({ userId }),
+      CareerOutcome.findOne({ userId, status: 'ACTIVE' }),
+      CareerOutcome.find({ userId }).sort({ createdAt: -1 }),
       CareerOutcomeEvidence.find({ userId }).sort({ createdAt: -1 }),
+      ReadinessSnapshot.findOne({ userId }).sort({ createdAt: -1 }),
       CommunicationLog.find({ userId }).sort({ createdAt: -1 }).limit(10),
     ]);
 
@@ -115,8 +231,11 @@ export class AdminService {
       assessmentAttempts,
       skillGap,
       studyPlan,
+      learningRoadmap,
       careerOutcome,
+      outcomeHistory,
       careerOutcomeEvidence,
+      readinessSnapshot,
       communicationLogs,
     };
   }

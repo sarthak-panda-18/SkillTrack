@@ -44,19 +44,20 @@ export const studentNavItems = [
 ];
 
 export const adminNavItems = [
-  { name: 'Overview', href: '/admin', icon: ShieldCheck },
-  { name: 'Verification Queue', href: '/admin/outcome-verification', icon: FileCheck },
-  { name: 'Students', href: '/admin/users', icon: Users },
-  { name: 'Skills', href: '/admin/skills', icon: Sliders },
-  { name: 'Colleges', href: '/admin/colleges', icon: Building2 },
+  { name: 'Trainer Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Trainees & Students', href: '/admin/users', icon: Users },
+  { name: 'Outcome Verification', href: '/admin/outcome-verification', icon: FileCheck },
+  { name: 'Employment Analytics', href: '/admin/analytics', icon: LineChart },
+  { name: 'Skills Catalog', href: '/admin/skills', icon: Sliders },
+  { name: 'Colleges Catalog', href: '/admin/colleges', icon: Building2 },
   { name: 'Career Roles', href: '/admin/career-roles', icon: Briefcase },
-  { name: 'Assessments', href: '/admin/assessments', icon: Brain },
+  { name: 'Assessments Bank', href: '/admin/assessments', icon: Brain },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
-  const isAdmin = user?.role === 'ADMIN';
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'TRAINER';
 
   return (
     <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 min-h-screen sticky top-0 z-20 select-none">
@@ -71,8 +72,8 @@ export function Sidebar() {
           </span>
         </Link>
         {isAdmin && (
-          <Badge variant="default" className="text-[10px] py-0 px-1.5 font-bold">
-            ADMIN
+          <Badge variant="default" className="text-[10px] py-0 px-1.5 font-bold bg-indigo-600 text-white">
+            TRAINER
           </Badge>
         )}
       </div>
@@ -117,12 +118,12 @@ export function Sidebar() {
           })}
         </div>
 
-        {/* ADMIN Section — Visible ONLY to ADMIN users */}
+        {/* TRAINER Section — Visible to ADMIN & TRAINER users */}
         {isAdmin && (
           <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
             <div className="flex items-center justify-between px-3.5 mb-2">
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                ADMIN PANEL
+                TRAINER PORTAL
               </span>
               <ShieldCheck className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
             </div>

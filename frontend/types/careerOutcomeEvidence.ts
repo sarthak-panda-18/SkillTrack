@@ -2,6 +2,12 @@ export type EvidenceDocumentType =
   | 'OFFER_LETTER'
   | 'JOINING_LETTER'
   | 'EMPLOYMENT_LETTER'
+  | 'EMPLOYEE_ID_CARD'
+  | 'PAYSLIP'
+  | 'EXPERIENCE_LETTER'
+  | 'RELIEVING_LETTER'
+  | 'TRAINING_CERTIFICATE'
+  | 'COURSE_CERTIFICATE'
   | 'BUSINESS_REGISTRATION'
   | 'BUSINESS_CERTIFICATE'
   | 'ADMISSION_LETTER'
@@ -23,7 +29,18 @@ export interface CareerOutcomeEvidenceData {
   storedFileName: string;
   mimeType: string;
   fileSize: number;
-  status: 'SUBMITTED';
+  status: 'SUBMITTED' | 'UNDER_REVIEW' | 'VERIFIED' | 'REJECTED';
+  extractionStatus?: 'EXTRACTED' | 'PENDING_REVIEW' | 'VERIFIED';
+  extractedData?: {
+    company?: string;
+    jobRole?: string;
+    joiningDate?: string;
+    declaredSalary?: number;
+    grossPay?: number;
+    netPay?: number;
+    salaryMatchStatus?: 'MATCHED' | 'MISMATCHED' | 'REVIEW_REQUIRED';
+    notes?: string;
+  };
   uploadedAt: string;
   createdAt: string;
   updatedAt: string;

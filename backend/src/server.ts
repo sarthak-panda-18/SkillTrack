@@ -25,6 +25,8 @@ import careerOutcomeEvidenceRoutes from './routes/careerOutcomeEvidence.routes';
 import adminRoutes from './routes/admin.routes';
 import adminOutcomeVerificationRoutes from './routes/adminOutcomeVerification.routes';
 import notificationRoutes from './routes/notification.routes';
+import trainingFeedbackRoutes from './routes/trainingFeedback.routes';
+import opportunityRoutes from './routes/opportunity.routes';
 
 validateCoreEnv();
 
@@ -69,6 +71,8 @@ app.use('/api/career-outcome', careerOutcomeEvidenceRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/admin/outcome-verification', adminOutcomeVerificationRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/training-feedback', trainingFeedbackRoutes);
+app.use('/api/opportunities', opportunityRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

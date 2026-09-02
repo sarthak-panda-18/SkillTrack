@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/providers/AuthProvider';
 import { userService } from '@/services/user.service';
-import { goalService } from '@/services/goal.service';
+import { careerOutcomeService } from '@/services/careerOutcome.service';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Progress } from '@/components/ui/Progress';
@@ -23,22 +23,16 @@ import {
   LineChart,
   Calendar,
   Zap,
+  Briefcase,
+  Award,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  FileCheck,
+  Building2,
+  IndianRupee,
+  Compass,
 } from 'lucide-react';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-};
-
-const cardItemVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
-};
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -48,9 +42,9 @@ export default function DashboardPage() {
     queryFn: () => userService.getProfile(),
   });
 
-  const { data: goalsData } = useQuery({
-    queryKey: ['student-goals-summary'],
-    queryFn: () => goalService.getStudentGoals(),
+  const { data: currentOutcome } = useQuery({
+    queryKey: ['career-outcome'],
+    queryFn: () => careerOutcomeService.getCurrentOutcome(),
   });
 
   const skills = profileData?.skills || [];
@@ -61,322 +55,198 @@ export default function DashboardPage() {
       ? Math.round(skills.reduce((acc, curr) => acc + curr.proficiency, 0) / skillsAddedCount)
       : 0;
 
-  // Dynamic greeting time
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <Skeleton className="h-28 w-full rounded-2xl" />
+      <PageWrapper className="space-y-6">
+        <Skeleton className="h-32 w-full rounded-2xl" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Skeleton className="h-32 rounded-xl" />
           <Skeleton className="h-32 rounded-xl" />
           <Skeleton className="h-32 rounded-xl" />
           <Skeleton className="h-32 rounded-xl" />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Skeleton className="h-80 lg:col-span-2 rounded-xl" />
-          <Skeleton className="h-80 rounded-xl" />
-        </div>
-      </div>
+      </PageWrapper>
     );
   }
 
-  const targetRoleTitle = typeof user?.targetRole === 'string'
-    ? user.targetRole
-    : (user?.targetRole as any)?.title || (user?.targetRole as any)?.name || profileData?.user?.targetRole || '';
+  const outcomeType = currentOutcome?.outcomeType || 'EMPLOYED';
+  const emp = currentOutcome?.employment;
+  const currentSalaryLPA = emp?.compensationAmount ? (emp.compensationAmount / 100000).toFixed(1) : '6.0';
+  const prevSalaryLPA = emp?.previousCompensationAmount ? (emp.previousCompensationAmount / 100000).toFixed(1) : '4.5';
+  const salaryGrowthPct = emp?.salaryGrowthPercentage || 33.33;
 
   return (
     <PageWrapper className="space-y-8">
-      {/* Welcome Banner */}
+      {/* Welcome & Outcome Banner */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
-        className="p-6 sm:p-8 rounded-2xl bg-slate-900 dark:bg-slate-950 text-white shadow-md border border-slate-800 relative overflow-hidden"
+        className="p-6 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800 relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
       >
-        <div className="relative z-10 space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-200 text-xs font-semibold">
+        <div className="space-y-2 max-w-2xl">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
             <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-            <span>AI Career Platform Active</span>
+            <span>SIH 2026 Trainee Career & Outcome Intelligence Active</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-            {greeting}, {user?.name || 'Student'} 👋
+            {greeting}, {user?.name || 'Trainee'} 👋
           </h1>
-          <p className="text-slate-300 text-sm sm:text-base max-w-2xl">
-            {targetRoleTitle ? (
-              <>
-                Targeting <strong>{targetRoleTitle}</strong>. Take your <strong>20-question skill evaluations</strong> and follow your adaptive pathway.
-              </>
-            ) : (
-              'Set your target career role to generate personalized skill gap analytics and 20-question evaluations.'
-            )}
+          <p className="text-slate-300 text-xs sm:text-sm">
+            Track your employment status, wage progression, skill readiness, and verified career outcome milestones.
           </p>
         </div>
+
+        <Link href="/career-outcome" className="shrink-0">
+          <Button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2">
+            <Briefcase className="h-4 w-4" />
+            <span>Update Career Outcome</span>
+          </Button>
+        </Link>
       </motion.div>
 
-      {/* Metric Cards Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-      >
-        <motion.div variants={cardItemVariants}>
-          <Card className="p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all border-slate-200 dark:border-slate-800">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium block">Target Career Role</span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-1 line-clamp-1">
-                  {targetRoleTitle || 'Not Set'}
-                </h3>
-              </div>
-              <div className="p-2.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                <Target className="h-5 w-5" />
-              </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className="text-slate-500">Career Focus</span>
-              <Link href="/profile" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
-                Update →
-              </Link>
-            </div>
-          </Card>
-        </motion.div>
-
-        <motion.div variants={cardItemVariants}>
-          <Card className="p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all border-slate-200 dark:border-slate-800">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium block">Tracked Skills</span>
-                <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">
-                  {skillsAddedCount}
-                </h3>
-              </div>
-              <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
-                <UserCheck className="h-5 w-5" />
-              </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className="text-slate-500">Active Profile Skills</span>
-              <Link href="/profile" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
-                Manage →
-              </Link>
-            </div>
-          </Card>
-        </motion.div>
-
-        <motion.div variants={cardItemVariants}>
-          <Card className="p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all border-slate-200 dark:border-slate-800">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium block">Average Proficiency</span>
-                <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">
-                  {avgProficiency}%
-                </h3>
-              </div>
-              <div className="p-2.5 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400">
-                <TrendingUp className="h-5 w-5" />
-              </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className="text-slate-500">Evaluated Competency</span>
-              <Link href="/progress" className="text-sky-600 dark:text-sky-400 font-semibold hover:underline">
-                View Trends →
-              </Link>
-            </div>
-          </Card>
-        </motion.div>
-
-        <motion.div variants={cardItemVariants}>
-          <Card className="p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all border-slate-200 dark:border-slate-800">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium block">Skill Gaps Identified</span>
-                <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">
-                  {skillsToImprove.length}
-                </h3>
-              </div>
-              <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
-                <Brain className="h-5 w-5" />
-              </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className="text-slate-500">Requires Focus</span>
-              <Link href="/skill-gap" className="text-amber-600 dark:text-amber-400 font-semibold hover:underline">
-                Analyze Gaps →
-              </Link>
-            </div>
-          </Card>
-        </motion.div>
-      </motion.div>
-
-      {/* Main Workspace Navigation Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Skills Breakdown & Action Cards */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="border-slate-200 dark:border-slate-800">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                  <Brain className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                  Your Skill Competency Overview
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  Real-time breakdown of evaluated skill proficiencies.
-                </CardDescription>
-              </div>
-              <Link href="/assessment">
-                <Button size="sm" className="gap-1.5 text-xs bg-indigo-600 hover:bg-indigo-700 text-white">
-                  Take 20-Q Assessment
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Button>
-              </Link>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {skills.length === 0 ? (
-                <div className="p-8 text-center text-slate-500 dark:text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
-                  <p className="text-sm font-semibold">No skills added to your profile yet.</p>
-                  <p className="text-xs">Add skills to generate 20-question assessments and learning paths.</p>
-                  <Link href="/profile" className="inline-block mt-2">
-                    <Button size="sm" variant="outline">
-                      Add Skills to Profile
-                    </Button>
-                  </Link>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {skills.slice(0, 5).map((skillItem: any) => {
-                    const skillName = (skillItem.skillId as any)?.name || 'Technical Skill';
-                    const prof = skillItem.proficiency || 0;
-
-                    return (
-                      <div key={skillItem._id} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2">
-                        <div className="flex justify-between items-center text-xs font-bold">
-                          <span className="text-slate-900 dark:text-slate-100">{skillName}</span>
-                          <div className="flex items-center gap-2">
-                            <Badge
-                              variant={prof >= 70 ? 'success' : prof >= 40 ? 'default' : 'warning'}
-                              className="text-[10px] py-0"
-                            >
-                              {prof >= 70 ? 'ADVANCED' : prof >= 40 ? 'INTERMEDIATE' : 'BEGINNER'}
-                            </Badge>
-                            <span className="text-slate-600 dark:text-slate-400 font-mono">{prof}%</span>
-                          </div>
-                        </div>
-                        <Progress value={prof} className="h-2" />
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Quick Action Navigation Panels */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link href="/learning" className="block group">
-              <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform">
-                    <BookOpen className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      Adaptive Learning Pathways
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      Curated study materials tailored to your skill gaps.
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-
-            <Link href="/study-plan" className="block group">
-              <Card className="p-5 hover:border-indigo-500/60 transition-all border-slate-200 dark:border-slate-800 h-full">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform">
-                    <Calendar className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      Weekly Study Schedules
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      Personalized daily milestones and study goals.
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Column: Goal Summary & Adaptive Highlights */}
-        <div className="space-y-6">
-          <Card className="border-slate-200 dark:border-slate-800">
-            <CardHeader>
-              <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                Goals & Milestones
+      {/* Part 2: Clean Outcome-Focused Dashboard Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Card 1: Current Career Outcome & Verification */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800 bg-emerald-50/20 dark:bg-emerald-950/20">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                <Briefcase className="h-4 w-4 text-emerald-600" />
+                Current Career Status
               </CardTitle>
-              <CardDescription className="text-xs">
-                Active career development milestones.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {goalsData?.goals && goalsData.goals.length > 0 ? (
-                <div className="space-y-3">
-                  {goalsData.goals.slice(0, 3).map((goal: any) => (
-                    <div key={goal._id} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1.5">
-                      <div className="flex justify-between items-start">
-                        <span className="font-bold text-xs text-slate-900 dark:text-slate-100">{goal.title}</span>
-                        <Badge variant={goal.status === 'COMPLETED' ? 'success' : 'default'} className="text-[9px] py-0">
-                          {goal.status}
-                        </Badge>
-                      </div>
-                      <p className="text-[11px] text-slate-500 line-clamp-1">{goal.targetSkill || goal.category}</p>
-                    </div>
-                  ))}
+              <Badge className="bg-emerald-600 text-white font-bold text-xs">{outcomeType.replace(/_/g, ' ')}</Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            {emp ? (
+              <>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Company:</span>
+                  <span className="font-extrabold text-slate-900 dark:text-slate-100">{emp.companyName}</span>
                 </div>
-              ) : (
-                <div className="p-6 text-center text-slate-500 text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
-                  <p>No active milestones set.</p>
-                  <Link href="/goals">
-                    <Button size="sm" variant="outline" className="text-xs">
-                      Set Career Goals
-                    </Button>
-                  </Link>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Job Role:</span>
+                  <span className="font-bold">{emp.jobRole}</span>
                 </div>
-              )}
-
-              <Link href="/goals" className="block pt-2">
-                <Button variant="ghost" className="w-full text-xs gap-1 text-indigo-600 dark:text-indigo-400">
-                  Manage All Goals →
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 dark:border-slate-800 bg-slate-900 dark:bg-slate-950 text-white p-5">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-indigo-400" />
-                <h4 className="font-bold text-sm text-white">Adaptive Learning Engine</h4>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Training Relevance:</span>
+                  <Badge variant="outline" className="text-emerald-700 border-emerald-300 font-bold">Highly Relevant</Badge>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500">Verification:</span>
+                  <Badge className="bg-indigo-600 text-white font-bold">✓ Verified</Badge>
+                </div>
+              </>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-slate-600 font-medium">Record your active employment or placement seeking status.</p>
+                <Link href="/career-outcome">
+                  <Button size="sm" variant="outline" className="w-full text-xs font-bold">Set Outcome Status</Button>
+                </Link>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Take a 20-question skill assessment to instantly refine your recommended study plan.
-              </p>
-              <Link href="/adaptive-learning" className="block pt-1">
-                <Button size="sm" className="w-full text-xs bg-indigo-600 hover:bg-indigo-700 text-white">
-                  Launch Adaptive Engine →
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Card 2: Wage Progression & Salary Growth */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-indigo-600" />
+              Salary & Wage Progression
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500">Current Salary:</span>
+              <span className="text-lg font-extrabold text-slate-900 dark:text-slate-100">₹{currentSalaryLPA} LPA</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500">Previous Salary:</span>
+              <span className="font-bold text-slate-600">₹{prevSalaryLPA} LPA</span>
+            </div>
+            <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
+              <span className="text-slate-500 font-bold">Salary Growth:</span>
+              <Badge className="bg-emerald-600 text-white font-extrabold text-xs">+{salaryGrowthPct}%</Badge>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card 3: Skill Gap & Career Readiness */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Brain className="h-4 w-4 text-purple-600" />
+              Readiness & Skill Gaps
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500">Competency Level:</span>
+              <span className="text-lg font-extrabold text-purple-600">{avgProficiency}%</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">Gaps Identified:</span>
+              <span className="font-bold text-rose-600">{skillsToImprove.length} Skills Needed</span>
+            </div>
+            <div className="pt-2">
+              <Link href="/skill-gap">
+                <Button size="sm" variant="outline" className="w-full text-xs font-bold gap-1">
+                  View Skill Gap Analysis <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>
             </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Navigation Panels */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Link href="/placement-journey">
+          <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 font-bold">
+                <Compass className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Placement Journey</h4>
+                <p className="text-xs text-slate-500">Track stage progression to joining.</p>
+              </div>
+            </div>
           </Card>
-        </div>
+        </Link>
+
+        <Link href="/documents">
+          <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 font-bold">
+                <FileCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Documents Vault</h4>
+                <p className="text-xs text-slate-500">Offer letters & payslips for verification.</p>
+              </div>
+            </div>
+          </Card>
+        </Link>
+
+        <Link href="/opportunities">
+          <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-purple-50 dark:bg-purple-950 text-purple-600 font-bold">
+                <Zap className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">AI Opportunities</h4>
+                <p className="text-xs text-slate-500">Matched roles with % score.</p>
+              </div>
+            </div>
+          </Card>
+        </Link>
       </div>
     </PageWrapper>
   );

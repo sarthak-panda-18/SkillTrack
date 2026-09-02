@@ -4,7 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ShieldCheck } from 'lucide-react';
-import { studentNavItems, trainerWorkspaceItems, trainerAccountItems } from './Sidebar';
+import {
+  studentWorkspaceItems,
+  studentAccountItems,
+  trainerWorkspaceItems,
+  trainerAccountItems,
+} from './Sidebar';
 import { ThemeToggle } from './ThemeToggle';
 import { useAuth } from '@/providers/AuthProvider';
 import { cn } from '@/lib/utils';
@@ -88,32 +93,60 @@ export function MobileNav() {
             </div>
           ) : (
             /* STUDENT PORTAL MOBILE NAV */
-            <div className="space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-3 mb-1">
-                STUDENT WORKSPACE
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-3 mb-1">
+                  TRAINEE WORKSPACE
+                </div>
+                {studentWorkspaceItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive =
+                    pathname === item.href ||
+                    (item.href !== '/dashboard' && pathname.startsWith(item.href));
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        isActive
+                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
+                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                      )}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
               </div>
-              {studentNavItems.map((item) => {
-                const Icon = item.icon;
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== '/dashboard' && pathname.startsWith(item.href));
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
-                      isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
-                        : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
+
+              <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-1">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-3 mb-1">
+                  ACCOUNT
+                </div>
+                {studentAccountItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href || pathname.startsWith(item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        isActive
+                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
+                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                      )}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

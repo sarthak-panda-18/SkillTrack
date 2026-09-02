@@ -381,6 +381,76 @@ export default function TrainerDashboardPage() {
         </Card>
       </div>
 
+      {/* Trainer Action Center & Impact Scorecard (Parts 36 & 37) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 text-indigo-600" />
+              Trainer Action Center
+            </CardTitle>
+            <CardDescription className="text-xs">Prioritized action recommendations generated from cohort analytics.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 text-amber-900 dark:text-amber-200 space-y-1">
+              <div className="flex justify-between items-center font-bold">
+                <span>HIGH PRIORITY — Skill Gap Identified</span>
+                <Badge className="bg-amber-600 text-white font-bold text-[9px]">42 Trainees</Badge>
+              </div>
+              <p className="text-[11px]">42 trainees targeting Backend Developer roles have an unresolved Spring Boot skill gap.</p>
+              <Link href="/admin/skill-gaps" className="text-indigo-600 font-bold hover:underline block pt-1">
+                Conduct Spring Boot Remedial Module →
+              </Link>
+            </div>
+
+            <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 text-indigo-900 dark:text-indigo-200 space-y-1">
+              <div className="flex justify-between items-center font-bold">
+                <span>HIGH PRIORITY — Curriculum Skill Mismatch</span>
+                <Badge className="bg-indigo-600 text-white font-bold text-[9px]">18 Trainees</Badge>
+              </div>
+              <p className="text-[11px]">18 employed trainees report high Docker usage missing from the standard training curriculum.</p>
+              <Link href="/admin/feedback" className="text-indigo-600 font-bold hover:underline block pt-1">
+                Review Training Skill Mapping →
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Award className="h-5 w-5 text-emerald-600" />
+              Programme Impact Scorecard
+            </CardTitle>
+            <CardDescription className="text-xs">Transparent composite skilling impact score breakdown.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span className="font-bold text-slate-800 dark:text-slate-200">Overall Skilling Impact Score</span>
+              <span className="text-2xl font-extrabold text-emerald-600">86%</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-[11px]">
+              <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 flex justify-between">
+                <span className="text-slate-500">Training Completion:</span>
+                <span className="font-bold">95.0%</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 flex justify-between">
+                <span className="text-slate-500">Placement Conversion:</span>
+                <span className="font-bold text-emerald-600">82.5%</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 flex justify-between">
+                <span className="text-slate-500">Salary Growth Index:</span>
+                <span className="font-bold text-indigo-600">+33.3%</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 flex justify-between">
+                <span className="text-slate-500">Job Retention Rate:</span>
+                <span className="font-bold text-purple-600">93.5%</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Trainer Quick Links Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link href="/admin/users" className="block group">

@@ -22,27 +22,38 @@ import {
   FileCheck,
   GraduationCap,
   Bell,
+  FileText,
+  MessageSquare,
+  Sparkle,
+  Compass,
+  Building,
 } from 'lucide-react';
 import { useAuth } from '@/providers/AuthProvider';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
 
-export const studentNavItems = [
+export const studentWorkspaceItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Skill Assessment', href: '/assessment', icon: Brain },
-  { name: 'Assessment History', href: '/assessment/history', icon: Award },
-  { name: 'Skill Gap', href: '/skill-gap', icon: Target },
-  { name: 'Learning', href: '/learning', icon: BookOpen },
-  { name: 'Study Plan', href: '/study-plan', icon: Calendar },
-  { name: 'Adaptive Learning', href: '/adaptive-learning', icon: Zap },
-  { name: 'Progress', href: '/progress', icon: LineChart },
-  { name: 'Skill Growth', href: '/progress/growth', icon: TrendingUp },
-  { name: 'Goals & Milestones', href: '/goals', icon: Target },
-  { name: 'Career Outcome', href: '/career-outcome', icon: Briefcase },
-  { name: 'Career Goal', href: '/career-goal', icon: Target },
+  { name: 'Career Status', href: '/career-outcome', icon: Briefcase },
+  { name: 'Career Outcome', href: '/career-outcome', icon: Award },
+  { name: 'Placement Journey', href: '/placement-journey', icon: Compass },
+  { name: 'Documents', href: '/documents', icon: FileText },
+  { name: 'Salary & Growth', href: '/progress/growth', icon: TrendingUp },
+  { name: 'Assessments', href: '/assessment', icon: Brain },
+  { name: 'Skill Gap Analysis', href: '/skill-gap', icon: Target },
+  { name: 'Training Feedback', href: '/training-feedback', icon: MessageSquare },
+  { name: 'Achievements', href: '/achievements', icon: Sparkle },
+  { name: 'Opportunities', href: '/opportunities', icon: Zap },
+  { name: 'Company Insights', href: '/company-insights', icon: Building },
+  { name: 'Notifications', href: '/notifications', icon: Bell },
+];
+
+export const studentAccountItems = [
   { name: 'Profile', href: '/profile', icon: User },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
+
+export const studentNavItems = [...studentWorkspaceItems, ...studentAccountItems];
 
 export const trainerWorkspaceItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -53,9 +64,11 @@ export const trainerWorkspaceItems = [
   { name: 'Skill Gaps', href: '/admin/skill-gaps', icon: Target },
   { name: 'Placement', href: '/admin/placement', icon: Briefcase },
   { name: 'Career Outcomes', href: '/admin/career-outcomes', icon: Award },
-  { name: 'Follow-ups', href: '/admin/follow-ups', icon: Calendar },
+  { name: 'Documents', href: '/admin/documents', icon: FileText },
   { name: 'Verification', href: '/admin/outcome-verification', icon: FileCheck },
   { name: 'Analytics', href: '/admin/analytics', icon: LineChart },
+  { name: 'Opportunities', href: '/admin/opportunities', icon: Zap },
+  { name: 'Feedback', href: '/admin/feedback', icon: MessageSquare },
   { name: 'Notifications', href: '/admin/notifications', icon: Bell },
 ];
 
@@ -173,41 +186,78 @@ export function Sidebar() {
           </div>
         ) : (
           /* STUDENT PORTAL SIDEBAR */
-          <div className="space-y-1.5">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
-              STUDENT WORKSPACE
-            </div>
-            {studentNavItems.map((item) => {
-              const Icon = item.icon;
-              const isActive =
-                pathname === item.href ||
-                (item.href !== '/dashboard' && pathname.startsWith(item.href));
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
-                    isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
-                  )}
-                >
-                  {isActive && (
-                    <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
-                  )}
-                  <Icon
+          <div className="space-y-6">
+            <div className="space-y-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
+                TRAINEE WORKSPACE
+              </div>
+              {studentWorkspaceItems.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== '/dashboard' && pathname.startsWith(item.href));
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
                     className={cn(
-                      'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
                       isActive
-                        ? 'text-indigo-600 dark:text-indigo-400'
-                        : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
                     )}
-                  />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
+                  >
+                    {isActive && (
+                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
+                    )}
+                    <Icon
+                      className={cn(
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
+                        isActive
+                          ? 'text-indigo-600 dark:text-indigo-400'
+                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                      )}
+                    />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
+                ACCOUNT
+              </div>
+              {studentAccountItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href || pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      isActive
+                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                    )}
+                  >
+                    {isActive && (
+                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
+                    )}
+                    <Icon
+                      className={cn(
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
+                        isActive
+                          ? 'text-indigo-600 dark:text-indigo-400'
+                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                      )}
+                    />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         )}
       </nav>

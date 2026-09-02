@@ -339,7 +339,6 @@ CRITICAL RULE: Return ONLY valid raw JSON without markdown code fences or backti
     trainingProgram?: string;
     district?: string;
     commonSkillGaps: Array<{ skillName: string; gapPercentage: number; affectedStudents: number }>;
-    nonPlacementReasons: Array<{ reason: string; count: number }>;
   }): Promise<{
     executiveSummary: string;
     trainerActions: string[];
@@ -348,40 +347,39 @@ CRITICAL RULE: Return ONLY valid raw JSON without markdown code fences or backti
     expectedImpact: string;
   }> {
     const fallbackResponse = {
-      executiveSummary: `Analysis for cohort "${params.cohort || 'All Cohorts'}" indicates main non-placement drivers are technical skill gaps and interview preparedness. Targeted remedial modules are recommended.`,
+      executiveSummary: `Analysis for cohort "${params.cohort || 'All Cohorts'}" indicates primary skill gaps across technical modules. Targeted remedial learning pathways are recommended.`,
       trainerActions: [
         'Conduct 2-week intensive bootcamps on primary technical skill gaps.',
-        'Organize mock technical interviews and resume review workshops.',
-        'Connect unplaced trainees with employer partner apprenticeship slots.',
+        'Review cohort progress on weak assessment topics.',
+        'Assign targeted adaptive learning modules.',
       ],
       traineeRemedialPlan: [
         'Complete targeted adaptive assessments for weak skill areas.',
         'Review study plan milestones for core technical competencies.',
-        'Participate in peer mock interview sessions.',
+        'Solve 20-question skill evaluations to benchmark progress.',
       ],
       priorityModules: params.commonSkillGaps.map((g) => g.skillName).slice(0, 4),
-      expectedImpact: 'Closing top technical skill gaps is projected to increase cohort employment rate by 15-25%.',
+      expectedImpact: 'Closing top technical skill gaps is projected to improve average cohort proficiency by 20-30%.',
     };
 
     if (!this.genAI) return fallbackResponse;
 
     try {
       const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-      const prompt = `You are a chief skilling & employment strategist advising a vocational training program director.
-Analyze this cohort performance & non-placement report:
+      const prompt = `You are a chief engineering skilling strategist advising a technical training program director.
+Analyze this cohort skill performance report:
 - Cohort: ${params.cohort || 'All Cohorts'}
 - Program: ${params.trainingProgram || 'All Programs'}
 - District: ${params.district || 'All Districts'}
 - Common Skill Gaps: ${JSON.stringify(params.commonSkillGaps)}
-- Non-Placement Reasons: ${JSON.stringify(params.nonPlacementReasons)}
 
 Provide a structured, practical, high-impact remedial intervention action plan in strict JSON format:
 {
-  "executiveSummary": "2-sentence overview of cohort bottlenecks",
+  "executiveSummary": "2-sentence overview of cohort skill bottlenecks",
   "trainerActions": ["Action 1", "Action 2", "Action 3"],
   "traineeRemedialPlan": ["Step 1", "Step 2", "Step 3"],
   "priorityModules": ["Module/Skill 1", "Module/Skill 2"],
-  "expectedImpact": "Estimated employment outcome boost percentage and timeline"
+  "expectedImpact": "Estimated proficiency boost percentage and timeline"
 }
 CRITICAL: Return ONLY raw JSON without markdown code fences.`;
 

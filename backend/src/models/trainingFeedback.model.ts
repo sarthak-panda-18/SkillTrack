@@ -2,7 +2,6 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ITrainingFeedback extends Document {
   userId: mongoose.Types.ObjectId;
-  careerOutcomeId?: mongoose.Types.ObjectId;
   trainingRelevance: number; // 1-5 scale
   practicalExposure: number; // 1-5 scale
   interviewPrep: number; // 1-5 scale
@@ -19,7 +18,6 @@ export interface ITrainingFeedback extends Document {
 const trainingFeedbackSchema = new Schema<ITrainingFeedback>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
-    careerOutcomeId: { type: Schema.Types.ObjectId, ref: 'CareerOutcome' },
     trainingRelevance: { type: Number, required: true, min: 1, max: 5 },
     practicalExposure: { type: Number, default: 4, min: 1, max: 5 },
     interviewPrep: { type: Number, default: 4, min: 1, max: 5 },

@@ -1,61 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { adminService } from '@/services/admin.service';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import {
   Target,
   Brain,
   Sparkles,
-  AlertTriangle,
-  CheckCircle2,
   BookOpen,
-  Users,
-  Briefcase,
-  ArrowRight,
   ShieldCheck,
-  RefreshCw,
+  Code,
 } from 'lucide-react';
 
 export default function TrainerSkillGapsPage() {
   const [cohort, setCohort] = useState('Batch 2026');
   const [program, setProgram] = useState('Computer Science');
 
-  const { data: nonPlacementData, isLoading } = useQuery({
-    queryKey: ['nonPlacementAnalytics'],
-    queryFn: () => adminService.getNonPlacementAnalytics(),
-  });
-
   const aiRemedialMutation = useMutation({
     mutationFn: (payload: any) => adminService.generateCohortRemedialIntervention(payload),
   });
-
-  if (isLoading) {
-    return (
-      <PageWrapper className="space-y-6">
-        <Skeleton className="h-32 w-full rounded-2xl" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Skeleton className="h-80 rounded-xl" />
-          <Skeleton className="h-80 rounded-xl" />
-        </div>
-      </PageWrapper>
-    );
-  }
-
-  const reasons = nonPlacementData?.reasons || [];
-  const affectedTrainees = nonPlacementData?.affectedTrainees || [];
 
   const commonSkillGaps = [
     { skillName: 'Data Structures & Algorithms', gapPercentage: 38, affectedStudents: 24 },
     { skillName: 'System Design & Architecture', gapPercentage: 45, affectedStudents: 18 },
     { skillName: 'Full-Stack REST APIs', gapPercentage: 28, affectedStudents: 15 },
-    { skillName: 'Technical Interview Prep', gapPercentage: 52, affectedStudents: 30 },
+    { skillName: 'Spring Boot & Microservices', gapPercentage: 52, affectedStudents: 30 },
   ];
 
   const handleGenerateAI = () => {
@@ -63,7 +37,6 @@ export default function TrainerSkillGapsPage() {
       cohort,
       trainingProgram: program,
       commonSkillGaps,
-      nonPlacementReasons: reasons,
     });
   };
 
@@ -76,13 +49,13 @@ export default function TrainerSkillGapsPage() {
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
             <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-            <span>SIH 2026 AI Impact Loop & Targeted Interventions</span>
+            <span>Targeted Cohort Interventions</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Skill Gap & Non-Placement Analysis 🎯
+            Skill Gap Analytics & AI Interventions 🎯
           </h1>
           <p className="text-slate-300 text-xs sm:text-sm">
-            Identify cohort technical bottlenecks, non-placement drivers, and trigger Gemini AI targeted remedial action recommendations to boost employment outcomes.
+            Identify cohort technical bottlenecks and trigger Gemini AI targeted remedial action plans to accelerate skill mastery.
           </p>
         </div>
 
@@ -92,36 +65,13 @@ export default function TrainerSkillGapsPage() {
           className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-lg flex items-center gap-2 shrink-0"
         >
           <Brain className="h-4 w-4" />
-          <span>{aiRemedialMutation.isPending ? 'Analyzing Cohort...' : 'Generate AI Remedial Action Plan'}</span>
+          <span>{aiRemedialMutation.isPending ? 'Analyzing Cohort...' : 'Generate AI Remedial Plan'}</span>
         </Button>
       </div>
 
-      {/* Main Grid: Non-Placement Analysis & Common Skill Gaps */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Card 1: Non-Placement Reasons Breakdown */}
-        <Card className="p-6 border-slate-200 dark:border-slate-800">
-          <CardHeader className="p-0 pb-4">
-            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
-              Non-Placement Reasons Analysis
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Structured analysis of why trainees are seeking or unplaced.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-0 space-y-3">
-            {reasons.map((r: any, idx: number) => (
-              <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
-                <span className="font-bold text-slate-800 dark:text-slate-200">{r.reason}</span>
-                <Badge variant="secondary" className="font-bold">
-                  {r.count} Trainees
-                </Badge>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Card 2: Top Cohort Skill Gaps */}
+      {/* Main Grid: Cohort Skill Gaps */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Card 1: Top Cohort Skill Gaps */}
         <Card className="p-6 border-slate-200 dark:border-slate-800">
           <CardHeader className="p-0 pb-4">
             <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -150,9 +100,32 @@ export default function TrainerSkillGapsPage() {
             ))}
           </CardContent>
         </Card>
+
+        {/* Card 2: Skilling Summary */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4">
+            <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Code className="h-5 w-5 text-emerald-600" />
+              Cohort Skilling Focus
+            </CardTitle>
+            <CardDescription className="text-xs">
+              Summary of technical competencies evaluated.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
+              <div className="font-bold text-slate-900 dark:text-slate-100">Primary Focus: Data Structures & Architecture</div>
+              <p className="text-slate-500 text-[11px]">Trainees are completing 20-question assessments to measure proficiency.</p>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
+              <div className="font-bold text-slate-900 dark:text-slate-100">AI Remedial Strategy</div>
+              <p className="text-slate-500 text-[11px]">Generate Gemini AI remedial plans to address common skill gaps.</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* AI Impact Loop Result Banner */}
+      {/* AI Result Banner */}
       {aiResult && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}

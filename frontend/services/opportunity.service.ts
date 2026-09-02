@@ -31,11 +31,6 @@ export interface CompanyInsightData {
 }
 
 export const opportunityService = {
-  async getMatchedOpportunities(): Promise<OpportunityData[]> {
-    const response = await apiClient.get('/opportunities/matched');
-    return response.data;
-  },
-
   async submitCompanyInsight(payload: Partial<CompanyInsightData>): Promise<CompanyInsightData> {
     const response = await apiClient.post('/opportunities/insights', payload);
     return response.data;

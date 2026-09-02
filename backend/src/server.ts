@@ -20,13 +20,13 @@ import studyPlanRoutes from './routes/studyPlan.routes';
 import adaptiveRoutes from './routes/adaptive.routes';
 import progressRoutes from './routes/progress.routes';
 import goalRoutes from './routes/goal.routes';
-import careerOutcomeRoutes from './routes/careerOutcome.routes';
-import careerOutcomeEvidenceRoutes from './routes/careerOutcomeEvidence.routes';
 import adminRoutes from './routes/admin.routes';
-import adminOutcomeVerificationRoutes from './routes/adminOutcomeVerification.routes';
 import notificationRoutes from './routes/notification.routes';
 import trainingFeedbackRoutes from './routes/trainingFeedback.routes';
 import opportunityRoutes from './routes/opportunity.routes';
+import careerStatusRoutes from './routes/careerStatus.routes';
+
+import path from 'path';
 
 validateCoreEnv();
 
@@ -43,6 +43,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 // Health check endpoint
 app.get('/api/health', (req: Request, res: Response) => {
@@ -66,13 +67,11 @@ app.use('/api/study-plan', studyPlanRoutes);
 app.use('/api/adaptive-learning', adaptiveRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/goals', goalRoutes);
-app.use('/api/career-outcome', careerOutcomeRoutes);
-app.use('/api/career-outcome', careerOutcomeEvidenceRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/admin/outcome-verification', adminOutcomeVerificationRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/training-feedback', trainingFeedbackRoutes);
 app.use('/api/opportunities', opportunityRoutes);
+app.use('/api/career-status', careerStatusRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

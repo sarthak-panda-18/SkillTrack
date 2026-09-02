@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/providers/AuthProvider';
 import { userService } from '@/services/user.service';
-import { careerOutcomeService } from '@/services/careerOutcome.service';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Progress } from '@/components/ui/Progress';
@@ -14,24 +13,17 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import {
   Sparkles,
-  UserCheck,
   TrendingUp,
   Target,
   ArrowRight,
   Brain,
+  Zap,
+  Award,
   BookOpen,
   LineChart,
-  Calendar,
-  Zap,
-  Briefcase,
-  Award,
   CheckCircle2,
-  Clock,
-  ShieldCheck,
-  FileCheck,
-  Building2,
-  IndianRupee,
-  Compass,
+  Code,
+  Building,
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -40,11 +32,6 @@ export default function DashboardPage() {
   const { data: profileData, isLoading } = useQuery({
     queryKey: ['userProfile'],
     queryFn: () => userService.getProfile(),
-  });
-
-  const { data: currentOutcome } = useQuery({
-    queryKey: ['career-outcome'],
-    queryFn: () => careerOutcomeService.getCurrentOutcome(),
   });
 
   const skills = profileData?.skills || [];
@@ -62,8 +49,7 @@ export default function DashboardPage() {
     return (
       <PageWrapper className="space-y-6">
         <Skeleton className="h-32 w-full rounded-2xl" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Skeleton className="h-32 rounded-xl" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Skeleton className="h-32 rounded-xl" />
           <Skeleton className="h-32 rounded-xl" />
           <Skeleton className="h-32 rounded-xl" />
@@ -72,15 +58,9 @@ export default function DashboardPage() {
     );
   }
 
-  const outcomeType = currentOutcome?.outcomeType || 'EMPLOYED';
-  const emp = currentOutcome?.employment;
-  const currentSalaryLPA = emp?.compensationAmount ? (emp.compensationAmount / 100000).toFixed(1) : '6.0';
-  const prevSalaryLPA = emp?.previousCompensationAmount ? (emp.previousCompensationAmount / 100000).toFixed(1) : '4.5';
-  const salaryGrowthPct = emp?.salaryGrowthPercentage || 33.33;
-
   return (
     <PageWrapper className="space-y-8">
-      {/* Welcome & Outcome Banner */}
+      {/* Welcome Banner */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,108 +70,42 @@ export default function DashboardPage() {
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
             <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-            <span>SIH 2026 Trainee Career & Outcome Intelligence Active</span>
+            <span>SkillTrack AI Trainee Intelligence Active</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
             {greeting}, {user?.name || 'Trainee'} 👋
           </h1>
           <p className="text-slate-300 text-xs sm:text-sm">
-            Track your employment status, wage progression, skill readiness, and verified career outcome milestones.
+            Evaluate your technical proficiencies, resolve skill gaps, take 20-question assessments, and track your learning progress.
           </p>
         </div>
 
-        <Link href="/career-outcome" className="shrink-0">
+        <Link href="/assessment" className="shrink-0">
           <Button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2">
-            <Briefcase className="h-4 w-4" />
-            <span>Update Career Outcome</span>
+            <Brain className="h-4 w-4" />
+            <span>Take Skill Assessment</span>
           </Button>
         </Link>
       </motion.div>
 
-      {/* Part 2: Clean Outcome-Focused Dashboard Cards */}
+      {/* Core Dashboard Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Card 1: Current Career Outcome & Verification */}
-        <Card className="p-6 border-slate-200 dark:border-slate-800 bg-emerald-50/20 dark:bg-emerald-950/20">
-          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
-            <div className="flex justify-between items-center">
-              <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-emerald-600" />
-                Current Career Status
-              </CardTitle>
-              <Badge className="bg-emerald-600 text-white font-bold text-xs">{outcomeType.replace(/_/g, ' ')}</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="p-0 space-y-3 text-xs">
-            {emp ? (
-              <>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Company:</span>
-                  <span className="font-extrabold text-slate-900 dark:text-slate-100">{emp.companyName}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Job Role:</span>
-                  <span className="font-bold">{emp.jobRole}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Training Relevance:</span>
-                  <Badge variant="outline" className="text-emerald-700 border-emerald-300 font-bold">Highly Relevant</Badge>
-                </div>
-                <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
-                  <span className="text-slate-500">Verification:</span>
-                  <Badge className="bg-indigo-600 text-white font-bold">✓ Verified</Badge>
-                </div>
-              </>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-slate-600 font-medium">Record your active employment or placement seeking status.</p>
-                <Link href="/career-outcome">
-                  <Button size="sm" variant="outline" className="w-full text-xs font-bold">Set Outcome Status</Button>
-                </Link>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Card 2: Wage Progression & Salary Growth */}
+        {/* Card 1: Skill Gap & Readiness */}
         <Card className="p-6 border-slate-200 dark:border-slate-800">
           <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
             <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-indigo-600" />
-              Salary & Wage Progression
+              <Brain className="h-4 w-4 text-indigo-600" />
+              Competency & Readiness
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 space-y-3 text-xs">
             <div className="flex justify-between items-center">
-              <span className="text-slate-500">Current Salary:</span>
-              <span className="text-lg font-extrabold text-slate-900 dark:text-slate-100">₹{currentSalaryLPA} LPA</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-slate-500">Previous Salary:</span>
-              <span className="font-bold text-slate-600">₹{prevSalaryLPA} LPA</span>
-            </div>
-            <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
-              <span className="text-slate-500 font-bold">Salary Growth:</span>
-              <Badge className="bg-emerald-600 text-white font-extrabold text-xs">+{salaryGrowthPct}%</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card 3: Skill Gap & Career Readiness */}
-        <Card className="p-6 border-slate-200 dark:border-slate-800">
-          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
-            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <Brain className="h-4 w-4 text-purple-600" />
-              Readiness & Skill Gaps
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 space-y-3 text-xs">
-            <div className="flex justify-between items-center">
-              <span className="text-slate-500">Competency Level:</span>
-              <span className="text-lg font-extrabold text-purple-600">{avgProficiency}%</span>
+              <span className="text-slate-500">Average Proficiency:</span>
+              <span className="text-lg font-extrabold text-indigo-600">{avgProficiency}%</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500">Gaps Identified:</span>
-              <span className="font-bold text-rose-600">{skillsToImprove.length} Skills Needed</span>
+              <span className="text-slate-500">Skills Needing Attention:</span>
+              <span className="font-bold text-rose-600">{skillsToImprove.length} Skills</span>
             </div>
             <div className="pt-2">
               <Link href="/skill-gap">
@@ -202,47 +116,101 @@ export default function DashboardPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Card 2: Technical Skill Progress */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Code className="h-4 w-4 text-emerald-600" />
+              Skill Progression
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500">Total Skills Added:</span>
+              <span className="text-lg font-extrabold text-slate-900 dark:text-slate-100">{skillsAddedCount}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500">Target Career Role:</span>
+              <Badge className="bg-indigo-600 text-white font-bold">{user?.targetRole || 'Software Engineer'}</Badge>
+            </div>
+            <div className="pt-2">
+              <Link href="/progress/growth">
+                <Button size="sm" variant="outline" className="w-full text-xs font-bold gap-1">
+                  View Skill Growth <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card 3: Learning & Study Pathways */}
+        <Card className="p-6 border-slate-200 dark:border-slate-800">
+          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <BookOpen className="h-4 w-4 text-purple-600" />
+              AI Study Plan & Roadmap
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0 space-y-3 text-xs">
+            <p className="text-slate-600 dark:text-slate-400">
+              Personalized weekly study modules tailored to your target role and skill gaps.
+            </p>
+            <div className="flex gap-2 pt-2">
+              <Link href="/study-plan" className="flex-1">
+                <Button size="sm" variant="outline" className="w-full text-xs font-bold">
+                  Study Plan
+                </Button>
+              </Link>
+              <Link href="/learning" className="flex-1">
+                <Button size="sm" className="w-full text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white">
+                  Roadmap
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Quick Navigation Panels */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Link href="/placement-journey">
+        <Link href="/assessment">
           <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 font-bold">
-                <Compass className="h-5 w-5" />
+                <Brain className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Placement Journey</h4>
-                <p className="text-xs text-slate-500">Track stage progression to joining.</p>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Assessments</h4>
+                <p className="text-xs text-slate-500">20-question skill evaluations.</p>
               </div>
             </div>
           </Card>
         </Link>
 
-        <Link href="/documents">
-          <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 font-bold">
-                <FileCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Documents Vault</h4>
-                <p className="text-xs text-slate-500">Offer letters & payslips for verification.</p>
-              </div>
-            </div>
-          </Card>
-        </Link>
-
-        <Link href="/opportunities">
+        <Link href="/company-insights">
           <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-purple-50 dark:bg-purple-950 text-purple-600 font-bold">
-                <Zap className="h-5 w-5" />
+                <Building className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">AI Opportunities</h4>
-                <p className="text-xs text-slate-500">Matched roles with % score.</p>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Company Insights</h4>
+                <p className="text-xs text-slate-500">Hiring trends & peer contributions.</p>
+              </div>
+            </div>
+          </Card>
+        </Link>
+
+        <Link href="/achievements">
+          <Card className="p-5 hover:border-indigo-500 transition-all border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 font-bold">
+                <Award className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100">Achievements</h4>
+                <p className="text-xs text-slate-500">Milestones & skill badges.</p>
               </div>
             </div>
           </Card>

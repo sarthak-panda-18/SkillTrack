@@ -629,62 +629,7 @@ export class ProgressService {
       });
     });
 
-    // 5. Career Outcome & Verification Events
-    const { CareerOutcome } = await import('../models/careerOutcome.model');
-    const { CareerOutcomeVerification } = await import('../models/careerOutcomeVerification.model');
-
-    const outcomes = await CareerOutcome.find({ userId });
-    outcomes.forEach((outcome: any) => {
-      events.push({
-        id: `outcome-created-${outcome._id}`,
-        eventType: 'CAREER_OUTCOME_CREATED',
-        category: 'CAREER',
-        title: 'Career Outcome Created',
-        description: `Logged ${outcome.outcomeType.replace('_', ' ')} status.`,
-        timestamp: outcome.createdAt,
-        sourceId: outcome._id.toString(),
-        metadata: {
-          outcomeType: outcome.outcomeType,
-          status: outcome.status,
-        },
-      });
-    });
-
-    const verifications = await CareerOutcomeVerification.find({ studentId: userId }).sort({ createdAt: 1 });
-    verifications.forEach((ver: any) => {
-      let eventType = 'CAREER_OUTCOME_SUBMITTED';
-      let title = 'Career Outcome Submitted';
-
-      if (ver.action === 'VERIFIED') {
-        eventType = 'CAREER_OUTCOME_VERIFIED';
-        title = 'Career Outcome Verified';
-      } else if (ver.action === 'REJECTED') {
-        eventType = 'CAREER_OUTCOME_REJECTED';
-        title = 'Career Outcome Verification Rejected';
-      } else if (ver.action === 'CHANGES_REQUESTED') {
-        eventType = 'CAREER_OUTCOME_CHANGES_REQUESTED';
-        title = 'Career Outcome Changes Requested';
-      } else if (ver.action === 'RESUBMITTED') {
-        eventType = 'CAREER_OUTCOME_SUBMITTED';
-        title = 'Career Outcome Resubmitted';
-      }
-
-      events.push({
-        id: `verification-${ver._id}`,
-        eventType,
-        category: 'CAREER',
-        title,
-        description: ver.notes || ver.reason || `Status updated to ${ver.newStatus}`,
-        timestamp: ver.createdAt,
-        sourceId: ver._id.toString(),
-        metadata: {
-          status: ver.newStatus,
-          reason: ver.reason,
-        },
-      });
-    });
-
-    // 6. Achievements Events
+    // 5. Achievements Events
     const achievements = await Achievement.find({ userId });
     achievements.forEach((ach: any) => {
       events.push({

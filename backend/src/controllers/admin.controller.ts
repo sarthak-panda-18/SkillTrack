@@ -81,24 +81,6 @@ export const getDemographicAnalytics = async (req: Request, res: Response, next:
   }
 };
 
-export const getNonPlacementAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    const data = await adminService.getNonPlacementAnalytics();
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getAttritionAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    const data = await adminService.getAttritionAnalytics();
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getUsersList = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const search = req.query.search as string | undefined;

@@ -2,16 +2,6 @@ import { Response } from 'express';
 import { AuthenticatedRequest } from '../middleware/auth.middleware';
 import { opportunityService } from '../services/opportunity.service';
 
-export const getMatchedOpportunities = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
-  try {
-    const userId = req.user!.userId;
-    const opportunities = await opportunityService.getMatchedOpportunities(userId);
-    res.json(opportunities);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch opportunities' });
-  }
-};
-
 export const submitCompanyInsight = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const userId = req.user!.userId;

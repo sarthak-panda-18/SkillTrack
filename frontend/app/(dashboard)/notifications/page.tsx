@@ -7,8 +7,8 @@ import { Bell, CheckCircle2, ShieldCheck, Zap, Award } from 'lucide-react';
 
 export default function StudentNotificationsPage() {
   const notifications = [
-    { id: '1', title: 'Outcome Evidence Verified', desc: 'Trainer verified your Full-Time Software Engineer offer letter.', time: '2 hours ago', type: 'VERIFICATION' },
-    { id: '2', title: 'New Opportunity Match: Java Engineer', desc: 'You have a 92% match score for Java Backend Developer at TechCorp.', time: '5 hours ago', type: 'MATCH' },
+    { id: '1', title: 'Assessment Evaluated: Java & Spring Boot', desc: 'Scored 85% proficiency. Skill badges updated on profile.', time: '2 hours ago', type: 'ASSESSMENT' },
+    { id: '2', title: 'Company Insight Published', desc: 'Trainer approved your peer contribution for TechCorp Backend Developer.', time: '5 hours ago', type: 'INSIGHT' },
     { id: '3', title: 'Skill Gap Remedial Plan Updated', desc: 'Gemini AI generated a targeted learning step for Spring Boot.', time: '1 day ago', type: 'REMEDIAL' },
   ];
 
@@ -25,7 +25,7 @@ export default function StudentNotificationsPage() {
             Notifications & Alerts 🔔
           </h1>
           <p className="text-slate-300 text-xs sm:text-sm max-w-2xl">
-            Real-time notifications for evidence verification, opportunity matches, and skill-gap recommendations.
+            Real-time notifications for assessment evaluations, company insights, and skill-gap recommendations.
           </p>
         </div>
       </div>

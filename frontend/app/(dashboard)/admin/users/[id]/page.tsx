@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { adminService } from '@/services/admin.service';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -10,24 +9,14 @@ import { Badge } from '@/components/ui/Badge';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import {
-  User,
-  ShieldCheck,
   Building2,
-  MapPin,
   GraduationCap,
-  Briefcase,
-  Target,
   Brain,
   Award,
   BookOpen,
-  Calendar,
-  Zap,
-  TrendingUp,
-  FileCheck,
-  Clock,
-  IndianRupee,
   ArrowLeft,
-  CheckCircle2,
+  Target,
+  Code,
 } from 'lucide-react';
 
 export default function TraineeDetailPage() {
@@ -45,8 +34,7 @@ export default function TraineeDetailPage() {
     return (
       <PageWrapper className="space-y-6">
         <Skeleton className="h-32 w-full rounded-2xl" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Skeleton className="h-64 rounded-xl" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Skeleton className="h-64 rounded-xl" />
           <Skeleton className="h-64 rounded-xl" />
         </div>
@@ -68,9 +56,6 @@ export default function TraineeDetailPage() {
   }
 
   const u = data.user;
-  const outcome = data.careerOutcome;
-  const outcomeHistory = data.outcomeHistory || [];
-  const followUps = data.followUps || [];
 
   return (
     <PageWrapper className="space-y-8">
@@ -119,18 +104,12 @@ export default function TraineeDetailPage() {
               <Badge variant="outline" className="text-slate-400 border-slate-700">Consent Pending</Badge>
             )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-slate-400">Placement Stage:</span>
-            <Badge className="bg-indigo-600 text-white font-bold">
-              {(u.placementStage || 'SEEKING_EMPLOYMENT').replace(/_/g, ' ')}
-            </Badge>
-          </div>
         </div>
       </div>
 
-      {/* 4 Core Summary Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Column 1: Academic & Cohort Profile */}
+      {/* Core Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Card 1: Academic & Cohort Profile */}
         <Card className="p-6 border-slate-200 dark:border-slate-800">
           <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
             <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -162,12 +141,12 @@ export default function TraineeDetailPage() {
           </CardContent>
         </Card>
 
-        {/* Column 2: Career Readiness & Assessment Performance */}
+        {/* Card 2: Skill Gaps & Readiness Performance */}
         <Card className="p-6 border-slate-200 dark:border-slate-800">
           <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
             <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <Brain className="h-4 w-4 text-emerald-600" />
-              Skill Gaps & Readiness Score
+              Skill Gaps & Assessment Performance
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 space-y-3 text-xs">
@@ -186,7 +165,7 @@ export default function TraineeDetailPage() {
             <div className="flex justify-between">
               <span className="text-slate-500">Critical Skill Gaps:</span>
               <span className="font-bold text-rose-600">
-                {data.skillGap?.criticalGaps?.length || 1} Skills Needed
+                {data.skillGap?.criticalGaps?.length || 0} Skills Needed
               </span>
             </div>
             <div className="flex justify-between">
@@ -195,89 +174,55 @@ export default function TraineeDetailPage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Column 3: Current Outcome & Verification */}
-        <Card className="p-6 border-slate-200 dark:border-slate-800">
-          <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
-            <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <Briefcase className="h-4 w-4 text-purple-600" />
-              Current Career Outcome
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 space-y-3 text-xs">
-            <div className="flex justify-between items-center">
-              <span className="text-slate-500">Outcome Status:</span>
-              <Badge className="bg-emerald-600 text-white font-bold">
-                {outcome?.outcomeType || 'EMPLOYED'}
-              </Badge>
-            </div>
-            {outcome?.employment && (
-              <>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Employer:</span>
-                  <span className="font-bold text-slate-900 dark:text-slate-100">{outcome.employment.companyName}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Job Role:</span>
-                  <span className="font-bold">{outcome.employment.jobRole}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Current Salary:</span>
-                  <span className="font-bold text-emerald-600">
-                    ₹{((outcome.employment.compensationAmount || 600000) / 100000).toFixed(1)} LPA
-                  </span>
-                </div>
-                {outcome.employment.salaryGrowthPercentage ? (
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Salary Growth:</span>
-                    <span className="font-bold text-emerald-600">
-                      +{outcome.employment.salaryGrowthPercentage}%
-                    </span>
-                  </div>
-                ) : null}
-              </>
-            )}
-            <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
-              <span className="text-slate-500">Verification:</span>
-              <Badge variant="outline" className="font-bold border-indigo-300 text-indigo-700 bg-indigo-50">
-                {outcome?.verificationStatus || 'VERIFIED'}
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
-      {/* Longitudinal Checkpoints Timeline */}
+      {/* Verified Skills Breakdown */}
       <Card className="p-6 border-slate-200 dark:border-slate-800">
-        <CardHeader className="p-0 pb-4 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
           <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-indigo-600" />
-            Longitudinal Follow-up History (30 / 90 / 180 / 365 Days)
+            <Code className="h-5 w-5 text-indigo-600" />
+            Verified Technical Skills ({data.skills?.length || 0})
           </CardTitle>
-          <CardDescription className="text-xs">
-            Follow-up checkpoints and job continuity responses.
-          </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {followUps.map((f: any) => (
-              <div key={f._id} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
-                <div className="flex justify-between items-center">
-                  <span className="font-extrabold text-indigo-600 dark:text-indigo-400">{f.checkpoint.replace('_', ' ')}</span>
-                  <Badge variant="outline" className="text-[10px]">
-                    {f.status}
-                  </Badge>
-                </div>
-                <div className="text-[11px] text-slate-500">
-                  Due: {new Date(f.dueDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </div>
-                {f.completedDate && (
-                  <div className="text-[11px] text-emerald-600 font-semibold">
-                    Completed: {new Date(f.completedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+          {(!data.skills || data.skills.length === 0) ? (
+            <p className="text-xs text-slate-500 py-4 text-center">No technical skills added to profile yet.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {data.skills.map((item: any) => (
+                <div key={item._id} className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900 space-y-1">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-bold text-slate-900 dark:text-slate-100">{item.skillId?.name || 'Skill'}</span>
+                    <Badge variant="secondary" className="text-[10px]">{item.proficiency}%</Badge>
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className="text-[10px] text-slate-500">{item.skillId?.category}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Trainee Career Status Section for Trainer View */}
+      <Card className="p-6 border-slate-200 dark:border-slate-800">
+        <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+          <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <Award className="h-5 w-5 text-indigo-600" />
+            Career Status & Employment Profile
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0 text-xs space-y-3">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <span className="font-bold text-slate-700 dark:text-slate-300">Current Career Status:</span>
+            <Badge variant="success" className="font-black text-xs">
+              {data.user?.placementStage || 'SEEKING EMPLOYMENT'}
+            </Badge>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-50/50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <p className="text-slate-600 dark:text-slate-400">
+              Trainee career status details are actively managed in the Unified Career Status workspace.
+            </p>
           </div>
         </CardContent>
       </Card>

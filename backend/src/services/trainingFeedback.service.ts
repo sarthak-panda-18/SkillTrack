@@ -1,12 +1,9 @@
 import { TrainingFeedback, ITrainingFeedback } from '../models/trainingFeedback.model';
-import { CareerOutcome } from '../models/careerOutcome.model';
 
 export const trainingFeedbackService = {
   async submitFeedback(userId: string, data: Partial<ITrainingFeedback>): Promise<ITrainingFeedback> {
-    const activeOutcome = await CareerOutcome.findOne({ userId, status: 'ACTIVE' });
     const feedback = await TrainingFeedback.create({
       userId,
-      careerOutcomeId: activeOutcome?._id,
       trainingRelevance: data.trainingRelevance || 4,
       practicalExposure: data.practicalExposure || 4,
       interviewPrep: data.interviewPrep || 4,
@@ -46,7 +43,7 @@ export const trainingFeedbackService = {
         breakdown: {
           trainingRelevance: 90,
           skillsUtilized: 80,
-          careerOutcome: 85,
+          overallSatisfaction: 85,
           studentFeedback: 75,
         },
       };
@@ -84,7 +81,7 @@ export const trainingFeedbackService = {
       breakdown: {
         trainingRelevance: Math.round(((stats.avgRelevance || 4.2) / 5) * 100),
         skillsUtilized: 80,
-        careerOutcome: 85,
+        overallSatisfaction: 85,
         studentFeedback: 75,
       },
     };

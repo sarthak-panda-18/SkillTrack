@@ -17,8 +17,6 @@ import {
   getProviderAnalytics,
   getDistrictAnalytics,
   getDemographicAnalytics,
-  getNonPlacementAnalytics,
-  getAttritionAnalytics,
 } from '../controllers/admin.controller';
 import { createSkill } from '../controllers/skill.controller';
 import {
@@ -57,10 +55,6 @@ import {
 import { updateUserStatusSchema, updateSkillAdminSchema } from '../validators/admin.validator';
 import { createSkillSchema } from '../validators/skill.validator';
 import { createCollegeSchema, updateCollegeSchema } from '../validators/college.validator';
-import {
-  getTrainerFollowUpQueue,
-  triggerDueNotifications,
-} from '../controllers/followUp.controller';
 import { aiSkillGapService } from '../services/aiSkillGap.service';
 
 const router = Router();
@@ -72,18 +66,12 @@ router.use(authenticate, authorizeRoles('ADMIN', 'TRAINER'));
 router.get('/dashboard', getDashboardStats);
 router.get('/trainer-stats', getTrainerDashboardStats);
 
-// SIH Analytics Endpoints
+// Analytics Endpoints
 router.get('/analytics/cohort', getCohortAnalytics);
 router.get('/analytics/course', getCourseAnalytics);
 router.get('/analytics/provider', getProviderAnalytics);
 router.get('/analytics/district', getDistrictAnalytics);
 router.get('/analytics/demographic', getDemographicAnalytics);
-router.get('/analytics/non-placement', getNonPlacementAnalytics);
-router.get('/analytics/attrition', getAttritionAnalytics);
-
-// Trainer Follow-up Management
-router.get('/follow-ups', getTrainerFollowUpQueue);
-router.post('/follow-ups/trigger-reminders', triggerDueNotifications);
 
 // AI Remedial Action Recommendations for Cohorts
 router.post('/ai-remedial-intervention', async (req, res, next) => {

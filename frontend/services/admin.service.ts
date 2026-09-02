@@ -16,28 +16,8 @@ export interface AdminStats {
 
 export interface TrainerStats {
   totalStudents: number;
-  employedStudents: number;
-  seekingEmploymentStudents?: number;
-  unemployedStudents: number;
-  placementInProgressStudents: number;
-  offerReceivedStudents?: number;
-  joiningPendingStudents?: number;
-  higherStudiesStudents: number;
-  selfEmployedStudents: number;
-  apprenticeshipStudents: number;
-  employmentRate: number;
-  placementRate?: number;
-  retentionRate?: number;
-  attritionRate?: number;
-  trainingToEmploymentRate?: number;
-  averageStartingSalary?: number;
-  averageCurrentSalary: number;
-  averageSalaryGrowth: number;
-  averageJobRelevance: number;
-  averageJobSatisfaction: number;
-  statusDistribution: Array<{ name: string; count: number; fill: string }>;
-  pipeline: Array<{ stage: string; count: number }>;
-  salaryDistributionChart: Array<{ range: string; count: number }>;
+  activeStudents?: number;
+  totalSkills?: number;
 }
 
 export interface AdminUsersQuery {
@@ -108,12 +88,8 @@ export interface AdminStudentDetailResponse {
   skillGap?: any;
   studyPlan?: any;
   learningRoadmap?: any;
-  careerOutcome?: any;
-  outcomeHistory?: any[];
-  careerOutcomeEvidence?: any[];
   readinessSnapshot?: any;
   communicationLogs?: any[];
-  followUps?: any[];
 }
 
 export const adminService = {
@@ -150,26 +126,6 @@ export const adminService = {
   async getDemographicAnalytics(): Promise<any> {
     const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/demographic');
     return res.data.data;
-  },
-
-  async getNonPlacementAnalytics(): Promise<any> {
-    const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/non-placement');
-    return res.data.data;
-  },
-
-  async getAttritionAnalytics(): Promise<any> {
-    const res = await apiClient.get<ApiResponse<any>>('/admin/analytics/attrition');
-    return res.data.data;
-  },
-
-  async getTrainerFollowUps(query?: { status?: string; checkpoint?: string; search?: string; page?: number; limit?: number }): Promise<any> {
-    const res = await apiClient.get<ApiResponse<any>>('/admin/follow-ups', { params: query });
-    return res.data.data;
-  },
-
-  async triggerFollowUpReminders(): Promise<{ notifiedCount: number }> {
-    const res = await apiClient.post<ApiResponse<{ notifiedCount: number }>>('/admin/follow-ups/trigger-reminders');
-    return res.data.data!;
   },
 
   async generateCohortRemedialIntervention(payload: {

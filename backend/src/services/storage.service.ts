@@ -42,6 +42,24 @@ export class StorageService {
     return { storedFileName, storagePath };
   }
 
+  saveDocumentFile(userId: string, file: Express.Multer.File): { storedFileName: string; storagePath: string; fileUrl: string } {
+    const docsDir = path.join(process.cwd(), 'uploads', 'documents', userId);
+    if (!fs.existsSync(docsDir)) {
+      fs.mkdirSync(docsDir, { recursive: true });
+    }
+    const storedFileName = this.generateStoredFileName(file.originalname);
+    const storagePath = path.join(docsDir, storedFileName);
+
+    if (file.path) {
+      fs.renameSync(file.path, storagePath);
+    } else if (file.buffer) {
+      fs.writeFileSync(storagePath, file.buffer);
+    }
+
+    const fileUrl = `/uploads/documents/${userId}/${storedFileName}`;
+    return { storedFileName, storagePath, fileUrl };
+  }
+
   deleteFile(storagePath: string): boolean {
     try {
       if (fs.existsSync(storagePath)) {

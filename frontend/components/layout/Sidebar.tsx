@@ -34,16 +34,11 @@ import { Badge } from '@/components/ui/Badge';
 
 export const studentWorkspaceItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Career Status', href: '/career-outcome', icon: Briefcase },
-  { name: 'Career Outcome', href: '/career-outcome', icon: Award },
-  { name: 'Placement Journey', href: '/placement-journey', icon: Compass },
-  { name: 'Documents', href: '/documents', icon: FileText },
-  { name: 'Salary & Growth', href: '/progress/growth', icon: TrendingUp },
+  { name: 'Career Status', href: '/career-status', icon: Briefcase },
   { name: 'Assessments', href: '/assessment', icon: Brain },
   { name: 'Skill Gap Analysis', href: '/skill-gap', icon: Target },
   { name: 'Training Feedback', href: '/training-feedback', icon: MessageSquare },
   { name: 'Achievements', href: '/achievements', icon: Sparkle },
-  { name: 'Opportunities', href: '/opportunities', icon: Zap },
   { name: 'Company Insights', href: '/company-insights', icon: Building },
   { name: 'Notifications', href: '/notifications', icon: Bell },
 ];
@@ -62,10 +57,6 @@ export const trainerWorkspaceItems = [
   { name: 'Cohorts', href: '/admin/cohorts', icon: Building2 },
   { name: 'Assessments', href: '/admin/assessments', icon: Brain },
   { name: 'Skill Gaps', href: '/admin/skill-gaps', icon: Target },
-  { name: 'Placement', href: '/admin/placement', icon: Briefcase },
-  { name: 'Career Outcomes', href: '/admin/career-outcomes', icon: Award },
-  { name: 'Documents', href: '/admin/documents', icon: FileText },
-  { name: 'Verification', href: '/admin/outcome-verification', icon: FileCheck },
   { name: 'Analytics', href: '/admin/analytics', icon: LineChart },
   { name: 'Opportunities', href: '/admin/opportunities', icon: Zap },
   { name: 'Feedback', href: '/admin/feedback', icon: MessageSquare },

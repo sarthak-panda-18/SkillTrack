@@ -21,20 +21,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} ${barlowCondensed.variable} font-sans bg-black text-white antialiased selection:bg-[#FFD400] selection:text-black`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${barlowCondensed.variable} font-sans bg-background text-foreground transition-colors duration-200 antialiased selection:bg-[#FFD400] selection:text-black`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <ReactQueryProvider>
             <AuthProvider>
               {children}
               <Toaster
                 position="top-right"
-                theme="dark"
                 toastOptions={{
                   style: {
-                    background: '#0A0A0A',
-                    border: '1px solid rgba(255, 212, 0, 0.3)',
-                    color: '#FFFFFF',
+                    background: 'var(--surface)',
+                    border: '1px solid rgba(255, 212, 0, 0.35)',
+                    color: 'var(--foreground)',
                   },
                 }}
                 closeButton

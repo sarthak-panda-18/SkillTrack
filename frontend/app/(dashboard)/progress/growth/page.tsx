@@ -38,9 +38,12 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import { SkillGrowthData } from '@/types/skillGrowth';
 
+import { useChartTheme } from '@/lib/hooks/useChartTheme';
+
 export default function SkillGrowthPage() {
   const [timeRange, setTimeRange] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
+  const chartTheme = useChartTheme();
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<SkillGrowthData>({
     queryKey: ['skill-growth', timeRange, categoryFilter],
@@ -455,15 +458,15 @@ export default function SkillGrowthPage() {
                               data={card.historyPoints}
                               margin={{ top: 5, right: 10, left: -25, bottom: 0 }}
                             >
-                              <CartesianGrid strokeDasharray="3 3" opacity={0.1} stroke="#ffffff" />
-                              <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#a1a1aa' }} />
-                              <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: '#a1a1aa' }} />
+                              <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
+                              <XAxis dataKey="date" tick={{ fontSize: 10, fill: chartTheme.secondaryTextColor }} />
+                              <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: chartTheme.secondaryTextColor }} />
                               <Tooltip
                                 contentStyle={{
-                                  backgroundColor: '#0A0A0A',
-                                  borderColor: 'rgba(255,255,255,0.1)',
+                                  backgroundColor: chartTheme.tooltipBg,
+                                  borderColor: chartTheme.tooltipBorder,
                                   borderRadius: '2px',
-                                  color: '#fff',
+                                  color: chartTheme.tooltipText,
                                   fontSize: '11px',
                                   fontFamily: 'monospace',
                                 }}
@@ -472,9 +475,9 @@ export default function SkillGrowthPage() {
                                 type="monotone"
                                 dataKey="proficiency"
                                 name="Proficiency %"
-                                stroke="#FFD400"
+                                stroke={chartTheme.primaryColor}
                                 strokeWidth={2.5}
-                                dot={{ r: 3.5, fill: '#FFD400' }}
+                                dot={{ r: 3.5, fill: chartTheme.primaryColor }}
                                 activeDot={{ r: 5 }}
                               />
                             </LineChart>

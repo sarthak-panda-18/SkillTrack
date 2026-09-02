@@ -114,7 +114,7 @@ export function NotificationCenter() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label={`Notifications, ${unreadCount} unread`}
-        className="relative p-2 rounded-sm text-zinc-300 hover:bg-[#171717] hover:text-[#FFD400] transition-colors focus:outline-none"
+        className="relative p-2 rounded-sm text-muted-foreground hover:bg-surface-hover hover:text-[#FFD400] transition-colors focus:outline-none cursor-pointer"
       >
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
@@ -132,16 +132,16 @@ export function NotificationCenter() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 w-80 sm:w-96 rounded-sm bg-[#0A0A0A] border border-white/15 shadow-2xl z-50 overflow-hidden text-white"
+            className="absolute right-0 mt-2 w-80 sm:w-96 rounded-sm bg-card border border-border shadow-2xl z-50 overflow-hidden text-card-foreground"
           >
             {/* Header */}
-            <div className="p-3.5 px-4 border-b border-white/10 flex items-center justify-between bg-[#111111]">
+            <div className="p-3.5 px-4 border-b border-border flex items-center justify-between bg-surface-secondary">
               <div className="flex items-center gap-2">
-                <span className="font-condensed font-black text-xs text-white uppercase tracking-wider">
+                <span className="font-condensed font-black text-xs text-foreground uppercase tracking-wider">
                   Notifications
                 </span>
                 {unreadCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-sm bg-[#FFD400]/20 border border-[#FFD400]/40 text-[#FFD400] font-mono font-bold text-[10px] uppercase">
+                  <span className="px-2 py-0.5 rounded-sm bg-[#FFD400]/20 border border-[#FFD400]/40 text-yellow-900 dark:text-[#FFD400] font-mono font-bold text-[10px] uppercase">
                     {unreadCount} new
                   </span>
                 )}
@@ -152,7 +152,7 @@ export function NotificationCenter() {
                   <button
                     onClick={() => markAllReadMutation.mutate()}
                     disabled={markAllReadMutation.isPending}
-                    className="text-[11px] font-bold text-[#FFD400] hover:underline flex items-center gap-1 font-mono uppercase"
+                    className="text-[11px] font-bold text-[#FFD400] dark:text-[#FFD400] text-yellow-800 hover:underline flex items-center gap-1 font-mono uppercase cursor-pointer"
                   >
                     <CheckCheck className="h-3.5 w-3.5" />
                     Mark all read
@@ -160,7 +160,7 @@ export function NotificationCenter() {
                 )}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-zinc-400 hover:text-white"
+                  className="text-muted-foreground hover:text-foreground cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -168,13 +168,13 @@ export function NotificationCenter() {
             </div>
 
             {/* Notification List */}
-            <div className="max-h-80 overflow-y-auto divide-y divide-white/5 scrollbar-thin">
+            <div className="max-h-80 overflow-y-auto divide-y divide-border scrollbar-thin">
               {isLoading ? (
-                <div className="p-8 text-center text-xs text-zinc-400 font-mono">Loading notifications...</div>
+                <div className="p-8 text-center text-xs text-muted-foreground font-mono">Loading notifications...</div>
               ) : notifications.length === 0 ? (
                 <div className="p-8 text-center space-y-2">
-                  <Bell className="h-7 w-7 text-zinc-600 mx-auto" />
-                  <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">No notifications yet</p>
+                  <Bell className="h-7 w-7 text-muted-foreground mx-auto" />
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">No notifications yet</p>
                 </div>
               ) : (
                 notifications.map((item) => (
@@ -182,17 +182,17 @@ export function NotificationCenter() {
                     key={item._id}
                     className={`p-3.5 transition-colors flex items-start gap-3 relative group ${
                       !item.read
-                        ? 'bg-[#FFD400]/5 border-l-2 border-[#FFD400]'
-                        : 'hover:bg-[#171717]'
+                        ? 'bg-[#FFD400]/10 border-l-4 border-[#FFD400]'
+                        : 'hover:bg-surface-hover'
                     }`}
                   >
                     {/* Unread Indicator Dot */}
                     {!item.read && (
-                      <span className="absolute top-4 left-2 h-1.5 w-1.5 rounded-full bg-[#FFD400]" />
+                      <span className="absolute top-4 left-1.5 h-2 w-2 rounded-full bg-[#FFD400]" />
                     )}
 
                     {/* Icon Container */}
-                    <div className="p-2 rounded-sm bg-[#171717] shrink-0 mt-0.5 border border-white/10">
+                    <div className="p-2 rounded-sm bg-surface-secondary shrink-0 mt-0.5 border border-border">
                       {getNotificationIcon(item.type)}
                     </div>
 
@@ -207,10 +207,10 @@ export function NotificationCenter() {
                           }}
                           className="block group-hover:text-[#FFD400]"
                         >
-                          <h4 className="text-xs font-bold text-white truncate uppercase font-condensed">
+                          <h4 className="text-xs font-bold text-foreground truncate uppercase font-condensed">
                             {item.title}
                           </h4>
-                          <p className="text-[11px] text-zinc-400 line-clamp-2 mt-0.5">
+                          <p className="text-[11px] text-muted-foreground line-clamp-2 mt-0.5">
                             {item.message}
                           </p>
                         </Link>
@@ -221,15 +221,15 @@ export function NotificationCenter() {
                           }}
                           className="cursor-pointer"
                         >
-                          <h4 className="text-xs font-bold text-white truncate uppercase font-condensed">
+                          <h4 className="text-xs font-bold text-foreground truncate uppercase font-condensed">
                             {item.title}
                           </h4>
-                          <p className="text-[11px] text-zinc-400 line-clamp-2 mt-0.5">
+                          <p className="text-[11px] text-muted-foreground line-clamp-2 mt-0.5">
                             {item.message}
                           </p>
                         </div>
                       )}
-                      <span className="text-[9px] font-mono text-zinc-500 mt-1 block">
+                      <span className="text-[9px] font-mono text-muted-foreground/70 mt-1 block">
                         {formatTimeAgo(item.createdAt)}
                       </span>
                     </div>
@@ -241,7 +241,7 @@ export function NotificationCenter() {
                         deleteMutation.mutate(item._id);
                       }}
                       title="Delete notification"
-                      className="opacity-0 group-hover:opacity-100 text-zinc-500 hover:text-rose-400 transition-opacity p-1"
+                      className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-rose-500 transition-opacity p-1 cursor-pointer"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>

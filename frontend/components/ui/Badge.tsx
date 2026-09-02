@@ -2,19 +2,20 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'secondary' | 'outline' | 'success' | 'warning' | 'purple' | 'rose' | 'blue';
+  variant?: 'default' | 'secondary' | 'outline' | 'success' | 'warning' | 'purple' | 'rose' | 'blue' | 'accent';
 }
 
 export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   const variants = {
-    default: 'bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
-    secondary: 'bg-[#171717] text-white border border-white/15 font-mono text-[11px] uppercase tracking-wider',
-    outline: 'border border-white/25 text-zinc-300 font-mono text-[11px] uppercase tracking-wider',
-    success: 'bg-emerald-950/50 text-emerald-400 border border-emerald-500/40 font-mono text-[11px] uppercase tracking-wider',
-    warning: 'bg-amber-950/50 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
-    purple: 'bg-[#FFD400]/15 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
-    rose: 'bg-rose-950/50 text-rose-400 border border-rose-500/40 font-mono text-[11px] uppercase tracking-wider',
-    blue: 'bg-zinc-900 text-white border border-zinc-700 font-mono text-[11px] uppercase tracking-wider',
+    default: 'bg-[#FFD400]/15 text-yellow-900 dark:text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider font-bold',
+    secondary: 'bg-surface-secondary text-foreground border border-border font-mono text-[11px] uppercase tracking-wider',
+    outline: 'border border-border text-muted-foreground font-mono text-[11px] uppercase tracking-wider',
+    success: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-mono text-[11px] uppercase tracking-wider font-semibold',
+    warning: 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/30 font-mono text-[11px] uppercase tracking-wider font-semibold',
+    purple: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/30 font-mono text-[11px] uppercase tracking-wider font-semibold',
+    rose: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/30 font-mono text-[11px] uppercase tracking-wider font-semibold',
+    blue: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/30 font-mono text-[11px] uppercase tracking-wider font-semibold',
+    accent: 'bg-[#FFD400] text-black font-extrabold font-mono text-[11px] uppercase tracking-wider',
   };
 
   return (

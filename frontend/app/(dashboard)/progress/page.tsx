@@ -35,9 +35,11 @@ import { Progress } from '@/components/ui/Progress';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import { CareerReadinessData } from '@/types/progress';
+import { useChartTheme } from '@/lib/hooks/useChartTheme';
 
 export default function ProgressPage() {
   const queryClient = useQueryClient();
+  const chartTheme = useChartTheme();
 
   const { data, isLoading, error } = useQuery<CareerReadinessData>({
     queryKey: ['career-readiness'],
@@ -364,15 +366,15 @@ export default function ProgressPage() {
                       <stop offset="95%" stopColor="#FFD400" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.1} stroke="#ffffff" />
-                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#a1a1aa' }} />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: '#a1a1aa' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
+                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: chartTheme.secondaryTextColor }} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: chartTheme.secondaryTextColor }} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#0A0A0A',
-                      borderColor: 'rgba(255,255,255,0.1)',
+                      backgroundColor: chartTheme.tooltipBg,
+                      borderColor: chartTheme.tooltipBorder,
                       borderRadius: '2px',
-                      color: '#fff',
+                      color: chartTheme.tooltipText,
                       fontSize: '12px',
                       fontFamily: 'monospace',
                     }}
@@ -381,7 +383,7 @@ export default function ProgressPage() {
                     type="monotone"
                     dataKey="score"
                     name="Readiness Index"
-                    stroke="#FFD400"
+                    stroke={chartTheme.primaryColor}
                     strokeWidth={3}
                     fillOpacity={1}
                     fill="url(#readinessGrad)"

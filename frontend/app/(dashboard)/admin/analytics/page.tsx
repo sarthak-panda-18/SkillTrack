@@ -25,9 +25,12 @@ import {
   Award,
 } from 'lucide-react';
 
+import { useChartTheme } from '@/lib/hooks/useChartTheme';
+
 export default function TrainerAnalyticsPage() {
   const [activeTab, setActiveTab] = useState<'COHORT' | 'COURSE' | 'PROVIDER' | 'DISTRICT' | 'DEMOGRAPHIC'>('COHORT');
   const [districtFilter, setDistrictFilter] = useState<string>('ALL');
+  const chartTheme = useChartTheme();
 
   const { data: stats, isLoading: statsLoading } = useQuery<TrainerStats>({
     queryKey: ['trainerAnalyticsStats'],
@@ -171,12 +174,12 @@ export default function TrainerAnalyticsPage() {
             <CardContent className="p-0 h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={cohortsData || []} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                  <XAxis dataKey="cohort" tick={{ fontSize: 12 }} />
-                  <YAxis allowDecimals={false} />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
+                  <XAxis dataKey="cohort" tick={{ fontSize: 12, fill: chartTheme.secondaryTextColor }} />
+                  <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: chartTheme.secondaryTextColor }} />
+                  <Tooltip contentStyle={{ backgroundColor: chartTheme.tooltipBg, borderColor: chartTheme.tooltipBorder, color: chartTheme.tooltipText, borderRadius: '2px' }} />
                   <Legend />
-                  <Bar dataKey="totalTrainees" name="Total Trainees" fill="#6366F1" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="totalTrainees" name="Total Trainees" fill="#FFD400" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

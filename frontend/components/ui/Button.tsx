@@ -12,12 +12,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-semibold tracking-wide transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD400] disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] duration-150';
 
     const variants = {
-      default: 'bg-[#FFD400] text-black font-bold uppercase hover:bg-[#FFE033] hover:shadow-[0_0_15px_rgba(255,212,0,0.4)] border border-[#FFD400]',
-      destructive: 'bg-red-950/80 text-red-300 border border-red-500/40 hover:bg-red-900/80 hover:text-white',
-      outline: 'border border-white/20 bg-black text-white hover:border-[#FFD400] hover:text-[#FFD400] font-bold uppercase tracking-wider',
-      secondary: 'bg-[#111111] border border-white/10 text-white hover:bg-[#171717] hover:border-white/20',
-      ghost: 'hover:bg-[#171717] text-zinc-300 hover:text-white',
-      link: 'text-[#FFD400] underline-offset-4 hover:underline p-0 h-auto',
+      default: 'bg-[#FFD400] text-black font-bold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(255,212,0,0.3)] border border-[#FFD400]',
+      destructive: 'bg-rose-500/10 text-rose-600 dark:text-rose-300 border border-rose-500/30 hover:bg-rose-500/20',
+      outline: 'border border-border bg-surface text-foreground hover:border-[#FFD400] hover:text-[#FFD400] font-bold uppercase tracking-wider',
+      secondary: 'bg-surface-secondary border border-border text-foreground hover:bg-surface-hover hover:border-border',
+      ghost: 'hover:bg-surface-hover text-muted-foreground hover:text-foreground',
+      link: 'text-[#FFD400] underline-offset-4 hover:underline p-0 h-auto font-bold',
     };
 
     const sizes = {

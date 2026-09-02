@@ -9,13 +9,13 @@ import Link from 'next/link';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-white/10 bg-[#0A0A0A] px-4 sm:px-8">
+    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-border bg-surface px-4 sm:px-8 transition-colors duration-200">
       <div className="flex md:hidden items-center gap-2">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-sm bg-[#FFD400] flex items-center justify-center text-black font-bold">
             <Zap className="h-4 w-4 fill-black text-black" />
           </div>
-          <span className="font-condensed font-black text-lg uppercase tracking-wider text-white">
+          <span className="font-condensed font-black text-lg uppercase tracking-wider text-foreground">
             SKILLTRACK <span className="text-[#FFD400]">AI</span>
           </span>
         </Link>

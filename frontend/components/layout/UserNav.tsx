@@ -34,11 +34,11 @@ export function UserNav() {
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild>
-        <button className="flex items-center gap-2.5 outline-none group rounded-sm p-1 hover:bg-[#171717] transition-colors">
+        <button className="flex items-center gap-2.5 outline-none group rounded-sm p-1 hover:bg-surface-hover transition-colors cursor-pointer">
           <Avatar className="h-8 w-8">
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
-          <span className="hidden sm:inline-block font-condensed font-bold text-xs uppercase tracking-wider text-white group-hover:text-[#FFD400]">
+          <span className="hidden sm:inline-block font-condensed font-bold text-xs uppercase tracking-wider text-foreground group-hover:text-[#FFD400]">
             {user.name}
           </span>
         </button>
@@ -47,19 +47,19 @@ export function UserNav() {
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
           align="end"
-          className="z-50 min-w-[200px] rounded-sm border border-white/15 bg-[#0A0A0A] p-1.5 shadow-2xl text-xs space-y-1 text-white"
+          className="z-50 min-w-[200px] rounded-sm border border-border bg-popover p-1.5 shadow-2xl text-xs space-y-1 text-popover-foreground"
         >
-          <div className="px-3 py-2 border-b border-white/10">
-            <p className="font-condensed font-bold text-sm uppercase text-white truncate">{user.name}</p>
-            <p className="text-zinc-400 text-xs font-mono truncate">{user.email}</p>
+          <div className="px-3 py-2 border-b border-border">
+            <p className="font-condensed font-bold text-sm uppercase text-foreground truncate">{user.name}</p>
+            <p className="text-muted-foreground text-xs font-mono truncate">{user.email}</p>
           </div>
 
           <DropdownMenuPrimitive.Item asChild>
             <Link
               href="/profile"
-              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-[#171717] hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-surface-hover hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider text-foreground"
             >
-              <UserIcon className="h-4 w-4 text-zinc-400" />
+              <UserIcon className="h-4 w-4 text-muted-foreground" />
               <span>Student Profile</span>
             </Link>
           </DropdownMenuPrimitive.Item>
@@ -67,17 +67,17 @@ export function UserNav() {
           <DropdownMenuPrimitive.Item asChild>
             <Link
               href="/settings"
-              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-[#171717] hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-surface-hover hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider text-foreground"
             >
-              <Settings className="h-4 w-4 text-zinc-400" />
+              <Settings className="h-4 w-4 text-muted-foreground" />
               <span>Account Settings</span>
             </Link>
           </DropdownMenuPrimitive.Item>
 
-          <div className="border-t border-white/10 pt-1">
+          <div className="border-t border-border pt-1">
             <DropdownMenuPrimitive.Item
               onClick={handleLogout}
-              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer text-rose-400 hover:bg-rose-950/50 outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer text-rose-500 hover:bg-rose-500/10 outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
             >
               <LogOut className="h-4 w-4" />
               <span>Sign Out</span>

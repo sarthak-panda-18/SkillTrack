@@ -47,6 +47,7 @@ import { Progress } from '@/components/ui/Progress';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import { AssessmentHistoryData, AssessmentAttemptHistoryItem } from '@/types/assessmentHistory';
+import { useChartTheme } from '@/lib/hooks/useChartTheme';
 
 export default function AssessmentHistoryPage() {
   const [search, setSearch] = useState('');
@@ -54,6 +55,7 @@ export default function AssessmentHistoryPage() {
   const [sort, setSort] = useState<string>('latest');
   const [page, setPage] = useState<number>(1);
   const [selectedAttempt, setSelectedAttempt] = useState<AssessmentAttemptHistoryItem | null>(null);
+  const chartTheme = useChartTheme();
 
   const { data, isLoading, error, refetch, isFetching } = useQuery<AssessmentHistoryData>({
     queryKey: ['assessmentHistory', search, timeRange, sort, page],
@@ -346,27 +348,28 @@ export default function AssessmentHistoryPage() {
                     <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                       <defs>
                         <linearGradient id="scoreGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#9333ea" stopOpacity={0.4} />
-                          <stop offset="95%" stopColor="#9333ea" stopOpacity={0} />
+                          <stop offset="5%" stopColor="#FFD400" stopOpacity={0.4} />
+                          <stop offset="95%" stopColor="#FFD400" stopOpacity={0} />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                      <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-                      <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} />
+                      <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
+                      <XAxis dataKey="date" tick={{ fontSize: 11, fill: chartTheme.secondaryTextColor }} />
+                      <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: chartTheme.secondaryTextColor }} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: '#18181b',
-                          borderColor: '#27272a',
-                          borderRadius: '12px',
-                          color: '#fff',
+                          backgroundColor: chartTheme.tooltipBg,
+                          borderColor: chartTheme.tooltipBorder,
+                          borderRadius: '2px',
+                          color: chartTheme.tooltipText,
                           fontSize: '12px',
+                          fontFamily: 'monospace',
                         }}
                       />
                       <Area
                         type="monotone"
                         dataKey="score"
                         name="Score %"
-                        stroke="#9333ea"
+                        stroke={chartTheme.primaryColor}
                         strokeWidth={3}
                         fillOpacity={1}
                         fill="url(#scoreGrad)"

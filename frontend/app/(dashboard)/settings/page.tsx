@@ -130,14 +130,14 @@ export default function SettingsPage() {
   return (
     <PageWrapper className="space-y-6 max-w-4xl">
       <div>
-        <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">ACCOUNT SETTINGS</h1>
-        <p className="text-sm text-zinc-400 mt-1 font-sans">
+        <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground">ACCOUNT SETTINGS</h1>
+        <p className="text-sm text-muted-foreground mt-1 font-sans">
           Manage your personal details, theme preferences, security, and notifications.
         </p>
       </div>
 
       <Tabs defaultValue="account" className="w-full">
-        <TabsList className="w-full justify-start overflow-x-auto bg-[#0A0A0A] border border-white/10 p-1 rounded-sm">
+        <TabsList className="w-full justify-start overflow-x-auto bg-surface-secondary border border-border p-1 rounded-sm">
           <TabsTrigger value="account" className="gap-2 text-xs font-mono font-bold uppercase data-[state=active]:bg-[#FFD400] data-[state=active]:text-black">
             <UserIcon className="h-3.5 w-3.5" />
             Account
@@ -154,7 +154,7 @@ export default function SettingsPage() {
             <Lock className="h-3.5 w-3.5" />
             Security
           </TabsTrigger>
-          <TabsTrigger value="danger" className="gap-2 text-xs font-mono font-bold uppercase text-rose-400 data-[state=active]:bg-rose-600 data-[state=active]:text-white">
+          <TabsTrigger value="danger" className="gap-2 text-xs font-mono font-bold uppercase text-rose-500 data-[state=active]:bg-rose-600 data-[state=active]:text-white">
             <Trash2 className="h-3.5 w-3.5" />
             Danger Zone
           </TabsTrigger>
@@ -162,17 +162,17 @@ export default function SettingsPage() {
 
         {/* Account Tab */}
         <TabsContent value="account">
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
-              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">PERSONAL INFORMATION</CardTitle>
-              <CardDescription className="text-xs text-zinc-400 font-sans">View your registered student account information.</CardDescription>
+          <Card className="bg-card border-border text-card-foreground rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-border mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-foreground">PERSONAL INFORMATION</CardTitle>
+              <CardDescription className="text-xs text-muted-foreground font-sans">View your registered student account information.</CardDescription>
             </CardHeader>
             <CardContent className="p-6 space-y-4 font-sans">
-              <Input label="Full Name" value={user?.name || ''} readOnly className="bg-black border-white/15 text-white" />
-              <Input label="Email Address" value={user?.email || ''} readOnly className="bg-black border-white/15 text-white" />
+              <Input label="Full Name" value={user?.name || ''} readOnly className="bg-surface border-border text-foreground" />
+              <Input label="Email Address" value={user?.email || ''} readOnly className="bg-surface border-border text-foreground" />
               <div className="grid grid-cols-2 gap-4">
-                <Input label="College" value={user?.college || ''} readOnly className="bg-black border-white/15 text-white" />
-                <Input label="Graduation Year" value={user?.graduationYear || ''} readOnly className="bg-black border-white/15 text-white" />
+                <Input label="College" value={user?.college || ''} readOnly className="bg-surface border-border text-foreground" />
+                <Input label="Graduation Year" value={user?.graduationYear || ''} readOnly className="bg-surface border-border text-foreground" />
               </div>
             </CardContent>
           </Card>
@@ -180,10 +180,10 @@ export default function SettingsPage() {
 
         {/* Appearance Tab */}
         <TabsContent value="appearance">
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
-              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">THEME PREFERENCE</CardTitle>
-              <CardDescription className="text-xs text-zinc-400 font-sans">Choose how SkillTrack AI looks on your screen.</CardDescription>
+          <Card className="bg-card border-border text-card-foreground rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-border mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-foreground">THEME PREFERENCE</CardTitle>
+              <CardDescription className="text-xs text-muted-foreground font-sans">Choose how SkillTrack AI looks on your screen.</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -200,11 +200,11 @@ export default function SettingsPage() {
                       onClick={() => setTheme(item.key)}
                       className={`p-5 rounded-sm border flex flex-col items-center gap-3 transition-all font-mono text-xs uppercase cursor-pointer ${
                         isSelected
-                          ? 'border-[#FFD400] bg-[#FFD400]/10 text-[#FFD400] font-bold'
-                          : 'border-white/10 bg-[#111111] hover:border-white/20 text-zinc-400'
+                          ? 'border-[#FFD400] bg-[#FFD400]/15 text-foreground font-bold shadow-md'
+                          : 'border-border bg-surface-secondary hover:border-border-hover text-muted-foreground hover:text-foreground'
                       }`}
                     >
-                      <Icon className="h-6 w-6" />
+                      <Icon className={`h-6 w-6 ${isSelected ? 'text-[#FFD400]' : ''}`} />
                       <span>{item.label}</span>
                     </button>
                   );

@@ -76,14 +76,14 @@ export function Sidebar() {
   const isAdmin = user?.role === 'ADMIN' || user?.role === 'TRAINER';
 
   return (
-    <aside className="hidden md:flex flex-col w-64 border-r border-white/10 bg-[#000000] min-h-screen sticky top-0 z-20 select-none">
+    <aside className="hidden md:flex flex-col w-64 border-r border-border bg-background min-h-screen sticky top-0 z-20 select-none transition-colors duration-200">
       {/* Sidebar Header */}
-      <div className="flex h-16 items-center justify-between px-6 border-b border-white/10 bg-[#0A0A0A]">
+      <div className="flex h-16 items-center justify-between px-6 border-b border-border bg-surface">
         <Link href={isAdmin ? '/admin' : '/dashboard'} className="flex items-center gap-2.5">
           <div className="h-8 w-8 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
             <Zap className="h-4 w-4 fill-black text-black" />
           </div>
-          <span className="font-condensed font-black text-xl uppercase tracking-wider text-white">
+          <span className="font-condensed font-black text-xl uppercase tracking-wider text-foreground">
             SKILLTRACK <span className="text-[#FFD400]">AI</span>
           </span>
         </Link>
@@ -119,14 +119,14 @@ export function Sidebar() {
                     className={cn(
                       'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
-                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
                     <Icon
                       className={cn(
                         'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
-                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
+                        isActive ? 'text-[#FFD400]' : 'text-muted-foreground group-hover:text-foreground'
                       )}
                     />
                     <span>{item.name}</span>
@@ -135,8 +135,8 @@ export function Sidebar() {
               })}
             </div>
 
-            <div className="pt-4 border-t border-white/10 space-y-1">
-              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500 px-3 mb-2">
+            <div className="pt-4 border-t border-border space-y-1">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-foreground px-3 mb-2">
                 ACCOUNT
               </div>
               {trainerAccountItems.map((item) => {
@@ -149,14 +149,14 @@ export function Sidebar() {
                     className={cn(
                       'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
-                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
                     <Icon
                       className={cn(
                         'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
-                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
+                        isActive ? 'text-[#FFD400]' : 'text-muted-foreground group-hover:text-foreground'
                       )}
                     />
                     <span>{item.name}</span>
@@ -184,14 +184,14 @@ export function Sidebar() {
                     className={cn(
                       'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
-                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
                     <Icon
                       className={cn(
                         'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
-                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
+                        isActive ? 'text-[#FFD400]' : 'text-muted-foreground group-hover:text-foreground'
                       )}
                     />
                     <span>{item.name}</span>
@@ -200,8 +200,8 @@ export function Sidebar() {
               })}
             </div>
 
-            <div className="pt-4 border-t border-white/10 space-y-1">
-              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500 px-3 mb-2">
+            <div className="pt-4 border-t border-border space-y-1">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-foreground px-3 mb-2">
                 ACCOUNT
               </div>
               {studentAccountItems.map((item) => {
@@ -214,14 +214,14 @@ export function Sidebar() {
                     className={cn(
                       'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
-                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
                     <Icon
                       className={cn(
                         'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
-                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
+                        isActive ? 'text-[#FFD400]' : 'text-muted-foreground group-hover:text-foreground'
                       )}
                     />
                     <span>{item.name}</span>

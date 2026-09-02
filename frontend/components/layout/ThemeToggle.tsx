@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Moon, Sun, Laptop } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/Button';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -14,31 +13,38 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="h-9 w-9 rounded-lg border border-zinc-200 dark:border-zinc-800" />;
+    return <div className="h-8 w-28 rounded-sm border border-border bg-surface-secondary" />;
   }
 
-  const cycleTheme = () => {
-    if (theme === 'dark') setTheme('light');
-    else if (theme === 'light') setTheme('system');
-    else setTheme('dark');
-  };
+  const options = [
+    { key: 'light', icon: Sun, label: 'LIGHT' },
+    { key: 'system', icon: Laptop, label: 'SYSTEM' },
+    { key: 'dark', icon: Moon, label: 'DARK' },
+  ];
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={cycleTheme}
-      title={`Current theme: ${theme}. Click to change.`}
-      className="h-9 w-9 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
-    >
-      {theme === 'dark' ? (
-        <Moon className="h-4 w-4 text-indigo-400" />
-      ) : theme === 'light' ? (
-        <Sun className="h-4 w-4 text-amber-500" />
-      ) : (
-        <Laptop className="h-4 w-4 text-zinc-500" />
-      )}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <div className="inline-flex items-center p-0.5 rounded-sm bg-surface-secondary border border-border font-mono text-[10px] select-none">
+      {options.map((opt) => {
+        const Icon = opt.icon;
+        const isActive = theme === opt.key;
+        return (
+          <button
+            key={opt.key}
+            type="button"
+            onClick={() => setTheme(opt.key)}
+            title={`Switch to ${opt.label} theme`}
+            className={`flex items-center gap-1 px-2 py-1 rounded-xs font-bold uppercase transition-all duration-150 cursor-pointer ${
+              isActive
+                ? 'bg-[#FFD400] text-black shadow-xs'
+                : 'text-muted-foreground hover:text-foreground hover:bg-surface-hover'
+            }`}
+          >
+            <Icon className="h-3 w-3" />
+            <span className="hidden lg:inline">{opt.label}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }
+

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   ResponsiveContainer,
   LineChart,
@@ -26,9 +25,6 @@ import {
   Brain,
   Award,
   Layers,
-  Calendar,
-  Zap,
-  ArrowRight,
   Code,
   BarChart3,
   History,
@@ -66,21 +62,21 @@ export default function SkillGrowthPage() {
   const getTrendBadge = (trend: string, growthPoints: number) => {
     if (trend === 'IMPROVING' || growthPoints > 0) {
       return (
-        <Badge variant="success" className="text-[10px] font-extrabold gap-1">
-          <TrendingUp className="h-3 w-3 text-emerald-600" /> 📈 Improving
+        <Badge variant="default" className="text-[10px] font-mono font-extrabold uppercase gap-1 bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
+          <TrendingUp className="h-3 w-3 text-[#FFD400]" /> 📈 Improving
         </Badge>
       );
     }
     if (trend === 'DECLINING' || growthPoints < 0) {
       return (
-        <Badge variant="rose" className="text-[10px] font-extrabold gap-1">
-          <TrendingDown className="h-3 w-3 text-rose-600" /> 📉 Declining
+        <Badge variant="default" className="text-[10px] font-mono font-extrabold uppercase gap-1 bg-rose-950 text-rose-300 border-rose-500/40">
+          <TrendingDown className="h-3 w-3 text-rose-400" /> 📉 Declining
         </Badge>
       );
     }
     return (
-      <Badge variant="secondary" className="text-[10px] font-extrabold gap-1">
-        <Minus className="h-3 w-3 text-zinc-500" /> ➖ Stable
+      <Badge variant="default" className="text-[10px] font-mono font-extrabold uppercase gap-1 bg-zinc-800 text-zinc-300">
+        <Minus className="h-3 w-3 text-zinc-400" /> ➖ Stable
       </Badge>
     );
   };
@@ -88,44 +84,44 @@ export default function SkillGrowthPage() {
   const getSourceBadge = (source: string) => {
     switch (source) {
       case 'ASSESSMENT':
-        return <Badge variant="purple" className="text-[9px] uppercase font-black">Assessment</Badge>;
+        return <Badge variant="default" className="text-[9px] font-mono uppercase font-bold bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">Assessment</Badge>;
       case 'PROFILE':
-        return <Badge variant="default" className="text-[9px] uppercase font-black">Profile</Badge>;
+        return <Badge variant="default" className="text-[9px] font-mono uppercase font-bold bg-zinc-800 text-white">Profile</Badge>;
       case 'ADMIN':
-        return <Badge variant="warning" className="text-[9px] uppercase font-black">Verified Admin</Badge>;
+        return <Badge variant="default" className="text-[9px] font-mono uppercase font-bold bg-amber-950 text-amber-300 border-amber-500/40">Verified Admin</Badge>;
       case 'LEARNING':
-        return <Badge variant="success" className="text-[9px] uppercase font-black">Learning</Badge>;
+        return <Badge variant="default" className="text-[9px] font-mono uppercase font-bold bg-emerald-950 text-emerald-300 border-emerald-500/40">Learning</Badge>;
       default:
-        return <Badge variant="secondary" className="text-[9px] uppercase font-black">System Baseline</Badge>;
+        return <Badge variant="default" className="text-[9px] font-mono uppercase font-bold bg-zinc-800 text-zinc-400">System Baseline</Badge>;
     }
   };
 
   return (
     <PageWrapper className="max-w-6xl mx-auto space-y-8 pb-16">
       {/* Navigation Tabs Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-mono">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2.5">
-            <TrendingUp className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase flex items-center gap-2.5">
+            <TrendingUp className="h-7 w-7 text-[#FFD400]" />
             SKILL GROWTH
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
             See how your technical skills have improved over time.
           </p>
         </div>
 
         {/* Top Tab Bar Links */}
-        <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-850 p-1 rounded-xl shrink-0">
+        <div className="flex items-center gap-2 bg-[#0A0A0A] border border-white/10 p-1 rounded-sm shrink-0">
           <Link href="/progress">
-            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all">
+            <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase text-zinc-400 hover:text-white transition-all cursor-pointer">
               Career Readiness
             </button>
           </Link>
-          <button className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs">
+          <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase bg-[#FFD400] text-black">
             Skill Growth
           </button>
           <Link href="/progress/timeline">
-            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all">
+            <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase text-zinc-400 hover:text-white transition-all cursor-pointer">
               Timeline
             </button>
           </Link>
@@ -133,7 +129,7 @@ export default function SkillGrowthPage() {
       </div>
 
       {/* REFRESH & FILTER BAR */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-sm bg-[#0A0A0A] border border-white/10 font-mono">
         {/* Time Range Selector */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           <Clock className="h-4 w-4 text-zinc-400 shrink-0 mr-1" />
@@ -141,10 +137,10 @@ export default function SkillGrowthPage() {
             <button
               key={opt.value}
               onClick={() => setTimeRange(opt.value)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
                 timeRange === opt.value
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                  ? 'bg-[#FFD400] text-black font-extrabold'
+                  : 'bg-[#111111] border border-white/10 text-zinc-400 hover:text-white'
               }`}
             >
               {opt.label}
@@ -159,7 +155,7 @@ export default function SkillGrowthPage() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-800 dark:text-zinc-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="bg-black border border-white/15 text-xs font-mono font-bold text-white rounded-sm px-2.5 py-1.5 focus:outline-none focus:border-[#FFD400]"
             >
               {categoriesList.map((cat) => (
                 <option key={cat} value={cat}>
@@ -174,7 +170,7 @@ export default function SkillGrowthPage() {
             size="sm"
             onClick={() => refetch()}
             disabled={isFetching}
-            className="gap-2 text-xs h-8"
+            className="gap-2 text-xs h-8 border-white/20 text-white uppercase"
           >
             <RotateCw className={`h-3.5 w-3.5 ${isFetching ? 'animate-spin' : ''}`} />
             Refresh
@@ -186,29 +182,29 @@ export default function SkillGrowthPage() {
       {isLoading && (
         <div className="space-y-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Skeleton className="h-24 rounded-2xl" />
-            <Skeleton className="h-24 rounded-2xl" />
-            <Skeleton className="h-24 rounded-2xl" />
-            <Skeleton className="h-24 rounded-2xl" />
+            <Skeleton className="h-24 rounded-sm bg-[#0A0A0A]" />
+            <Skeleton className="h-24 rounded-sm bg-[#0A0A0A]" />
+            <Skeleton className="h-24 rounded-sm bg-[#0A0A0A]" />
+            <Skeleton className="h-24 rounded-sm bg-[#0A0A0A]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Skeleton className="h-64 rounded-2xl" />
-            <Skeleton className="h-64 rounded-2xl" />
+            <Skeleton className="h-64 rounded-sm bg-[#0A0A0A]" />
+            <Skeleton className="h-64 rounded-sm bg-[#0A0A0A]" />
           </div>
         </div>
       )}
 
       {/* ERROR STATE */}
       {error && !isLoading && (
-        <Card className="border-rose-200 bg-rose-50/50 dark:bg-rose-950/20 text-center p-8 rounded-3xl space-y-4 max-w-md mx-auto">
-          <div className="h-12 w-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto">
-            <AlertCircle className="h-6 w-6" />
+        <Card className="bg-[#0A0A0A] border-rose-500/40 text-white text-center p-8 rounded-sm space-y-4 max-w-md mx-auto font-mono">
+          <div className="h-12 w-12 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
+            <AlertCircle className="h-6 w-6 text-rose-400" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">Unable to load skill growth data.</h3>
-            <p className="text-xs text-zinc-500 mt-1">Please check your connection and try again.</p>
+            <h3 className="font-condensed text-xl font-bold uppercase text-white">Unable to load skill growth data.</h3>
+            <p className="text-xs text-zinc-400 mt-1 font-sans">Please check your connection and try again.</p>
           </div>
-          <Button onClick={() => refetch()} className="bg-rose-600 text-white font-bold text-xs mx-auto">
+          <Button onClick={() => refetch()} className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase mx-auto">
             Retry
           </Button>
         </Card>
@@ -216,27 +212,27 @@ export default function SkillGrowthPage() {
 
       {/* EMPTY STATE */}
       {data && data.summary.totalSkills === 0 && !isLoading && !error && (
-        <Card className="border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-center p-12 rounded-3xl space-y-4 max-w-lg mx-auto shadow-xs">
-          <div className="h-16 w-16 rounded-3xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto border border-indigo-100 dark:border-indigo-900/50">
-            <BarChart3 className="h-8 w-8" />
+        <Card className="bg-[#0A0A0A] border-white/10 text-white text-center p-12 rounded-sm space-y-4 max-w-lg mx-auto font-mono">
+          <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+            <BarChart3 className="h-8 w-8 text-[#FFD400]" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-lg font-black text-zinc-900 dark:text-zinc-100 tracking-tight">
+            <h2 className="font-condensed text-2xl font-black text-white uppercase tracking-tight">
               NO SKILL HISTORY YET
             </h2>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+            <p className="text-xs text-zinc-400 max-w-sm mx-auto font-sans">
               Complete assessments or update your skills to start tracking your growth over time.
             </p>
           </div>
-          <div className="flex justify-center gap-3 pt-2">
+          <div className="flex justify-center gap-3 pt-2 font-mono">
             <Link href="/assessment">
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs gap-2 rounded-xl">
-                <Brain className="h-4 w-4" />
+              <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
+                <Brain className="h-4 w-4 text-black" />
                 Take Assessment
               </Button>
             </Link>
             <Link href="/profile">
-              <Button variant="outline" className="font-bold text-xs gap-2 rounded-xl">
+              <Button variant="outline" className="font-bold text-xs uppercase gap-2 border-white/20 text-white">
                 Add Skills to Profile
               </Button>
             </Link>
@@ -248,67 +244,67 @@ export default function SkillGrowthPage() {
       {data && data.summary.totalSkills > 0 && !isLoading && (
         <div className="space-y-8">
           {/* METRIC SUMMARY CARDS */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
-              <div className="text-2xl font-black text-zinc-900 dark:text-zinc-100">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
+            <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
+              <div className="font-condensed text-3xl font-black text-white">
                 {data.summary.totalSkills}
               </div>
-              <div className="text-xs font-semibold text-zinc-500">Total Skills</div>
+              <div className="text-xs font-bold text-zinc-400 uppercase">Total Skills</div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-emerald-200/80 dark:border-emerald-950/60 shadow-xs text-center space-y-1">
-              <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-1">
-                <TrendingUp className="h-5 w-5" />
+            <div className="p-4 rounded-sm bg-[#0A0A0A] border border-[#FFD400]/40 text-center space-y-1">
+              <div className="font-condensed text-3xl font-black text-[#FFD400] flex items-center justify-center gap-1">
+                <TrendingUp className="h-5 w-5 text-[#FFD400]" />
                 {data.summary.improvingCount}
               </div>
-              <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">Improving</div>
+              <div className="text-xs font-bold text-[#FFD400] uppercase">Improving</div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
-              <div className="text-2xl font-black text-zinc-600 dark:text-zinc-400 flex items-center justify-center gap-1">
-                <Minus className="h-5 w-5" />
+            <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
+              <div className="font-condensed text-3xl font-black text-zinc-400 flex items-center justify-center gap-1">
+                <Minus className="h-5 w-5 text-zinc-400" />
                 {data.summary.stableCount}
               </div>
-              <div className="text-xs font-semibold text-zinc-500">Stable</div>
+              <div className="text-xs font-bold text-zinc-400 uppercase">Stable</div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-rose-200/80 dark:border-rose-950/60 shadow-xs text-center space-y-1">
-              <div className="text-2xl font-black text-rose-600 dark:text-rose-400 flex items-center justify-center gap-1">
-                <TrendingDown className="h-5 w-5" />
+            <div className="p-4 rounded-sm bg-[#0A0A0A] border border-rose-500/40 text-center space-y-1">
+              <div className="font-condensed text-3xl font-black text-rose-400 flex items-center justify-center gap-1">
+                <TrendingDown className="h-5 w-5 text-rose-400" />
                 {data.summary.decliningCount}
               </div>
-              <div className="text-xs font-semibold text-rose-700 dark:text-rose-400">Declining</div>
+              <div className="text-xs font-bold text-rose-400 uppercase">Declining</div>
             </div>
           </div>
 
           {/* HIGHLIGHTS GRID: MOST IMPROVED vs HIGHEST CURRENT */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
             {/* Most Improved Skill */}
-            <Card className="border-emerald-200/80 dark:border-emerald-950/60 bg-gradient-to-br from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-zinc-900 dark:to-zinc-900 shadow-xs rounded-2xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-emerald-600" />
+            <Card className="bg-[#0A0A0A] border border-[#FFD400]/40 text-white rounded-sm">
+              <CardHeader className="p-6 pb-2 border-b border-white/10">
+                <CardTitle className="font-condensed text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-[#FFD400]" />
                   MOST IMPROVED SKILL
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 space-y-3">
+              <CardContent className="p-6 pt-3 space-y-3 font-sans">
                 {data.highlights.mostImproved ? (
                   <div>
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
+                      <h3 className="font-condensed font-bold text-2xl text-white uppercase">
                         {data.highlights.mostImproved.skillName}
                       </h3>
-                      <Badge variant="success" className="font-mono font-black text-xs">
+                      <Badge variant="default" className="font-mono font-extrabold text-xs bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400]">
                         +{data.highlights.mostImproved.growthPoints} pts
                       </Badge>
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                    <p className="text-xs text-zinc-400 mt-1 font-mono">
                       Started at {data.highlights.mostImproved.initialProficiency}% → Currently at{' '}
-                      <span className="font-bold text-emerald-600">{data.highlights.mostImproved.currentProficiency}%</span>
+                      <span className="font-bold text-[#FFD400]">{data.highlights.mostImproved.currentProficiency}%</span>
                     </p>
                   </div>
                 ) : (
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-zinc-400 font-mono">
                     No skills have recorded proficiency gains in this time period yet.
                   </p>
                 )}
@@ -316,30 +312,30 @@ export default function SkillGrowthPage() {
             </Card>
 
             {/* Highest Current Skill */}
-            <Card className="border-indigo-200/80 dark:border-indigo-950/60 bg-gradient-to-br from-indigo-50/40 via-white to-white dark:from-indigo-950/20 dark:via-zinc-900 dark:to-zinc-900 shadow-xs rounded-2xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 flex items-center gap-2">
-                  <Award className="h-4 w-4 text-indigo-600" />
+            <Card className="bg-[#0A0A0A] border border-white/10 text-white rounded-sm">
+              <CardHeader className="p-6 pb-2 border-b border-white/10">
+                <CardTitle className="font-condensed text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+                  <Award className="h-5 w-5 text-[#FFD400]" />
                   HIGHEST CURRENT SKILL
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 space-y-3">
+              <CardContent className="p-6 pt-3 space-y-3 font-sans">
                 {data.highlights.highestCurrent ? (
                   <div>
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
+                      <h3 className="font-condensed font-bold text-2xl text-white uppercase">
                         {data.highlights.highestCurrent.skillName}
                       </h3>
-                      <Badge variant="purple" className="font-mono font-black text-xs">
+                      <Badge variant="default" className="font-mono font-extrabold text-xs bg-zinc-800 text-white">
                         {data.highlights.highestCurrent.currentProficiency}%
                       </Badge>
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                      Category: <span className="font-semibold text-zinc-700 dark:text-zinc-300">{data.highlights.highestCurrent.category}</span>
+                    <p className="text-xs text-zinc-400 mt-1 font-mono">
+                      Category: <span className="font-bold text-white">{data.highlights.highestCurrent.category}</span>
                     </p>
                   </div>
                 ) : (
-                  <p className="text-xs text-zinc-500">No active skills recorded yet.</p>
+                  <p className="text-xs text-zinc-400 font-mono">No active skills recorded yet.</p>
                 )}
               </CardContent>
             </Card>
@@ -347,29 +343,29 @@ export default function SkillGrowthPage() {
 
           {/* TARGET CAREER ROLE GAP ANALYSIS */}
           {data.careerRoleInfo && data.careerTargetGaps.length > 0 && (
-            <Card className="border-amber-200/80 dark:border-amber-950/60 bg-amber-50/20 dark:bg-amber-950/10 shadow-xs rounded-2xl">
-              <CardHeader className="pb-3 border-b border-amber-100 dark:border-amber-900/40">
-                <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-2">
-                  <Target className="h-4 w-4 text-amber-600" />
-                  Target Career Role Requirements ({data.careerRoleInfo.roleName})
+            <Card className="bg-[#0A0A0A] border border-[#FFD400]/40 text-white rounded-sm font-mono">
+              <CardHeader className="p-6 pb-3 border-b border-white/10">
+                <CardTitle className="font-condensed text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+                  <Target className="h-5 w-5 text-[#FFD400]" />
+                  TARGET CAREER ROLE REQUIREMENTS ({data.careerRoleInfo.roleName})
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {data.careerTargetGaps.map((gap) => (
                   <div
                     key={gap.skillId}
-                    className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-amber-200/60 dark:border-amber-900/40 shadow-2xs space-y-1.5"
+                    className="p-3 rounded-sm bg-[#111111] border border-white/10 space-y-1.5"
                   >
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="font-bold text-zinc-900 dark:text-zinc-100">{gap.skillName}</span>
+                    <div className="flex justify-between items-center text-xs font-mono">
+                      <span className="font-bold text-white">{gap.skillName}</span>
                       {gap.status === 'TARGET_REACHED' ? (
-                        <Badge variant="success" className="text-[10px]">Target Reached</Badge>
+                        <Badge variant="default" className="text-[10px] bg-[#FFD400]/20 text-[#FFD400]">Target Reached</Badge>
                       ) : (
-                        <Badge variant="rose" className="text-[10px]">Gap: {gap.gapPoints} pts</Badge>
+                        <Badge variant="default" className="text-[10px] bg-rose-950 text-rose-300">Gap: {gap.gapPoints} pts</Badge>
                       )}
                     </div>
-                    <Progress value={gap.currentProficiency} className="h-1.5" />
-                    <div className="flex justify-between items-center text-[10px] text-zinc-400 font-medium">
+                    <Progress value={gap.currentProficiency} className="h-1.5 bg-zinc-800" />
+                    <div className="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
                       <span>Current: {gap.currentProficiency}%</span>
                       <span>Target: {gap.targetProficiency}%</span>
                     </div>
@@ -380,167 +376,158 @@ export default function SkillGrowthPage() {
           )}
 
           {/* SKILL CARDS WITH RECHARTS PROGRESSION LINES */}
-          <div className="space-y-4">
-            <h2 className="text-sm font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-wider flex items-center gap-2">
-              <Code className="h-4 w-4 text-indigo-600" />
-              Technical Skill Growth Progression Cards ({data.skillCards.length})
+          <div className="space-y-4 font-mono">
+            <h2 className="font-condensed text-2xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+              <Code className="h-5 w-5 text-[#FFD400]" />
+              TECHNICAL SKILL GROWTH PROGRESSION CARDS ({data.skillCards.length})
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <AnimatePresence mode="popLayout">
-                {data.skillCards.map((card) => {
-                  const trendBadge = getTrendBadge(card.trend, card.growthPoints);
-                  const growthLabel =
-                    card.growthPoints > 0
-                      ? `+${card.growthPoints} pts`
-                      : card.growthPoints < 0
-                      ? `${card.growthPoints} pts`
-                      : `0 pts`;
+              {data.skillCards.map((card) => {
+                const trendBadge = getTrendBadge(card.trend, card.growthPoints);
+                const growthLabel =
+                  card.growthPoints > 0
+                    ? `+${card.growthPoints} pts`
+                    : card.growthPoints < 0
+                    ? `${card.growthPoints} pts`
+                    : `0 pts`;
 
-                  return (
-                    <motion.div
-                      key={card.skillId}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Card className="border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs hover:shadow-md transition-all rounded-2xl overflow-hidden flex flex-col justify-between">
-                        <CardHeader className="pb-3 space-y-2">
-                          <div className="flex items-center justify-between flex-wrap gap-2">
-                            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold border uppercase tracking-wider bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700">
-                              {card.category}
-                            </span>
-                            {trendBadge}
+                return (
+                  <Card key={card.skillId} className="bg-[#0A0A0A] border-white/10 text-white rounded-sm flex flex-col justify-between">
+                    <CardHeader className="p-5 pb-3 space-y-2 font-mono">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <span className="px-2.5 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-[#111111] text-zinc-300 border border-white/10">
+                          {card.category}
+                        </span>
+                        {trendBadge}
+                      </div>
+
+                      <div className="flex items-baseline justify-between">
+                        <h3 className="font-condensed font-bold text-2xl text-white uppercase">
+                          {card.skillName}
+                        </h3>
+                        <div className="text-right font-mono">
+                          <span className="font-condensed text-2xl font-black text-[#FFD400]">
+                            {card.currentProficiency}%
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Numeric Started / Current / Growth */}
+                      <div className="grid grid-cols-3 gap-2 p-2.5 rounded-sm bg-[#111111] border border-white/10 text-center font-mono">
+                        <div>
+                          <div className="text-[10px] text-zinc-400 font-bold uppercase">Started</div>
+                          <div className="text-xs font-bold text-white">
+                            {card.initialProficiency}%
                           </div>
+                        </div>
 
-                          <div className="flex items-baseline justify-between">
-                            <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
-                              {card.skillName}
-                            </h3>
-                            <div className="text-right font-mono">
-                              <span className="text-lg font-black text-indigo-600 dark:text-indigo-400">
-                                {card.currentProficiency}%
-                              </span>
-                            </div>
+                        <div>
+                          <div className="text-[10px] text-zinc-400 font-bold uppercase">Current</div>
+                          <div className="text-xs font-extrabold text-[#FFD400]">
+                            {card.currentProficiency}%
                           </div>
+                        </div>
 
-                          {/* Numeric Started / Current / Growth */}
-                          <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-850 text-center border border-zinc-100 dark:border-zinc-800">
-                            <div>
-                              <div className="text-[10px] text-zinc-400 font-medium">Started</div>
-                              <div className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                                {card.initialProficiency}%
-                              </div>
-                            </div>
-
-                            <div>
-                              <div className="text-[10px] text-zinc-400 font-medium">Current</div>
-                              <div className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">
-                                {card.currentProficiency}%
-                              </div>
-                            </div>
-
-                            <div>
-                              <div className="text-[10px] text-zinc-400 font-medium">Growth</div>
-                              <div
-                                className={`text-xs font-extrabold font-mono ${
-                                  card.growthPoints > 0
-                                    ? 'text-emerald-600'
-                                    : card.growthPoints < 0
-                                    ? 'text-rose-600'
-                                    : 'text-zinc-500'
-                                }`}
-                              >
-                                {growthLabel}
-                              </div>
-                            </div>
+                        <div>
+                          <div className="text-[10px] text-zinc-400 font-bold uppercase">Growth</div>
+                          <div
+                            className={`text-xs font-extrabold font-mono ${
+                              card.growthPoints > 0
+                                ? 'text-[#FFD400]'
+                                : card.growthPoints < 0
+                                ? 'text-rose-400'
+                                : 'text-zinc-400'
+                            }`}
+                          >
+                            {growthLabel}
                           </div>
-                        </CardHeader>
+                        </div>
+                      </div>
+                    </CardHeader>
 
-                        <CardContent className="pt-0 space-y-3">
-                          {/* Recharts Line Chart or Single Data Point Notice */}
-                          {card.historyPoints.length > 1 ? (
-                            <div className="h-32 w-full pt-2">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <LineChart
-                                  data={card.historyPoints}
-                                  margin={{ top: 5, right: 10, left: -25, bottom: 0 }}
-                                >
-                                  <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                                  <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-                                  <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} />
-                                  <Tooltip
-                                    contentStyle={{
-                                      backgroundColor: '#18181b',
-                                      borderColor: '#27272a',
-                                      borderRadius: '8px',
-                                      color: '#fff',
-                                      fontSize: '11px',
-                                    }}
-                                  />
-                                  <Line
-                                    type="monotone"
-                                    dataKey="proficiency"
-                                    name="Proficiency %"
-                                    stroke="#6366f1"
-                                    strokeWidth={2.5}
-                                    dot={{ r: 3.5, fill: '#6366f1' }}
-                                    activeDot={{ r: 5 }}
-                                  />
-                                </LineChart>
-                              </ResponsiveContainer>
-                            </div>
-                          ) : (
-                            <div className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200/60 dark:border-zinc-800 text-center space-y-1">
-                              <div className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                                Baseline: {card.currentProficiency}%
-                              </div>
-                              <div className="text-[11px] text-zinc-400">
-                                Not enough historical data yet.
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
+                    <CardContent className="p-5 pt-0 space-y-3 font-mono">
+                      {/* Recharts Line Chart or Single Data Point Notice */}
+                      {card.historyPoints.length > 1 ? (
+                        <div className="h-32 w-full pt-2">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                              data={card.historyPoints}
+                              margin={{ top: 5, right: 10, left: -25, bottom: 0 }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" opacity={0.1} stroke="#ffffff" />
+                              <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#a1a1aa' }} />
+                              <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: '#a1a1aa' }} />
+                              <Tooltip
+                                contentStyle={{
+                                  backgroundColor: '#0A0A0A',
+                                  borderColor: 'rgba(255,255,255,0.1)',
+                                  borderRadius: '2px',
+                                  color: '#fff',
+                                  fontSize: '11px',
+                                  fontFamily: 'monospace',
+                                }}
+                              />
+                              <Line
+                                type="monotone"
+                                dataKey="proficiency"
+                                name="Proficiency %"
+                                stroke="#FFD400"
+                                strokeWidth={2.5}
+                                dot={{ r: 3.5, fill: '#FFD400' }}
+                                activeDot={{ r: 5 }}
+                              />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      ) : (
+                        <div className="p-3 rounded-sm bg-[#111111] border border-white/10 text-center space-y-1 font-mono">
+                          <div className="text-xs font-bold text-white uppercase">
+                            Baseline: {card.currentProficiency}%
+                          </div>
+                          <div className="text-[11px] text-zinc-400">
+                            Not enough historical data yet.
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
 
           {/* CATEGORY ANALYSIS BREAKDOWN */}
           {data.categorySummaries.length > 0 && (
-            <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
-              <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-                <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-zinc-600 dark:text-zinc-300 flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-indigo-600" />
-                  Category Level Performance Analysis
+            <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+              <CardHeader className="p-6 pb-3 border-b border-white/10">
+                <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+                  <Layers className="h-5 w-5 text-[#FFD400]" />
+                  CATEGORY LEVEL PERFORMANCE ANALYSIS
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {data.categorySummaries.map((cat) => (
                   <div
                     key={cat.category}
-                    className="p-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-2"
+                    className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-2 font-mono"
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-xs text-zinc-900 dark:text-zinc-100">{cat.category}</span>
-                      <Badge variant="secondary" className="text-[10px]">
+                      <span className="font-bold text-xs text-white uppercase">{cat.category}</span>
+                      <Badge variant="default" className="text-[10px] bg-zinc-800 text-zinc-300">
                         {cat.skillCount} {cat.skillCount === 1 ? 'Skill' : 'Skills'}
                       </Badge>
                     </div>
                     <div className="space-y-1">
                       <div className="flex justify-between items-center text-[11px]">
-                        <span className="text-zinc-500">Avg Proficiency</span>
-                        <span className="font-extrabold text-indigo-600">{cat.avgCurrentProficiency}%</span>
+                        <span className="text-zinc-400">Avg Proficiency</span>
+                        <span className="font-bold text-[#FFD400]">{cat.avgCurrentProficiency}%</span>
                       </div>
-                      <Progress value={cat.avgCurrentProficiency} className="h-1.5" />
+                      <Progress value={cat.avgCurrentProficiency} className="h-1.5 bg-zinc-800" />
                     </div>
                     <div className="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
                       <span>Avg Growth</span>
-                      <span className={cat.avgGrowthPoints >= 0 ? 'text-emerald-600 font-bold' : 'text-rose-600 font-bold'}>
+                      <span className={cat.avgGrowthPoints >= 0 ? 'text-[#FFD400] font-bold' : 'text-rose-400 font-bold'}>
                         {cat.avgGrowthPoints >= 0 ? `+${cat.avgGrowthPoints}` : cat.avgGrowthPoints} pts
                       </span>
                     </div>
@@ -552,26 +539,26 @@ export default function SkillGrowthPage() {
 
           {/* SKILL HISTORY TIMELINE LOG */}
           {data.historyTimeline.length > 0 && (
-            <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
-              <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-                <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-zinc-600 dark:text-zinc-300 flex items-center gap-2">
-                  <History className="h-4 w-4 text-indigo-600" />
-                  Historical Skill Progression Log ({data.historyTimeline.length} Entries)
+            <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+              <CardHeader className="p-6 pb-3 border-b border-white/10">
+                <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+                  <History className="h-5 w-5 text-[#FFD400]" />
+                  HISTORICAL SKILL PROGRESSION LOG ({data.historyTimeline.length} ENTRIES)
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 space-y-2">
                 {data.historyTimeline.map((item) => (
                   <div
                     key={item.id}
-                    className="p-3 rounded-xl border border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-850 flex items-center justify-between gap-3 text-xs"
+                    className="p-3 rounded-sm border border-white/10 bg-[#111111] flex items-center justify-between gap-3 text-xs font-mono"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center shrink-0">
-                        <Code className="h-4 w-4" />
+                      <div className="h-8 w-8 rounded-sm bg-[#FFD400] text-black flex items-center justify-center shrink-0">
+                        <Code className="h-4 w-4 text-black" />
                       </div>
                       <div>
-                        <div className="font-bold text-zinc-900 dark:text-zinc-100">{item.skillName}</div>
-                        <div className="text-[10px] text-zinc-400 flex items-center gap-2 mt-0.5">
+                        <div className="font-bold text-white uppercase">{item.skillName}</div>
+                        <div className="text-[10px] text-zinc-400 flex items-center gap-2 mt-0.5 font-sans">
                           <span>{item.category}</span>
                           <span>•</span>
                           <span>{new Date(item.recordedAt).toLocaleString()}</span>
@@ -581,7 +568,7 @@ export default function SkillGrowthPage() {
 
                     <div className="flex items-center gap-3 shrink-0">
                       {getSourceBadge(item.source)}
-                      <span className="font-mono font-black text-indigo-600 dark:text-indigo-400 text-sm">
+                      <span className="font-condensed font-extrabold text-[#FFD400] text-lg">
                         {item.proficiency}%
                       </span>
                     </div>
@@ -595,3 +582,4 @@ export default function SkillGrowthPage() {
     </PageWrapper>
   );
 }
+

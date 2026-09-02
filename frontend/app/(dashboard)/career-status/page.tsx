@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { careerStatusService, CareerStatusType } from '@/services/careerStatus.service';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { Briefcase, Sparkles } from 'lucide-react';
+import { Briefcase, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { CareerStatusSelector } from '@/components/career-status/CareerStatusSelector';
@@ -57,13 +57,13 @@ export default function UnifiedCareerStatusPage() {
   if (isLoading) {
     return (
       <PageWrapper className="space-y-6">
-        <Skeleton className="h-32 w-full rounded-3xl" />
+        <Skeleton className="h-36 w-full rounded-sm" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Skeleton className="h-28 rounded-2xl" />
-          <Skeleton className="h-28 rounded-2xl" />
-          <Skeleton className="h-28 rounded-2xl" />
+          <Skeleton className="h-28 rounded-sm" />
+          <Skeleton className="h-28 rounded-sm" />
+          <Skeleton className="h-28 rounded-sm" />
         </div>
-        <Skeleton className="h-64 rounded-3xl" />
+        <Skeleton className="h-64 rounded-sm" />
       </PageWrapper>
     );
   }
@@ -82,15 +82,15 @@ export default function UnifiedCareerStatusPage() {
   return (
     <PageWrapper className="space-y-8">
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800 space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
-          <Briefcase className="h-3.5 w-3.5 text-indigo-400" />
-          <span>Unified Career Workspace</span>
+      <div className="p-6 sm:p-8 rounded-sm bg-[#0A0A0A] text-white shadow-2xl border border-white/15 space-y-2">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 text-xs font-mono font-bold uppercase">
+          <Zap className="h-3.5 w-3.5 text-[#FFD400]" />
+          <span>UNIFIED CAREER WORKSPACE</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Career Status 💼
+        <h1 className="font-condensed font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+          CAREER STATUS <span className="text-[#FFD400]">// HUB</span>
         </h1>
-        <p className="text-slate-300 text-xs sm:text-sm max-w-2xl">
+        <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans leading-relaxed">
           Keep your current career status updated and access career information relevant to your current situation.
         </p>
       </div>
@@ -180,3 +180,4 @@ export default function UnifiedCareerStatusPage() {
     </PageWrapper>
   );
 }
+

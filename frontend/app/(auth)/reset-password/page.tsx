@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { Sparkles, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Zap, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { authService } from '@/services/auth.service';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -67,16 +67,16 @@ function ResetPasswordForm() {
   if (isSuccess) {
     return (
       <div className="text-center py-6 space-y-3">
-        <div className="h-12 w-12 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+        <div className="h-12 w-12 rounded-sm bg-[#FFD400]/10 border border-[#FFD400]/40 text-[#FFD400] flex items-center justify-center mx-auto">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-lg">Password Changed!</h3>
-        <p className="text-xs text-zinc-500">
+        <h3 className="font-condensed font-bold text-white text-xl uppercase">PASSWORD CHANGED!</h3>
+        <p className="text-xs text-zinc-400">
           Your account password has been updated. You can now log in to access your dashboard.
         </p>
         <Link href="/login" className="block pt-2">
-          <Button className="w-full gap-2">
-            Proceed to Login
+          <Button className="w-full gap-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-[#FFE033]">
+            PROCEED TO LOGIN
             <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
@@ -109,8 +109,8 @@ function ResetPasswordForm() {
         error={errors.confirmPassword?.message}
       />
 
-      <Button type="submit" size="lg" className="w-full gap-2 mt-2" isLoading={isLoading}>
-        Update Password
+      <Button type="submit" size="lg" className="w-full gap-2 mt-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-[#FFE033]" isLoading={isLoading}>
+        UPDATE PASSWORD
         <ArrowRight className="h-4 w-4" />
       </Button>
     </form>
@@ -119,36 +119,36 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-black text-white selection:bg-[#FFD400] selection:text-black">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 mb-2">
-            <div className="h-10 w-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
-              <Sparkles className="h-5 w-5" />
+          <Link href="/" className="inline-flex items-center gap-2.5 mb-2 group">
+            <div className="h-10 w-10 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
+              <Zap className="h-5 w-5 fill-black text-black" />
             </div>
-            <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-100">
-              SkillTrack <span className="text-indigo-600 dark:text-indigo-400">AI</span>
+            <span className="font-condensed font-black text-3xl uppercase tracking-wider text-white">
+              SKILLTRACK <span className="text-[#FFD400]">AI</span>
             </span>
           </Link>
-          <h2 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-            Set your new password
+          <h2 className="mt-3 font-condensed font-extrabold text-2xl uppercase tracking-wider text-white">
+            SET YOUR NEW PASSWORD
           </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-zinc-400 mt-1 font-sans">
             Choose a strong password with at least 6 characters.
           </p>
         </div>
 
-        <Card className="shadow-lg border-zinc-200/80 dark:border-zinc-800">
+        <Card className="border border-white/15 bg-[#0A0A0A] rounded-sm shadow-2xl">
           <CardContent className="pt-6">
-            <Suspense fallback={<div className="text-center py-6 text-xs text-zinc-500">Loading reset form...</div>}>
+            <Suspense fallback={<div className="text-center py-6 text-xs text-zinc-400 font-mono">Loading reset form...</div>}>
               <ResetPasswordForm />
             </Suspense>
           </CardContent>
 
-          <CardFooter className="flex justify-center border-t border-zinc-100 dark:border-zinc-800/80 py-4 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-b-xl">
-            <Link href="/login" className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-indigo-600">
+          <CardFooter className="flex justify-center border-t border-white/10 py-4 bg-[#111111] rounded-b-sm">
+            <Link href="/login" className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-zinc-400 hover:text-[#FFD400]">
               <ArrowLeft className="h-3.5 w-3.5" />
-              Back to Login
+              BACK TO LOGIN
             </Link>
           </CardFooter>
         </Card>
@@ -156,3 +156,4 @@ export default function ResetPasswordPage() {
     </div>
   );
 }
+

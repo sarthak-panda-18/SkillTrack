@@ -50,7 +50,7 @@ export function GoogleAuthButton() {
         type="button"
         variant="outline"
         onClick={handleUnconfiguredClick}
-        className="w-full flex items-center justify-center gap-3 h-11 border-zinc-200 dark:border-zinc-800 font-semibold text-xs"
+        className="w-full flex items-center justify-center gap-3 h-11 border-white/20 bg-[#111111] text-white hover:border-[#FFD400] font-mono text-xs uppercase"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24">
           <path
@@ -74,6 +74,7 @@ export function GoogleAuthButton() {
       </Button>
     );
   }
+
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>

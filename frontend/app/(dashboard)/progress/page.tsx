@@ -2,7 +2,6 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -20,15 +19,11 @@ import {
   Brain,
   BookOpen,
   Calendar,
-  Zap,
   RotateCw,
   ArrowRight,
   CheckCircle2,
   AlertCircle,
   Award,
-  Layers,
-  Compass,
-  Flame,
   Code,
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -64,14 +59,14 @@ export default function ProgressPage() {
   if (isLoading) {
     return (
       <PageWrapper className="max-w-6xl mx-auto space-y-6">
-        <Skeleton className="h-36 w-full rounded-3xl" />
+        <Skeleton className="h-36 w-full rounded-sm bg-[#0A0A0A]" />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <Skeleton className="h-28 rounded-2xl" />
-          <Skeleton className="h-28 rounded-2xl" />
-          <Skeleton className="h-28 rounded-2xl" />
-          <Skeleton className="h-28 rounded-2xl" />
+          <Skeleton className="h-28 rounded-sm bg-[#0A0A0A]" />
+          <Skeleton className="h-28 rounded-sm bg-[#0A0A0A]" />
+          <Skeleton className="h-28 rounded-sm bg-[#0A0A0A]" />
+          <Skeleton className="h-28 rounded-sm bg-[#0A0A0A]" />
         </div>
-        <Skeleton className="h-64 w-full rounded-3xl" />
+        <Skeleton className="h-64 w-full rounded-sm bg-[#0A0A0A]" />
       </PageWrapper>
     );
   }
@@ -84,18 +79,18 @@ export default function ProgressPage() {
     if (errCode === 'TARGET_ROLE_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 flex items-center justify-center mx-auto">
-              <Target className="h-8 w-8" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Target className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Target Career Role Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Target Career Role Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
               {errMsg || 'Please select a target career role in your profile to view progress and readiness metrics.'}
             </p>
             <Link href="/profile">
-              <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Select Target Career Role
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -106,16 +101,16 @@ export default function ProgressPage() {
     if (errCode === 'SKILL_GAP_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 flex items-center justify-center mx-auto">
-              <Target className="h-8 w-8 text-amber-600" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Target className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Skill Gap Analysis Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">{errMsg || 'Complete your Skill Gap Analysis first.'}</p>
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Skill Gap Analysis Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">{errMsg || 'Complete your Skill Gap Analysis first.'}</p>
             <Link href="/skill-gap">
-              <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Run Skill Gap Analysis
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -125,17 +120,17 @@ export default function ProgressPage() {
 
     return (
       <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-        <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-          <div className="h-16 w-16 rounded-2xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 flex items-center justify-center mx-auto">
-            <AlertCircle className="h-8 w-8 text-rose-600" />
+        <div className="p-8 rounded-sm bg-[#0A0A0A] border border-rose-500/40 text-white max-w-md mx-auto space-y-4 font-mono">
+          <div className="h-16 w-16 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
+            <AlertCircle className="h-8 w-8 text-rose-400" />
           </div>
-          <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Career Readiness Intelligence Unavailable</h2>
-          <p className="text-xs text-zinc-500 leading-relaxed">
+          <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Career Readiness Intelligence Unavailable</h2>
+          <p className="text-xs text-zinc-400 font-sans leading-relaxed">
             {errMsg || 'An unexpected error occurred while calculating career readiness analytics.'}
           </p>
           <Button
             onClick={() => queryClient.invalidateQueries({ queryKey: ['career-readiness'] })}
-            className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold gap-2"
+            className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase gap-2"
           >
             <RotateCw className="h-4 w-4" />
             Try Again
@@ -152,7 +147,6 @@ export default function ProgressPage() {
     dimensions,
     biggestGaps = [],
     strongestSkills = [],
-    unassessedSkills = [],
     skillImprovements = [],
     achievements = [],
     history = [],
@@ -169,45 +163,30 @@ export default function ProgressPage() {
     assessment: item.assessmentReadinessScore,
   }));
 
-  const getCategoryBadgeVariant = (cat: string) => {
-    switch (cat) {
-      case 'PLACEMENT_READY':
-        return 'success';
-      case 'NEARLY_READY':
-        return 'purple';
-      case 'PROGRESSING':
-        return 'default';
-      case 'DEVELOPING':
-        return 'warning';
-      default:
-        return 'secondary';
-    }
-  };
-
   const formattedCategory = readinessCategory.replace('_', ' ');
 
   return (
     <PageWrapper className="max-w-6xl mx-auto space-y-6">
       {/* Top Tab Bar Links */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4 font-mono">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <Trophy className="h-6 w-6 text-amber-600" />
+          <h1 className="font-condensed text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2">
+            <Trophy className="h-6 w-6 text-[#FFD400]" />
             CAREER READINESS & SKILL GROWTH
           </h1>
         </div>
 
-        <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-850 p-1 rounded-xl shrink-0">
-          <button className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs">
+        <div className="flex items-center gap-2 bg-[#0A0A0A] border border-white/10 p-1 rounded-sm shrink-0">
+          <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase bg-[#FFD400] text-black">
             Career Readiness
           </button>
           <Link href="/progress/growth">
-            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all">
+            <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase text-zinc-400 hover:text-white transition-all cursor-pointer">
               Skill Growth
             </button>
           </Link>
           <Link href="/progress/timeline">
-            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all">
+            <button className="px-3 py-1.5 rounded-sm text-xs font-bold uppercase text-zinc-400 hover:text-white transition-all cursor-pointer">
               Timeline
             </button>
           </Link>
@@ -215,31 +194,31 @@ export default function ProgressPage() {
       </div>
 
       {/* Top Header Banner & Overall Score Gauge */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-600 via-amber-700 to-indigo-800 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div className="relative z-10 space-y-2 max-w-2xl">
+      <div className="p-6 sm:p-8 rounded-sm bg-[#0A0A0A] text-white border border-white/10 relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="relative z-10 space-y-2 max-w-2xl font-mono">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-amber-200 border border-white/10">
-              <Trophy className="h-3.5 w-3.5 text-amber-300" />
-              Career Readiness Intelligence
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-[#111111] border border-[#FFD400]/40 text-xs font-bold text-[#FFD400] uppercase tracking-wider">
+              <Trophy className="h-3.5 w-3.5 text-[#FFD400]" />
+              CAREER READINESS INTELLIGENCE
             </span>
-            <Badge variant={getCategoryBadgeVariant(readinessCategory)} className="text-xs uppercase font-black py-0.5 px-2.5">
+            <Badge variant="default" className="text-xs uppercase font-bold py-0.5 px-2.5 bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400]">
               {formattedCategory}
             </Badge>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold text-white uppercase tracking-tight">
             Target Goal: {careerRole.name}
           </h1>
-          <p className="text-xs sm:text-sm text-amber-100 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
             {aiSummary}
           </p>
         </div>
 
         {/* Big Radial/Metric Readiness Gauge */}
-        <div className="relative z-10 flex flex-col items-center justify-center p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shrink-0 text-center space-y-1">
-          <span className="text-[10px] uppercase font-bold text-amber-200 tracking-wider">Placement Readiness Score</span>
-          <div className="text-4xl sm:text-5xl font-black text-white font-mono tracking-tight">
-            {readinessScore}<span className="text-2xl text-amber-200">%</span>
+        <div className="relative z-10 flex flex-col items-center justify-center p-6 rounded-sm bg-[#111111] border border-[#FFD400]/40 shrink-0 text-center space-y-1 font-mono">
+          <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Placement Readiness Score</span>
+          <div className="font-condensed text-5xl font-black text-[#FFD400]">
+            {readinessScore}%
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
             <Button
@@ -247,7 +226,7 @@ export default function ProgressPage() {
               isLoading={refreshMutation.isPending}
               size="sm"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 font-bold text-[11px] h-7 gap-1.5"
+              className="border-white/20 text-white font-mono font-bold text-[11px] uppercase hover:border-[#FFD400] h-7 gap-1.5"
             >
               <RotateCw className="h-3.5 w-3.5" />
               Refresh Analysis
@@ -256,9 +235,9 @@ export default function ProgressPage() {
             <Link href="/progress/growth">
               <Button
                 size="sm"
-                className="bg-white text-indigo-900 hover:bg-amber-100 font-bold text-[11px] h-7 gap-1.5 shadow-sm"
+                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-[11px] uppercase h-7 gap-1.5"
               >
-                <TrendingUp className="h-3.5 w-3.5 text-indigo-700" />
+                <TrendingUp className="h-3.5 w-3.5 text-black" />
                 SKILL GROWTH
               </Button>
             </Link>
@@ -266,95 +245,94 @@ export default function ProgressPage() {
         </div>
       </div>
 
-
       {/* 4 Dimension Breakdown Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-extrabold uppercase text-zinc-500 text-[10px] tracking-wider flex items-center gap-1">
-                <Code className="h-3.5 w-3.5 text-indigo-500" /> Skill Readiness
+              <span className="font-bold uppercase text-zinc-400 text-[10px] flex items-center gap-1">
+                <Code className="h-3.5 w-3.5 text-[#FFD400]" /> Skill Readiness
               </span>
-              <span className="font-black text-indigo-600 dark:text-indigo-400 font-mono text-sm">
+              <span className="font-condensed font-bold text-[#FFD400] text-lg">
                 {dimensions.skillReadiness}%
               </span>
             </div>
-            <Progress value={dimensions.skillReadiness} className="h-2" />
-            <span className="text-[10px] text-zinc-400 font-medium block">Weight: 35%</span>
+            <Progress value={dimensions.skillReadiness} className="h-1.5 bg-zinc-800" />
+            <span className="text-[10px] text-zinc-500 font-bold block">Weight: 35%</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-extrabold uppercase text-zinc-500 text-[10px] tracking-wider flex items-center gap-1">
-                <Brain className="h-3.5 w-3.5 text-purple-500" /> Assessments
+              <span className="font-bold uppercase text-zinc-400 text-[10px] flex items-center gap-1">
+                <Brain className="h-3.5 w-3.5 text-[#FFD400]" /> Assessments
               </span>
-              <span className="font-black text-purple-600 dark:text-purple-400 font-mono text-sm">
+              <span className="font-condensed font-bold text-[#FFD400] text-lg">
                 {dimensions.assessmentPerformance}%
               </span>
             </div>
-            <Progress value={dimensions.assessmentPerformance} className="h-2" />
-            <span className="text-[10px] text-zinc-400 font-medium block">Weight: 25%</span>
+            <Progress value={dimensions.assessmentPerformance} className="h-1.5 bg-zinc-800" />
+            <span className="text-[10px] text-zinc-500 font-bold block">Weight: 25%</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-extrabold uppercase text-zinc-500 text-[10px] tracking-wider flex items-center gap-1">
-                <BookOpen className="h-3.5 w-3.5 text-emerald-500" /> Roadmap
+              <span className="font-bold uppercase text-zinc-400 text-[10px] flex items-center gap-1">
+                <BookOpen className="h-3.5 w-3.5 text-[#FFD400]" /> Roadmap
               </span>
-              <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono text-sm">
+              <span className="font-condensed font-bold text-[#FFD400] text-lg">
                 {dimensions.roadmapProgress}%
               </span>
             </div>
-            <Progress value={dimensions.roadmapProgress} className="h-2" />
-            <span className="text-[10px] text-zinc-400 font-medium block">Weight: 25%</span>
+            <Progress value={dimensions.roadmapProgress} className="h-1.5 bg-zinc-800" />
+            <span className="text-[10px] text-zinc-500 font-bold block">Weight: 25%</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-extrabold uppercase text-zinc-500 text-[10px] tracking-wider flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5 text-amber-500" /> Study Consistency
+              <span className="font-bold uppercase text-zinc-400 text-[10px] flex items-center gap-1">
+                <Calendar className="h-3.5 w-3.5 text-[#FFD400]" /> Study Consistency
               </span>
-              <span className="font-black text-amber-600 dark:text-amber-400 font-mono text-sm">
+              <span className="font-condensed font-bold text-[#FFD400] text-lg">
                 {dimensions.studyConsistency}%
               </span>
             </div>
-            <Progress value={dimensions.studyConsistency} className="h-2" />
-            <span className="text-[10px] text-zinc-400 font-medium block">Weight: 15%</span>
+            <Progress value={dimensions.studyConsistency} className="h-1.5 bg-zinc-800" />
+            <span className="text-[10px] text-zinc-500 font-bold block">Weight: 15%</span>
           </CardContent>
         </Card>
       </div>
 
       {/* AI Insight & Primary Next Action Box */}
-      <Card className="shadow-md border-2 border-amber-200 dark:border-amber-900/60 bg-amber-50/20 dark:bg-amber-950/20">
-        <CardContent className="p-6 space-y-4">
+      <Card className="bg-[#0A0A0A] border-2 border-[#FFD400]/40 text-white rounded-sm">
+        <CardContent className="p-6 space-y-4 font-sans">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="space-y-1 max-w-2xl">
-              <div className="flex items-center gap-2">
-                <Badge variant="warning" className="text-[10px] uppercase font-bold flex items-center gap-1">
-                  <Sparkles className="h-3 w-3" />
+              <div className="flex items-center gap-2 font-mono">
+                <Badge variant="default" className="text-[10px] uppercase font-bold bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40 flex items-center gap-1">
+                  <Sparkles className="h-3 w-3 text-[#FFD400]" />
                   {isAiGenerated ? 'AI Readiness Coach' : 'Measured Intelligence'}
                 </Badge>
               </div>
-              <h3 className="text-base font-extrabold text-zinc-900 dark:text-zinc-100 leading-snug">
+              <h3 className="font-condensed text-2xl font-extrabold text-white uppercase leading-snug">
                 {aiInsight}
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                <span className="font-bold text-amber-700 dark:text-amber-300">Recommended Step: </span>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                <span className="font-bold text-[#FFD400] font-mono uppercase">Recommended Step: </span>
                 {nextActionExplanation}
               </p>
             </div>
 
             {biggestGaps.length > 0 && (
-              <Link href="/skill-gap" className="shrink-0">
-                <Button className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs gap-1.5 shadow-sm">
+              <Link href="/skill-gap" className="shrink-0 font-mono">
+                <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5">
                   Close Primary Gaps
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 text-black" />
                 </Button>
               </Link>
             )}
@@ -363,17 +341,17 @@ export default function ProgressPage() {
       </Card>
 
       {/* Recharts Career Readiness Historical Timeline */}
-      <Card className="shadow-sm border border-zinc-200 dark:border-zinc-800">
-        <CardHeader className="pb-2 border-b border-zinc-100 dark:border-zinc-800 flex flex-row justify-between items-center">
-          <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-amber-600" />
-            Career Readiness Index Growth Timeline
+      <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+        <CardHeader className="p-6 pb-2 border-b border-white/10 flex flex-row justify-between items-center">
+          <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-[#FFD400]" />
+            CAREER READINESS INDEX GROWTH TIMELINE
           </CardTitle>
-          <span className="text-[11px] font-mono text-zinc-400">Historical Snapshots ({history.length})</span>
+          <span className="text-[11px] font-mono text-zinc-400 uppercase">Snapshots ({history.length})</span>
         </CardHeader>
         <CardContent className="p-6">
           {chartData.length === 0 ? (
-            <div className="text-center py-10 text-xs text-zinc-500">
+            <div className="text-center py-10 text-xs text-zinc-400 font-mono">
               Initial readiness snapshot recorded today. Historical trend data will accumulate as you complete learning goals.
             </div>
           ) : (
@@ -382,27 +360,28 @@ export default function ProgressPage() {
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="readinessGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d97706" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#d97706" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#FFD400" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#FFD400" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                  <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.1} stroke="#ffffff" />
+                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#a1a1aa' }} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: '#a1a1aa' }} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#18181b',
-                      borderColor: '#27272a',
-                      borderRadius: '12px',
+                      backgroundColor: '#0A0A0A',
+                      borderColor: 'rgba(255,255,255,0.1)',
+                      borderRadius: '2px',
                       color: '#fff',
                       fontSize: '12px',
+                      fontFamily: 'monospace',
                     }}
                   />
                   <Area
                     type="monotone"
                     dataKey="score"
                     name="Readiness Index"
-                    stroke="#d97706"
+                    stroke="#FFD400"
                     strokeWidth={3}
                     fillOpacity={1}
                     fill="url(#readinessGrad)"
@@ -415,28 +394,28 @@ export default function ProgressPage() {
       </Card>
 
       {/* Main Grid: Biggest Gaps vs Strongest Skills */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono">
         {/* Biggest Skill Gaps */}
-        <Card className="shadow-sm border border-rose-200/80 dark:border-rose-950/60">
-          <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-            <CardTitle className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider flex items-center gap-2">
-              <Target className="h-4 w-4" />
-              Primary Skill Gaps Relative to Role
+        <Card className="bg-[#0A0A0A] border-rose-500/40 text-white rounded-sm">
+          <CardHeader className="p-6 pb-3 border-b border-white/10">
+            <CardTitle className="font-condensed text-xl font-bold text-rose-400 uppercase tracking-wider flex items-center gap-2">
+              <Target className="h-5 w-5 text-rose-400" />
+              PRIMARY SKILL GAPS RELATIVE TO ROLE
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             {biggestGaps.length === 0 ? (
-              <div className="text-center py-6 text-xs text-zinc-500">No major skill gaps remaining!</div>
+              <div className="text-center py-6 text-xs text-zinc-400 font-mono">No major skill gaps remaining!</div>
             ) : (
               biggestGaps.map((item) => (
-                <div key={item.name} className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs font-semibold">
-                    <span className="text-zinc-900 dark:text-zinc-100 font-bold">{item.name}</span>
-                    <span className="text-rose-600 font-mono font-bold">
-                      Current: {item.currentProficiency}% / Required: {item.targetProficiency}%
+                <div key={item.name} className="space-y-1.5 font-sans">
+                  <div className="flex justify-between items-center text-xs font-mono">
+                    <span className="text-white font-bold">{item.name}</span>
+                    <span className="text-rose-400 font-bold">
+                      Current: {item.currentProficiency}% / Target: {item.targetProficiency}%
                     </span>
                   </div>
-                  <Progress value={item.currentProficiency} className="h-2 bg-rose-100 dark:bg-rose-950" />
+                  <Progress value={item.currentProficiency} className="h-1.5 bg-zinc-800" />
                 </div>
               ))
             )}
@@ -444,26 +423,26 @@ export default function ProgressPage() {
         </Card>
 
         {/* Strongest Skills */}
-        <Card className="shadow-sm border border-emerald-200/80 dark:border-emerald-950/60">
-          <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-            <CardTitle className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4" />
-              Strongest Target Career Skills
+        <Card className="bg-[#0A0A0A] border-[#FFD400]/40 text-white rounded-sm">
+          <CardHeader className="p-6 pb-3 border-b border-white/10">
+            <CardTitle className="font-condensed text-xl font-bold text-[#FFD400] uppercase tracking-wider flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-[#FFD400]" />
+              STRONGEST TARGET CAREER SKILLS
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             {strongestSkills.length === 0 ? (
-              <div className="text-center py-6 text-xs text-zinc-500">Work towards reaching 65%+ in target skills.</div>
+              <div className="text-center py-6 text-xs text-zinc-400 font-mono">Work towards reaching 65%+ in target skills.</div>
             ) : (
               strongestSkills.map((item) => (
-                <div key={item.name} className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs font-semibold">
-                    <span className="text-zinc-900 dark:text-zinc-100 font-bold">{item.name}</span>
-                    <span className="text-emerald-600 font-mono font-bold">
+                <div key={item.name} className="space-y-1.5 font-sans">
+                  <div className="flex justify-between items-center text-xs font-mono">
+                    <span className="text-white font-bold">{item.name}</span>
+                    <span className="text-[#FFD400] font-bold">
                       {item.currentProficiency}% Verified
                     </span>
                   </div>
-                  <Progress value={item.currentProficiency} className="h-2 bg-emerald-100 dark:bg-emerald-950" />
+                  <Progress value={item.currentProficiency} className="h-1.5 bg-zinc-800" />
                 </div>
               ))
             )}
@@ -473,27 +452,27 @@ export default function ProgressPage() {
 
       {/* Before vs After Skill Development Gains Table */}
       {skillImprovements.length > 0 && (
-        <Card className="shadow-sm border border-zinc-200 dark:border-zinc-800">
-          <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-            <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-emerald-600" />
-              Skill Development — Before vs After Gains
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+          <CardHeader className="p-6 pb-3 border-b border-white/10">
+            <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-[#FFD400]" />
+              SKILL DEVELOPMENT — BEFORE VS AFTER GAINS
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="space-y-3">
+            <div className="space-y-3 font-sans">
               {skillImprovements.map((item) => (
                 <div
                   key={item.skillName}
-                  className="flex justify-between items-center p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
+                  className="flex justify-between items-center p-3.5 rounded-sm border border-white/10 bg-[#111111]"
                 >
-                  <div className="space-y-0.5">
-                    <h4 className="font-extrabold text-xs text-zinc-900 dark:text-zinc-100">{item.skillName}</h4>
-                    <span className="text-[11px] text-zinc-500 font-mono">
+                  <div className="space-y-0.5 font-mono">
+                    <h4 className="font-condensed font-bold text-base text-white uppercase">{item.skillName}</h4>
+                    <span className="text-[11px] text-zinc-400">
                       Baseline: {item.initialProficiency}% → Current: {item.currentProficiency}%
                     </span>
                   </div>
-                  <Badge variant="success" className="font-mono font-extrabold text-xs">
+                  <Badge variant="default" className="font-mono font-extrabold text-xs bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400]">
                     +{item.changePoints} points
                   </Badge>
                 </div>
@@ -504,16 +483,16 @@ export default function ProgressPage() {
       )}
 
       {/* Unlocked Milestones Gallery */}
-      <Card className="shadow-sm border border-zinc-200 dark:border-zinc-800">
-        <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-          <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-            <Trophy className="h-4 w-4 text-amber-600" />
-            Career Achievements & Milestones Unlocked ({achievements.length})
+      <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+        <CardHeader className="p-6 pb-3 border-b border-white/10">
+          <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+            <Trophy className="h-5 w-5 text-[#FFD400]" />
+            CAREER ACHIEVEMENTS & MILESTONES UNLOCKED ({achievements.length})
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           {achievements.length === 0 ? (
-            <div className="text-center py-6 text-xs text-zinc-500">
+            <div className="text-center py-6 text-xs text-zinc-400">
               Complete your first skill assessment or roadmap topic to unlock milestones!
             </div>
           ) : (
@@ -521,15 +500,15 @@ export default function ProgressPage() {
               {achievements.map((item) => (
                 <div
                   key={item._id}
-                  className="p-4 rounded-2xl bg-amber-50/30 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 space-y-2 flex items-start gap-3"
+                  className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-2 flex items-start gap-3"
                 >
-                  <div className="h-10 w-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-                    <Award className="h-5 w-5" />
+                  <div className="h-10 w-10 rounded-sm bg-[#FFD400] text-black flex items-center justify-center shrink-0 mt-0.5">
+                    <Award className="h-5 w-5 text-black" />
                   </div>
-                  <div className="space-y-0.5 min-w-0">
-                    <h4 className="font-extrabold text-xs text-zinc-900 dark:text-zinc-100">{item.title}</h4>
-                    <p className="text-[11px] text-zinc-500 leading-snug line-clamp-2">{item.description}</p>
-                    <span className="text-[10px] text-amber-600 font-mono block pt-1">
+                  <div className="space-y-0.5 min-w-0 font-sans">
+                    <h4 className="font-condensed font-bold text-base text-white uppercase">{item.title}</h4>
+                    <p className="text-[11px] text-zinc-400 leading-snug line-clamp-2">{item.description}</p>
+                    <span className="text-[10px] text-[#FFD400] font-mono block pt-1 uppercase">
                       Unlocked {new Date(item.unlockedAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -542,3 +521,4 @@ export default function ProgressPage() {
     </PageWrapper>
   );
 }
+

@@ -37,35 +37,35 @@ export function Features() {
   ];
 
   return (
-    <section id="features" className="py-16 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+    <section id="features" className="py-20 bg-[#000000] border-b border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
-          <Badge variant="default" className="text-[11px] font-bold uppercase tracking-wider mb-3">
-            Platform Features
+          <Badge variant="default" className="text-xs font-mono font-bold uppercase tracking-widest bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 mb-3">
+            PLATFORM FEATURES
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-            Everything you need for engineering placement readiness
+          <h2 className="font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white">
+            EVERYTHING YOU NEED FOR <span className="text-[#FFD400]">PLACEMENT READINESS.</span>
           </h2>
-          <p className="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          <p className="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed">
             Built for computer science, IT, electronics, and engineering students preparing for technical roles.
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feat, idx) => {
             const Icon = feat.icon;
             return (
-              <Card key={idx} className="relative overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all border-slate-200 dark:border-slate-800">
+              <Card key={idx} className="relative overflow-hidden bg-[#0A0A0A] border-white/10 hover:border-[#FFD400]/40 transition-all group">
                 <CardHeader>
-                  <div className="h-10 w-10 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-3 border border-indigo-100 dark:border-indigo-900">
+                  <div className="h-10 w-10 rounded-sm bg-[#171717] flex items-center justify-center text-[#FFD400] mb-3 border border-white/10 group-hover:bg-[#FFD400] group-hover:text-black transition-colors">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  <CardTitle className="font-condensed text-xl font-bold uppercase text-white tracking-wide">
                     {feat.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <CardDescription className="text-xs text-zinc-400 leading-relaxed font-sans">
                     {feat.description}
                   </CardDescription>
                 </CardContent>
@@ -77,3 +77,4 @@ export function Features() {
     </section>
   );
 }
+

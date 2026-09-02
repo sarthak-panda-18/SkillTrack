@@ -9,45 +9,60 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'sans-serif'],
+        condensed: ['var(--font-condensed)', 'sans-serif'],
+      },
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: '#000000',
+        foreground: '#FFFFFF',
+        surface: {
+          DEFAULT: '#0A0A0A',
+          secondary: '#111111',
+          hover: '#171717',
+        },
+        yellow: {
+          DEFAULT: '#FFD400',
+          hover: '#FFE033',
+          glow: 'rgba(255, 212, 0, 0.4)',
+        },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: '#0A0A0A',
+          foreground: '#FFFFFF',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: '#0A0A0A',
+          foreground: '#FFFFFF',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#FFD400',
+          foreground: '#000000',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#111111',
+          foreground: '#FFFFFF',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: '#171717',
+          foreground: '#A3A3A3',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: '#FFD400',
+          foreground: '#000000',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: '#7F1D1D',
+          foreground: '#FFFFFF',
         },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        border: 'rgba(255, 255, 255, 0.10)',
+        'border-yellow': 'rgba(255, 212, 0, 0.35)',
+        input: 'rgba(255, 255, 255, 0.15)',
+        ring: '#FFD400',
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        lg: '4px',
+        md: '2px',
+        sm: '1px',
       },
       keyframes: {
         'accordion-down': {
@@ -58,10 +73,15 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 15px rgba(255, 212, 0, 0.2)' },
+          '50%': { boxShadow: '0 0 25px rgba(255, 212, 0, 0.6)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'pulse-glow': 'pulseGlow 2s infinite ease-in-out',
       },
     },
   },
@@ -69,3 +89,4 @@ const config: Config = {
 };
 
 export default config;
+

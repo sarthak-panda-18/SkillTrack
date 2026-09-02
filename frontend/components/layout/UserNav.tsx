@@ -34,11 +34,11 @@ export function UserNav() {
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild>
-        <button className="flex items-center gap-2.5 outline-none group rounded-full p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+        <button className="flex items-center gap-2.5 outline-none group rounded-sm p-1 hover:bg-[#171717] transition-colors">
           <Avatar className="h-8 w-8">
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
-          <span className="hidden sm:inline-block text-xs font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600">
+          <span className="hidden sm:inline-block font-condensed font-bold text-xs uppercase tracking-wider text-white group-hover:text-[#FFD400]">
             {user.name}
           </span>
         </button>
@@ -47,19 +47,19 @@ export function UserNav() {
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
           align="end"
-          className="z-50 min-w-[200px] rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-1.5 shadow-lg text-xs space-y-1 text-zinc-900 dark:text-zinc-100"
+          className="z-50 min-w-[200px] rounded-sm border border-white/15 bg-[#0A0A0A] p-1.5 shadow-2xl text-xs space-y-1 text-white"
         >
-          <div className="px-3 py-2 border-b border-zinc-100 dark:border-zinc-800">
-            <p className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">{user.name}</p>
-            <p className="text-zinc-500 text-xs truncate">{user.email}</p>
+          <div className="px-3 py-2 border-b border-white/10">
+            <p className="font-condensed font-bold text-sm uppercase text-white truncate">{user.name}</p>
+            <p className="text-zinc-400 text-xs font-mono truncate">{user.email}</p>
           </div>
 
           <DropdownMenuPrimitive.Item asChild>
             <Link
               href="/profile"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 outline-none"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-[#171717] hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
             >
-              <UserIcon className="h-4 w-4 text-zinc-500" />
+              <UserIcon className="h-4 w-4 text-zinc-400" />
               <span>Student Profile</span>
             </Link>
           </DropdownMenuPrimitive.Item>
@@ -67,17 +67,17 @@ export function UserNav() {
           <DropdownMenuPrimitive.Item asChild>
             <Link
               href="/settings"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 outline-none"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer hover:bg-[#171717] hover:text-[#FFD400] outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
             >
-              <Settings className="h-4 w-4 text-zinc-500" />
+              <Settings className="h-4 w-4 text-zinc-400" />
               <span>Account Settings</span>
             </Link>
           </DropdownMenuPrimitive.Item>
 
-          <div className="border-t border-zinc-100 dark:border-zinc-800 pt-1">
+          <div className="border-t border-white/10 pt-1">
             <DropdownMenuPrimitive.Item
               onClick={handleLogout}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 outline-none"
+              className="flex items-center gap-2 px-3 py-2 rounded-sm cursor-pointer text-rose-400 hover:bg-rose-950/50 outline-none font-bold uppercase text-[11px] font-condensed tracking-wider"
             >
               <LogOut className="h-4 w-4" />
               <span>Sign Out</span>
@@ -88,3 +88,4 @@ export function UserNav() {
     </DropdownMenuPrimitive.Root>
   );
 }
+

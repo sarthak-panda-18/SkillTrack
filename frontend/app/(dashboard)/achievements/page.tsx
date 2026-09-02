@@ -1,9 +1,9 @@
 'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { PageWrapper } from '@/components/ui/PageWrapper';
-import { Award, CheckCircle2, Sparkles, Briefcase, Brain, GraduationCap, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Award, CheckCircle2, Sparkles, GraduationCap, TrendingUp, ShieldCheck } from 'lucide-react';
 
 export default function AchievementsPage() {
   const achievements = [
@@ -17,16 +17,16 @@ export default function AchievementsPage() {
   return (
     <PageWrapper className="space-y-8">
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800">
+      <div className="p-6 sm:p-8 rounded-sm bg-[#0A0A0A] text-white border border-white/10 relative overflow-hidden">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-semibold">
-            <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-            <span>SIH 2026 Platform Event-Driven Milestones</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-[#111111] border border-[#FFD400]/40 text-[#FFD400] text-xs font-mono font-bold uppercase tracking-wider">
+            <Sparkles className="h-3.5 w-3.5 text-[#FFD400]" />
+            <span>PLATFORM EVENT-DRIVEN MILESTONES</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Career Achievements & Milestones 🏆
+          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+            CAREER ACHIEVEMENTS & MILESTONES <span className="text-[#FFD400]">🏆</span>
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl">
+          <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans">
             Badges and career milestones unlocked automatically through verified skilling, assessment, and placement events.
           </p>
         </div>
@@ -37,17 +37,17 @@ export default function AchievementsPage() {
         {achievements.map((a, i) => {
           const Icon = a.icon;
           return (
-            <Card key={i} className="p-6 border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition-all flex items-start gap-4">
-              <div className="h-12 w-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
-                <Icon className="h-6 w-6" />
+            <Card key={i} className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm hover:border-[#FFD400]/40 transition-all flex items-start gap-4">
+              <div className="h-12 w-12 rounded-sm bg-[#FFD400] text-black flex items-center justify-center font-bold shrink-0">
+                <Icon className="h-6 w-6 text-black" />
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1 font-sans">
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-slate-900 dark:text-slate-100 text-base">{a.title}</span>
-                  <Badge className="bg-emerald-600 text-white font-bold text-[10px]">Unlocked</Badge>
+                  <span className="font-condensed font-bold text-[#FFD400] text-lg uppercase">{a.title}</span>
+                  <Badge variant="default" className="bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400] font-mono font-bold text-[10px] uppercase">Unlocked</Badge>
                 </div>
-                <p className="text-slate-500 text-xs">{a.desc}</p>
-                <span className="text-[10px] text-indigo-600 font-mono font-bold block">{a.date}</span>
+                <p className="text-zinc-400 text-xs">{a.desc}</p>
+                <span className="text-[10px] text-zinc-500 font-mono font-bold block uppercase">{a.date}</span>
               </div>
             </Card>
           );
@@ -56,3 +56,4 @@ export default function AchievementsPage() {
     </PageWrapper>
   );
 }
+

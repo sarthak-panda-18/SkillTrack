@@ -192,21 +192,21 @@ export function CollegeSelect({
         }}
         tabIndex={disabled ? -1 : 0}
         className={cn(
-          'flex items-center justify-between w-full h-11 px-3.5 rounded-lg border text-sm transition-all cursor-pointer select-none bg-white dark:bg-zinc-900 focus:outline-none',
+          'flex items-center justify-between w-full h-11 px-3.5 rounded-sm border text-sm transition-all cursor-pointer select-none bg-[#0A0A0A] focus:outline-none',
           error
-            ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/20'
+            ? 'border-rose-500 focus:ring-1 focus:ring-rose-500'
             : isOpen
-            ? 'border-indigo-500 ring-2 ring-indigo-500/20 dark:border-indigo-400'
-            : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700',
-          disabled && 'opacity-50 cursor-not-allowed bg-zinc-100 dark:bg-zinc-800/50'
+            ? 'border-[#FFD400] ring-1 ring-[#FFD400]'
+            : 'border-white/15 hover:border-white/30',
+          disabled && 'opacity-40 cursor-not-allowed bg-[#111111]'
         )}
       >
         <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-          <Building2 className="h-4 w-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+          <Building2 className="h-4 w-4 text-[#FFD400] shrink-0" />
           <span
             className={cn(
               'truncate font-medium',
-              value ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 dark:text-zinc-500'
+              value ? 'text-white font-bold' : 'text-zinc-500'
             )}
           >
             {value || placeholder}
@@ -218,7 +218,7 @@ export function CollegeSelect({
             <button
               type="button"
               onClick={handleClear}
-              className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              className="p-1 rounded-sm text-zinc-400 hover:text-white hover:bg-[#171717] transition-colors"
               title="Clear selection"
             >
               <X className="h-3.5 w-3.5" />
@@ -227,19 +227,19 @@ export function CollegeSelect({
           <ChevronDown
             className={cn(
               'h-4 w-4 text-zinc-400 transition-transform duration-200',
-              isOpen && 'transform rotate-180 text-indigo-600 dark:text-indigo-400'
+              isOpen && 'transform rotate-180 text-[#FFD400]'
             )}
           />
         </div>
       </div>
 
-      {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+      {error && <p className="text-xs text-rose-400 font-semibold">{error}</p>}
 
       {/* Searchable Dropdown Popup */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150">
+        <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-[#0A0A0A] border border-white/15 rounded-sm shadow-2xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150">
           {/* Search & State Filter Bar Input */}
-          <div className="p-2.5 border-b border-zinc-200/80 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 space-y-2">
+          <div className="p-2.5 border-b border-white/10 bg-[#111111] space-y-2">
             <div className="relative flex items-center">
               <Search className="h-4 w-4 text-zinc-400 absolute left-3" />
               <input
@@ -251,13 +251,13 @@ export function CollegeSelect({
                   setHighlightedIndex(0);
                 }}
                 placeholder="Search engineering college (e.g. Prasad, IIT, PVPSIT)..."
-                className="w-full h-9 pl-9 pr-8 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-100"
+                className="w-full h-9 pl-9 pr-8 text-xs bg-[#0A0A0A] border border-white/15 rounded-sm focus:outline-none focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] text-white placeholder:text-zinc-500"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 text-zinc-400 hover:text-zinc-600"
+                  className="absolute right-2.5 text-zinc-400 hover:text-white"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
@@ -272,10 +272,10 @@ export function CollegeSelect({
                   type="button"
                   onClick={() => setSelectedStateFilter(st === 'All States' ? '' : st)}
                   className={cn(
-                    'px-2 py-0.5 rounded-full shrink-0 font-medium transition-colors',
+                    'px-2 py-0.5 rounded-sm shrink-0 font-bold uppercase transition-colors',
                     (st === 'All States' && !selectedStateFilter) || selectedStateFilter === st
-                      ? 'bg-indigo-600 text-white font-bold'
-                      : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300'
+                      ? 'bg-[#FFD400] text-black'
+                      : 'bg-[#171717] text-zinc-400 hover:bg-zinc-800 hover:text-white'
                   )}
                 >
                   {st}
@@ -287,17 +287,17 @@ export function CollegeSelect({
           {/* College Options List */}
           <div className="max-h-64 overflow-y-auto p-1 space-y-0.5 text-xs">
             {isLoading ? (
-              <div className="flex items-center justify-center py-6 gap-2 text-xs text-zinc-500 font-medium">
-                <RefreshCw className="h-4 w-4 animate-spin text-indigo-600" />
+              <div className="flex items-center justify-center py-6 gap-2 text-xs text-zinc-400 font-medium">
+                <RefreshCw className="h-4 w-4 animate-spin text-[#FFD400]" />
                 <span>Searching colleges...</span>
               </div>
             ) : isError ? (
-              <div className="text-center py-5 space-y-2 text-rose-500 text-xs">
+              <div className="text-center py-5 space-y-2 text-rose-400 text-xs">
                 <p>Unable to load colleges.</p>
                 <button
                   type="button"
                   onClick={() => refetch()}
-                  className="px-3 py-1 rounded-md border border-rose-200 text-rose-600 font-semibold hover:bg-rose-50"
+                  className="px-3 py-1 rounded-sm border border-rose-500/30 text-rose-400 font-semibold hover:bg-rose-950/50"
                 >
                   Retry
                 </button>
@@ -313,23 +313,23 @@ export function CollegeSelect({
                     onClick={() => handleSelect(c)}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     className={cn(
-                      'w-full text-left px-3 py-2.5 rounded-lg flex flex-col gap-0.5 transition-colors',
+                      'w-full text-left px-3 py-2.5 rounded-sm flex flex-col gap-0.5 transition-colors',
                       isSelected
-                        ? 'bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-bold'
+                        ? 'bg-[#FFD400]/10 text-[#FFD400] font-bold border-l-2 border-[#FFD400]'
                         : isHighlighted
-                        ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-semibold'
-                        : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                        ? 'bg-[#171717] text-white font-semibold'
+                        : 'text-zinc-300 hover:bg-[#171717]'
                     )}
                   >
                     <div className="flex items-center justify-between">
                       <span className="truncate pr-2 font-bold">{c.name}</span>
-                      {isSelected && <Check className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />}
+                      {isSelected && <Check className="h-3.5 w-3.5 text-[#FFD400] shrink-0" />}
                     </div>
                     <div className="flex items-center gap-1.5 text-[10px] text-zinc-400 font-normal">
-                      <MapPin className="h-3 w-3 text-zinc-400 shrink-0" />
+                      <MapPin className="h-3 w-3 text-zinc-500 shrink-0" />
                       <span>{c.city}, {c.state}</span>
                       {c.type && (
-                        <span className="px-1.5 py-0.2 rounded bg-zinc-200/60 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold">
+                        <span className="px-1.5 py-0.2 rounded-sm bg-[#171717] text-[#FFD400] font-mono font-semibold uppercase">
                           {c.type}
                         </span>
                       )}
@@ -339,7 +339,7 @@ export function CollegeSelect({
               })
             ) : (
               <div className="text-center py-6 space-y-2 text-zinc-400 text-xs">
-                <p className="font-semibold text-zinc-600 dark:text-zinc-300">No engineering colleges found.</p>
+                <p className="font-semibold text-white">No engineering colleges found.</p>
                 <p className="text-[11px]">Try another search term or state filter.</p>
                 <button
                   type="button"
@@ -348,10 +348,10 @@ export function CollegeSelect({
                     setIsRequestOpen(true);
                     setIsOpen(false);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-semibold hover:bg-indigo-100"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#FFD400] text-black font-bold uppercase hover:bg-[#FFE033]"
                 >
                   <PlusCircle className="h-3.5 w-3.5" />
-                  Can't find your college? Request Addition
+                  Request Addition
                 </button>
               </div>
             )}

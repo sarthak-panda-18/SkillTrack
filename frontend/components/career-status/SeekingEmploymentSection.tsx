@@ -34,14 +34,14 @@ export function SeekingEmploymentSection({
   };
 
   return (
-    <Card className="p-6 border-slate-200 dark:border-slate-800">
-      <CardHeader className="p-0 pb-4 border-b border-slate-200 dark:border-slate-800 mb-4 flex flex-row items-center justify-between">
+    <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+      <CardHeader className="p-0 pb-4 border-b border-white/10 mb-4 flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <Search className="h-5 w-5 text-indigo-600" />
-            Job Search & Readiness Information
+          <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+            <Search className="h-5 w-5 text-[#FFD400]" />
+            JOB SEARCH & READINESS INFORMATION
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-xs text-zinc-400 font-sans">
             Manage your active job search status, target salary expectations, and preferred work location.
           </CardDescription>
         </div>
@@ -50,7 +50,7 @@ export function SeekingEmploymentSection({
           size="sm"
           variant="outline"
           onClick={() => setIsEditing(!isEditing)}
-          className="text-xs font-bold gap-1.5"
+          className="text-xs font-mono font-bold uppercase gap-1.5 border-white/20 text-white hover:border-[#FFD400]"
         >
           {isEditing ? <X className="h-3.5 w-3.5" /> : <Edit3 className="h-3.5 w-3.5" />}
           <span>{isEditing ? 'Cancel' : 'Edit Details'}</span>
@@ -59,14 +59,14 @@ export function SeekingEmploymentSection({
 
       <CardContent className="p-0">
         {isEditing ? (
-          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs font-sans">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Job Search Status</label>
+                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Job Search Status</label>
                 <select
                   value={jobSearchStatus}
                   onChange={(e) => setJobSearchStatus(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 font-medium"
+                  className="w-full px-3 py-2 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 >
                   <option value="Actively Applying">Actively Applying</option>
                   <option value="Preparing for Interviews">Preparing for Interviews</option>
@@ -75,74 +75,74 @@ export function SeekingEmploymentSection({
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Preferred Location</label>
+                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Preferred Location</label>
                 <input
                   type="text"
                   value={preferredLocation}
                   onChange={(e) => setPreferredLocation(e.target.value)}
                   placeholder="e.g. Bangalore / Remote"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 font-medium"
+                  className="w-full px-3 py-2 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">Expected Salary (₹ per annum)</label>
+                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Expected Salary (₹ per annum)</label>
                 <input
                   type="number"
                   value={expectedSalary}
                   onChange={(e) => setExpectedSalary(parseFloat(e.target.value) || 0)}
                   placeholder="e.g. 600000"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 font-medium"
+                  className="w-full px-3 py-2 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 />
               </div>
             </div>
 
-            <Button type="submit" isLoading={isUpdating} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs gap-1.5">
+            <Button type="submit" isLoading={isUpdating} className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5">
               <Save className="h-4 w-4" /> Save Job Search Details
             </Button>
           </form>
         ) : (
-          <div className="space-y-6 text-xs">
+          <div className="space-y-6 text-xs font-sans">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900/50 space-y-1">
-                <span className="text-indigo-700 dark:text-indigo-400 font-bold text-[11px] block">Job Search Status</span>
-                <Badge variant="default" className="font-black text-[10px]">
+              <div className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-1">
+                <span className="text-zinc-400 font-mono font-bold text-[11px] block uppercase">Job Search Status</span>
+                <Badge variant="default" className="font-mono font-bold text-[10px] bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/40 uppercase">
                   {seekingEmploymentDetails?.jobSearchStatus || 'Actively Applying'}
                 </Badge>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="text-slate-400 font-bold text-[11px] block flex items-center gap-1">
-                  <MapPin className="h-3.5 w-3.5 text-purple-600" /> Preferred Location
+              <div className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-1">
+                <span className="text-zinc-400 font-mono font-bold text-[11px] block flex items-center gap-1 uppercase">
+                  <MapPin className="h-3.5 w-3.5 text-[#FFD400]" /> Preferred Location
                 </span>
-                <span className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                <span className="font-condensed font-black text-xl text-white uppercase">
                   {seekingEmploymentDetails?.preferredLocation || 'India'}
                 </span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="text-slate-400 font-bold text-[11px] block flex items-center gap-1">
-                  <DollarSign className="h-3.5 w-3.5 text-emerald-600" /> Expected Salary
+              <div className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-1">
+                <span className="text-zinc-400 font-mono font-bold text-[11px] block flex items-center gap-1 uppercase">
+                  <DollarSign className="h-3.5 w-3.5 text-[#FFD400]" /> Expected Salary
                 </span>
-                <span className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                <span className="font-condensed font-black text-xl text-[#FFD400]">
                   ₹{((seekingEmploymentDetails?.expectedSalary || 600000) / 100000).toFixed(1)} LPA
                 </span>
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+            <div className="p-5 rounded-sm bg-[#111111] border border-white/10 flex items-center justify-between gap-4">
               <div className="space-y-1">
-                <span className="font-extrabold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                  <Brain className="h-4 w-4 text-indigo-600" /> Assessment Readiness
+                <span className="font-condensed font-extrabold text-base uppercase text-white flex items-center gap-2">
+                  <Brain className="h-4 w-4 text-[#FFD400]" /> Assessment Readiness
                 </span>
-                <p className="text-slate-500 text-xs">
+                <p className="text-zinc-400 text-xs">
                   Solve 20-question skill evaluations to prove technical competence.
                 </p>
               </div>
 
               <Link href="/assessment">
-                <Button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs gap-1.5 shrink-0">
-                  <span>Take Assessment</span> <ArrowRight className="h-4 w-4" />
+                <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5 shrink-0">
+                  <span>Take Assessment</span> <ArrowRight className="h-4 w-4 text-black" />
                 </Button>
               </Link>
             </div>
@@ -152,3 +152,4 @@ export function SeekingEmploymentSection({
     </Card>
   );
 }
+

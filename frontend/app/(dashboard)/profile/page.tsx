@@ -17,7 +17,6 @@ import {
   Code,
   Award,
   Sparkles,
-  RefreshCw,
 } from 'lucide-react';
 import { useAuth } from '@/providers/AuthProvider';
 import { userService } from '@/services/user.service';
@@ -171,49 +170,49 @@ export default function ProfilePage() {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100">
-            Student Engineering Profile
+          <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+            STUDENT ENGINEERING PROFILE
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
             Manage your academic credentials, career aspirations, and verified skill ratings.
           </p>
         </div>
 
-        <Button onClick={() => setIsEditOpen(true)} className="gap-2 shrink-0">
-          <Edit className="h-4 w-4" />
-          Edit Profile
+        <Button onClick={() => setIsEditOpen(true)} className="gap-2 shrink-0 bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase">
+          <Edit className="h-4 w-4 text-black" />
+          EDIT PROFILE
         </Button>
       </div>
 
       {/* Main Profile Summary Card */}
-      <Card className="overflow-hidden border-zinc-200/80 dark:border-zinc-800">
+      <Card className="overflow-hidden bg-[#0A0A0A] border-white/10 text-white rounded-sm">
         <CardContent className="p-6 sm:p-8 space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <Avatar className="h-20 w-20 border-2 border-indigo-600 shadow-md">
-              <AvatarFallback className="bg-indigo-600 text-white font-bold text-2xl">
+            <Avatar className="h-20 w-20 border-2 border-[#FFD400]">
+              <AvatarFallback className="bg-[#FFD400] text-black font-condensed font-extrabold text-2xl uppercase">
                 {profileUser?.name?.charAt(0).toUpperCase() || 'S'}
               </AvatarFallback>
             </Avatar>
 
-            <div className="space-y-1.5 flex-1 min-w-0">
+            <div className="space-y-1.5 flex-1 min-w-0 font-sans">
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 truncate">
+                <h2 className="font-condensed text-2xl sm:text-3xl font-extrabold text-white uppercase truncate">
                   {profileUser?.name}
                 </h2>
-                <Badge variant="purple" className="text-xs font-semibold">
+                <Badge variant="default" className="text-xs font-mono font-bold uppercase bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                   {profileUser?.experienceLevel || 'Intermediate'}
                 </Badge>
               </div>
 
-              <p className="text-xs sm:text-sm text-zinc-500 truncate">{profileUser?.email}</p>
+              <p className="text-xs sm:text-sm text-zinc-400 font-mono truncate">{profileUser?.email}</p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-zinc-600 dark:text-zinc-400 font-medium">
+              <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-zinc-300 font-mono">
                 <span className="flex items-center gap-1.5 truncate">
-                  <Building className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                  <Building className="h-3.5 w-3.5 text-[#FFD400] shrink-0" />
                   <span className="truncate">{profileUser?.college || 'Institution pending'}</span>
                 </span>
                 <span className="flex items-center gap-1.5 truncate">
-                  <GraduationCap className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                  <GraduationCap className="h-3.5 w-3.5 text-[#FFD400] shrink-0" />
                   <span className="truncate">
                     {profileUser?.degree} • {profileUser?.branch} ({profileUser?.graduationYear})
                   </span>
@@ -223,73 +222,73 @@ export default function ProfilePage() {
           </div>
 
           {/* Profile Completion Bar */}
-          <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800 space-y-2">
-            <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                <Sparkles className="h-4 w-4 text-indigo-600 dark:text-indigo-400 animate-pulse" />
-                Profile Placement Readiness Completion
+          <div className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-2">
+            <div className="flex justify-between items-center text-xs font-mono">
+              <span className="font-bold text-white flex items-center gap-1.5 uppercase">
+                <Sparkles className="h-4 w-4 text-[#FFD400]" />
+                PROFILE PLACEMENT READINESS COMPLETION
               </span>
-              <span className="font-extrabold text-indigo-600 dark:text-indigo-400">
+              <span className="font-condensed font-black text-lg text-[#FFD400]">
                 {profileCompletion}%
               </span>
             </div>
-            <Progress value={profileCompletion} className="h-2.5" />
+            <Progress value={profileCompletion} className="h-2 bg-zinc-800" />
           </div>
         </CardContent>
       </Card>
 
       {/* Academic & Target Role Info Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+        <Card className="p-4 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <div className="h-10 w-10 rounded-sm bg-[#111111] border border-white/10 flex items-center justify-center text-[#FFD400] shrink-0">
               <Building className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">College</div>
-              <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+              <div className="font-condensed font-bold text-base text-white truncate uppercase">
                 {profileUser?.college || 'Not specified'}
               </div>
             </div>
           </div>
         </Card>
 
-        <Card className="p-4">
+        <Card className="p-4 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <div className="h-10 w-10 rounded-sm bg-[#111111] border border-white/10 flex items-center justify-center text-[#FFD400] shrink-0">
               <GraduationCap className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Degree & Year</div>
-              <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+              <div className="font-condensed font-bold text-base text-white truncate uppercase">
                 {profileUser?.degree} ({profileUser?.graduationYear})
               </div>
             </div>
           </div>
         </Card>
 
-        <Card className="p-4">
+        <Card className="p-4 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <div className="h-10 w-10 rounded-sm bg-[#111111] border border-white/10 flex items-center justify-center text-[#FFD400] shrink-0">
               <Target className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Target Role</div>
-              <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+              <div className="font-condensed font-bold text-base text-white truncate uppercase">
                 {profileUser?.targetRole || 'Full Stack Engineer'}
               </div>
             </div>
           </div>
         </Card>
 
-        <Card className="p-4">
+        <Card className="p-4 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <div className="h-10 w-10 rounded-sm bg-[#111111] border border-white/10 flex items-center justify-center text-[#FFD400] shrink-0">
               <Award className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Target Domain</div>
-              <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 truncate">
+              <div className="font-condensed font-bold text-base text-white truncate uppercase">
                 {profileUser?.targetDomain || 'Web Development'}
               </div>
             </div>
@@ -298,36 +297,36 @@ export default function ProfilePage() {
       </div>
 
       {/* Verified Skills Section */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+      <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+        <CardHeader className="p-6 pb-4 border-b border-white/10 flex flex-row items-center justify-between">
           <div>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Code className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-              Verified Technical Skills ({userSkills.length})
+            <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+              <Code className="h-5 w-5 text-[#FFD400]" />
+              VERIFIED TECHNICAL SKILLS ({userSkills.length})
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-xs text-zinc-400 font-sans">
               Technical proficiencies evaluated against engineering benchmarks.
             </CardDescription>
           </div>
 
-          <Button onClick={() => setIsAddSkillOpen(true)} size="sm" className="gap-1.5 text-xs">
-            <Plus className="h-4 w-4" />
-            Add / Update Skill
+          <Button onClick={() => setIsAddSkillOpen(true)} size="sm" className="gap-1.5 text-xs font-mono font-bold uppercase bg-[#FFD400] hover:bg-[#FFE033] text-black">
+            <Plus className="h-4 w-4 text-black" />
+            ADD / UPDATE SKILL
           </Button>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="p-6">
           {userSkills.length === 0 ? (
-            <div className="text-center py-10 space-y-3 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl">
-              <Code className="h-10 w-10 text-zinc-400 mx-auto" />
+            <div className="text-center py-10 space-y-3 border border-dashed border-white/10 rounded-sm bg-[#111111] font-mono">
+              <Code className="h-10 w-10 text-zinc-600 mx-auto" />
               <div className="space-y-1">
-                <p className="font-bold text-sm text-zinc-900 dark:text-zinc-100">No technical skills added yet</p>
-                <p className="text-xs text-zinc-500 max-w-sm mx-auto">
+                <p className="font-condensed font-bold text-base text-white uppercase">No technical skills added yet</p>
+                <p className="text-xs text-zinc-400 max-w-sm mx-auto font-sans">
                   Add programming languages, frameworks, or engineering subjects to start skill gap evaluation.
                 </p>
               </div>
-              <Button onClick={() => setIsAddSkillOpen(true)} size="sm" className="gap-1 text-xs">
-                <Plus className="h-4 w-4" />
+              <Button onClick={() => setIsAddSkillOpen(true)} size="sm" className="gap-1 text-xs font-mono font-bold uppercase bg-[#FFD400] hover:bg-[#FFE033] text-black">
+                <Plus className="h-4 w-4 text-black" />
                 Add Your First Skill
               </Button>
             </div>
@@ -338,20 +337,20 @@ export default function ProfilePage() {
                 return (
                   <div
                     key={item._id}
-                    className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 hover:border-indigo-500/50 transition-all space-y-3 shadow-xs"
+                    className="p-4 rounded-sm bg-[#111111] border border-white/10 hover:border-[#FFD400]/40 transition-all space-y-3 font-sans"
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">{skill.name}</h4>
-                        <span className="text-[11px] text-zinc-400 font-medium">{skill.category}</span>
+                        <h4 className="font-condensed font-bold text-base text-white uppercase">{skill.name}</h4>
+                        <span className="text-[11px] text-zinc-400 font-mono uppercase">{skill.category}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Badge variant="secondary" className="text-[10px] py-0">
+                        <Badge variant="default" className="text-[10px] font-mono font-bold uppercase bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                           {item.level || getProficiencyLevel(item.proficiency)}
                         </Badge>
                         <button
                           onClick={() => removeSkillMutation.mutate(skill._id)}
-                          className="p-1 text-zinc-400 hover:text-rose-600 transition-colors"
+                          className="p-1 text-zinc-500 hover:text-rose-400 transition-colors"
                           title="Remove skill"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -359,12 +358,12 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div className="space-y-1">
-                      <div className="flex justify-between text-xs font-semibold">
-                        <span className="text-zinc-500 text-[11px]">Proficiency</span>
-                        <span className="text-indigo-600 dark:text-indigo-400 font-bold">{item.proficiency}%</span>
+                    <div className="space-y-1 font-mono">
+                      <div className="flex justify-between text-xs font-bold">
+                        <span className="text-zinc-400 text-[11px] uppercase">Proficiency</span>
+                        <span className="text-[#FFD400] font-bold">{item.proficiency}%</span>
                       </div>
-                      <Progress value={item.proficiency} className="h-2" />
+                      <Progress value={item.proficiency} className="h-1.5 bg-zinc-800" />
                     </div>
                   </div>
                 );
@@ -376,15 +375,15 @@ export default function ProfilePage() {
 
       {/* Edit Profile Modal */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <DialogHeader>
-            <DialogTitle>Edit Engineering Profile</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-white">Edit Engineering Profile</DialogTitle>
+            <DialogDescription className="text-xs text-zinc-400 font-mono">
               Update your institution, degree program, and career goals.
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit(onEditSubmit)} className="space-y-4 py-2">
+          <form onSubmit={handleSubmit(onEditSubmit)} className="space-y-4 py-2 font-sans">
             <Input label="Full Name" {...register('name')} error={errors.name?.message} />
 
             {/* Searchable Engineering College Selector */}
@@ -464,11 +463,11 @@ export default function ProfilePage() {
               )}
             />
 
-            <DialogFooter className="mt-6">
-              <Button type="button" variant="outline" onClick={() => setIsEditOpen(false)}>
+            <DialogFooter className="mt-6 gap-2">
+              <Button type="button" variant="outline" onClick={() => setIsEditOpen(false)} className="text-xs font-mono uppercase border-white/20 text-white">
                 Cancel
               </Button>
-              <Button type="submit" isLoading={updateProfileMutation.isPending}>
+              <Button type="submit" isLoading={updateProfileMutation.isPending} className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase">
                 Save Changes
               </Button>
             </DialogFooter>
@@ -478,15 +477,15 @@ export default function ProfilePage() {
 
       {/* Add / Update Technical Skill Modal */}
       <Dialog open={isAddSkillOpen} onOpenChange={setIsAddSkillOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <DialogHeader>
-            <DialogTitle>Add / Update Technical Skill</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-white">Add / Update Technical Skill</DialogTitle>
+            <DialogDescription className="text-xs text-zinc-400 font-mono">
               Select a skill from the engineering catalog and set your current proficiency.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-5 py-2">
+          <div className="space-y-5 py-2 font-sans">
             {/* Custom Category-Grouped Premium Skill Selector Combobox */}
             <SkillSelect
               label="Select Technical Skill"
@@ -499,15 +498,15 @@ export default function ProfilePage() {
             />
 
             {selectedSkillObj && (
-              <div className="p-3.5 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-900/60 text-xs space-y-1">
-                <div className="font-bold text-indigo-700 dark:text-indigo-300 flex items-center justify-between">
+              <div className="p-3.5 rounded-sm bg-[#111111] border border-white/10 text-xs space-y-1 font-mono">
+                <div className="font-bold text-white flex items-center justify-between uppercase">
                   <span>{selectedSkillObj.name}</span>
-                  <Badge variant="purple" className="text-[10px] uppercase">
+                  <Badge variant="default" className="text-[10px] bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                     {selectedSkillObj.category}
                   </Badge>
                 </div>
                 {selectedSkillObj.description && (
-                  <p className="text-zinc-600 dark:text-zinc-400 text-[11px] leading-relaxed pt-1">
+                  <p className="text-zinc-400 text-[11px] leading-relaxed pt-1 font-sans">
                     {selectedSkillObj.description}
                   </p>
                 )}
@@ -515,16 +514,16 @@ export default function ProfilePage() {
             )}
 
             {/* Proficiency Slider & Rating Display */}
-            <div className="space-y-3">
+            <div className="space-y-3 font-mono">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+                <span className="font-bold uppercase tracking-wider text-zinc-300">
                   Proficiency Score
                 </span>
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary" className="text-[10px]">
+                  <Badge variant="default" className="text-[10px] bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40 uppercase">
                     {getProficiencyLevel(skillProficiency)}
                   </Badge>
-                  <span className="font-extrabold text-sm text-indigo-600 dark:text-indigo-400">
+                  <span className="font-condensed font-black text-lg text-[#FFD400]">
                     {skillProficiency}%
                   </span>
                 </div>
@@ -537,10 +536,10 @@ export default function ProfilePage() {
                 step="5"
                 value={skillProficiency}
                 onChange={(e) => setSkillProficiency(parseInt(e.target.value))}
-                className="w-full h-2.5 bg-zinc-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-2 bg-zinc-800 rounded-sm appearance-none cursor-pointer accent-[#FFD400] focus:outline-none"
               />
 
-              <div className="flex justify-between text-[10px] text-zinc-400 font-mono">
+              <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
                 <span>Beginner (10%)</span>
                 <span>Intermediate (50%)</span>
                 <span>Advanced (100%)</span>
@@ -548,14 +547,15 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <DialogFooter className="mt-4">
-            <Button type="button" variant="outline" onClick={() => setIsAddSkillOpen(false)}>
+          <DialogFooter className="mt-4 gap-2">
+            <Button type="button" variant="outline" onClick={() => setIsAddSkillOpen(false)} className="text-xs font-mono uppercase border-white/20 text-white">
               Cancel
             </Button>
             <Button
               onClick={onAddSkillSubmit}
               isLoading={addSkillMutation.isPending}
               disabled={!selectedSkillId || isLoadingSkills}
+              className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
             >
               {addSkillMutation.isPending ? 'Saving skill...' : 'Save Skill'}
             </Button>
@@ -565,3 +565,4 @@ export default function ProfilePage() {
     </PageWrapper>
   );
 }
+

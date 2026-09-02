@@ -9,21 +9,21 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', isLoading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] transition-transform duration-100';
+    const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-semibold tracking-wide transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD400] disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] duration-150';
 
     const variants = {
-      default: 'bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 shadow-sm',
-      destructive: 'bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-600 dark:hover:bg-rose-700 shadow-sm',
-      outline: 'border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/80 text-slate-900 dark:text-slate-100 shadow-sm',
-      secondary: 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700',
-      ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-300',
-      link: 'text-indigo-600 dark:text-indigo-400 underline-offset-4 hover:underline p-0 h-auto',
+      default: 'bg-[#FFD400] text-black font-bold uppercase hover:bg-[#FFE033] hover:shadow-[0_0_15px_rgba(255,212,0,0.4)] border border-[#FFD400]',
+      destructive: 'bg-red-950/80 text-red-300 border border-red-500/40 hover:bg-red-900/80 hover:text-white',
+      outline: 'border border-white/20 bg-black text-white hover:border-[#FFD400] hover:text-[#FFD400] font-bold uppercase tracking-wider',
+      secondary: 'bg-[#111111] border border-white/10 text-white hover:bg-[#171717] hover:border-white/20',
+      ghost: 'hover:bg-[#171717] text-zinc-300 hover:text-white',
+      link: 'text-[#FFD400] underline-offset-4 hover:underline p-0 h-auto',
     };
 
     const sizes = {
-      default: 'h-10 px-4 py-2',
-      sm: 'h-8 rounded-md px-3 text-xs',
-      lg: 'h-11 rounded-lg px-6 text-base font-semibold',
+      default: 'h-10 px-5 py-2 text-xs font-bold uppercase tracking-wider',
+      sm: 'h-8 px-3 text-[11px] font-bold uppercase tracking-wider',
+      lg: 'h-12 px-7 text-sm font-extrabold uppercase tracking-widest',
       icon: 'h-10 w-10 p-0',
     };
 
@@ -46,3 +46,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 Button.displayName = 'Button';
+

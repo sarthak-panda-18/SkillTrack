@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Brain,
   Sparkles,
@@ -12,16 +11,11 @@ import {
   TrendingDown,
   Minus,
   HelpCircle,
-  CheckCircle2,
   AlertCircle,
   RotateCw,
   Zap,
   Target,
   ArrowRight,
-  ShieldAlert,
-  CheckSquare,
-  XCircle,
-  Flame,
   Award,
   Layers,
   Compass,
@@ -34,7 +28,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/Progress';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
-import { AdaptiveLearningState, AdaptiveRecommendation, SkillTrendItem } from '@/types/adaptive';
+import { AdaptiveLearningState, AdaptiveRecommendation } from '@/types/adaptive';
 
 export default function AdaptiveLearningPage() {
   const queryClient = useQueryClient();
@@ -89,11 +83,11 @@ export default function AdaptiveLearningPage() {
   if (isLoading) {
     return (
       <PageWrapper className="max-w-6xl mx-auto space-y-6">
-        <Skeleton className="h-28 w-full rounded-2xl" />
-        <Skeleton className="h-44 w-full rounded-2xl" />
+        <Skeleton className="h-28 w-full rounded-sm bg-[#0A0A0A]" />
+        <Skeleton className="h-44 w-full rounded-sm bg-[#0A0A0A]" />
         <div className="space-y-4">
-          <Skeleton className="h-32 w-full rounded-2xl" />
-          <Skeleton className="h-32 w-full rounded-2xl" />
+          <Skeleton className="h-32 w-full rounded-sm bg-[#0A0A0A]" />
+          <Skeleton className="h-32 w-full rounded-sm bg-[#0A0A0A]" />
         </div>
       </PageWrapper>
     );
@@ -107,18 +101,18 @@ export default function AdaptiveLearningPage() {
     if (errCode === 'TARGET_ROLE_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 flex items-center justify-center mx-auto">
-              <Brain className="h-8 w-8" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Brain className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Target Career Role Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Target Career Role Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
               {errMsg || 'Please select a target career role in your profile to activate Adaptive Intelligence.'}
             </p>
             <Link href="/profile">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Select Target Career Role
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -129,18 +123,18 @@ export default function AdaptiveLearningPage() {
     if (errCode === 'SKILL_GAP_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 flex items-center justify-center mx-auto">
-              <Target className="h-8 w-8 text-purple-600" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Target className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Skill Gap Analysis Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Skill Gap Analysis Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
               {errMsg || 'Complete your Skill Gap Analysis first.'}
             </p>
             <Link href="/skill-gap">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Run Skill Gap Analysis
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -151,18 +145,18 @@ export default function AdaptiveLearningPage() {
     if (errCode === 'ROADMAP_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 flex items-center justify-center mx-auto">
-              <Layers className="h-8 w-8 text-purple-600" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Layers className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Personalized Roadmap Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Personalized Roadmap Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
               {errMsg || 'Generate your personalized learning roadmap first.'}
             </p>
             <Link href="/learning">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Generate Learning Roadmap
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -173,18 +167,18 @@ export default function AdaptiveLearningPage() {
     if (errCode === 'STUDY_PLAN_REQUIRED') {
       return (
         <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-          <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 rounded-2xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 flex items-center justify-center mx-auto">
-              <Sparkles className="h-8 w-8 text-purple-600" />
+          <div className="p-8 rounded-sm bg-[#0A0A0A] border border-white/10 text-white max-w-md mx-auto space-y-4 font-mono">
+            <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+              <Sparkles className="h-8 w-8 text-[#FFD400]" />
             </div>
-            <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Study Plan Required</h2>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Study Plan Required</h2>
+            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
               {errMsg || 'Generate your personalized study plan first.'}
             </p>
             <Link href="/study-plan">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2">
+              <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
                 Generate Study Plan
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 text-black" />
               </Button>
             </Link>
           </div>
@@ -192,20 +186,20 @@ export default function AdaptiveLearningPage() {
       );
     }
 
-    // Default Error UI for Genuine Server Failures (500 / Network Error)
+    // Default Error UI
     return (
       <PageWrapper className="max-w-4xl mx-auto py-12 text-center space-y-6">
-        <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm max-w-md mx-auto space-y-4">
-          <div className="h-16 w-16 rounded-2xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 flex items-center justify-center mx-auto">
-            <AlertCircle className="h-8 w-8 text-rose-600" />
+        <div className="p-8 rounded-sm bg-[#0A0A0A] border border-rose-500/40 text-white max-w-md mx-auto space-y-4 font-mono">
+          <div className="h-16 w-16 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
+            <AlertCircle className="h-8 w-8 text-rose-400" />
           </div>
-          <h2 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Adaptive Intelligence Temporarily Unavailable</h2>
-          <p className="text-xs text-zinc-500 leading-relaxed">
+          <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Adaptive Intelligence Temporarily Unavailable</h2>
+          <p className="text-xs text-zinc-400 font-sans leading-relaxed">
             {errMsg || 'An unexpected error occurred while generating your adaptive learning intelligence.'}
           </p>
           <Button
             onClick={() => queryClient.invalidateQueries({ queryKey: ['adaptive-learning'] })}
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2"
+            className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase gap-2"
           >
             <RotateCw className="h-4 w-4" />
             Try Again
@@ -244,32 +238,32 @@ export default function AdaptiveLearningPage() {
   return (
     <PageWrapper className="max-w-6xl mx-auto space-y-6">
       {/* Top Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-900 via-indigo-900 to-zinc-900 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="p-6 sm:p-8 rounded-sm bg-[#0A0A0A] text-white border border-white/10 relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="relative z-10 space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-purple-200 border border-white/10">
-              <Sparkles className="h-3.5 w-3.5 text-purple-300" />
-              Adaptive Intelligence Engine
+          <div className="flex flex-wrap items-center gap-2 font-mono">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-[#111111] border border-[#FFD400]/40 text-xs font-bold text-[#FFD400] uppercase tracking-wider">
+              <Sparkles className="h-3.5 w-3.5 text-[#FFD400]" />
+              ADAPTIVE INTELLIGENCE ENGINE
             </span>
             {estimatedLearningVelocity > 0 && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold border border-emerald-500/30">
-                <Zap className="h-3.5 w-3.5 text-emerald-400 fill-emerald-400" />
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-sm bg-[#FFD400]/10 text-[#FFD400] text-xs font-bold border border-[#FFD400]/40 uppercase">
+                <Zap className="h-3.5 w-3.5 text-[#FFD400] fill-[#FFD400]" />
                 +{estimatedLearningVelocity} pts / wk Velocity
               </span>
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black text-white">
-            Adaptive Learning Pathway for {careerRoleName}
+          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+            ADAPTIVE LEARNING PATHWAY FOR {careerRoleName}
           </h1>
-          <p className="text-xs text-purple-200 max-w-2xl leading-relaxed">{aiSummary}</p>
+          <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed font-sans">{aiSummary}</p>
         </div>
 
         <Button
           onClick={() => analyzeMutation.mutate()}
           isLoading={analyzeMutation.isPending}
           variant="outline"
-          className="relative z-10 border-white/20 text-white hover:bg-white/10 font-bold text-xs gap-2 shrink-0"
+          className="relative z-10 border-white/20 text-white font-mono font-bold text-xs uppercase hover:border-[#FFD400] gap-2 shrink-0"
         >
           <RotateCw className="h-4 w-4" />
           Analyze Latest Progress
@@ -277,112 +271,106 @@ export default function AdaptiveLearningPage() {
       </div>
 
       {/* Overview Stat Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase font-extrabold tracking-wider block">
+            <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider block">
               Skills Analyzed
             </span>
-            <div className="text-2xl font-black text-zinc-900 dark:text-zinc-100 font-mono">
+            <div className="font-condensed text-3xl font-black text-white">
               {skillsAnalyzedCount}
             </div>
-            <span className="text-[11px] text-zinc-500 font-semibold block">Target Role Skills</span>
+            <span className="text-[11px] text-zinc-400 font-sans block">Target Role Skills</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/10 dark:bg-emerald-950/10">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-extrabold tracking-wider block flex items-center gap-1">
-              <TrendingUp className="h-3.5 w-3.5" /> Improving
+            <span className="text-[10px] text-[#FFD400] uppercase font-bold tracking-wider block flex items-center gap-1">
+              <TrendingUp className="h-3.5 w-3.5 text-[#FFD400]" /> Improving
             </span>
-            <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">
+            <div className="font-condensed text-3xl font-black text-[#FFD400]">
               {improvingCount}
             </div>
-            <span className="text-[11px] text-zinc-500 font-semibold block">Positive Score Growth</span>
+            <span className="text-[11px] text-zinc-400 font-sans block">Positive Score Growth</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-zinc-200 dark:border-zinc-800">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase font-extrabold tracking-wider block flex items-center gap-1">
-              <Minus className="h-3.5 w-3.5" /> Stable / Baseline
+            <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider block flex items-center gap-1">
+              <Minus className="h-3.5 w-3.5 text-zinc-400" /> Stable / Baseline
             </span>
-            <div className="text-2xl font-black text-zinc-900 dark:text-zinc-100 font-mono">
+            <div className="font-condensed text-3xl font-black text-white">
               {stableCount + insufficientDataCount}
             </div>
-            <span className="text-[11px] text-zinc-500 font-semibold block">Consistent Proficiency</span>
+            <span className="text-[11px] text-zinc-400 font-sans block">Consistent Proficiency</span>
           </CardContent>
         </Card>
 
-        <Card className="shadow-xs border border-purple-200 dark:border-purple-900/60 bg-purple-50/10 dark:bg-purple-950/10">
+        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[10px] text-purple-600 dark:text-purple-400 uppercase font-extrabold tracking-wider block flex items-center gap-1">
-              <Target className="h-3.5 w-3.5" /> Study Consistency
+            <span className="text-[10px] text-[#FFD400] uppercase font-bold tracking-wider block flex items-center gap-1">
+              <Target className="h-3.5 w-3.5 text-[#FFD400]" /> Study Consistency
             </span>
-            <div className="text-2xl font-black text-purple-600 dark:text-purple-400 font-mono">
+            <div className="font-condensed text-3xl font-black text-[#FFD400]">
               {studyConsistencyPercentage}%
             </div>
-            <span className="text-[11px] text-zinc-500 font-semibold block">Plan Execution Rate</span>
+            <span className="text-[11px] text-zinc-400 font-sans block">Plan Execution Rate</span>
           </CardContent>
         </Card>
       </div>
 
       {/* Highlighted Next Best Action Card */}
       {nextBestAction && (
-        <Card className="shadow-md border-2 border-purple-300 dark:border-purple-800 bg-gradient-to-r from-purple-50/80 via-white to-purple-50/30 dark:from-purple-950/40 dark:via-zinc-900 dark:to-purple-950/20">
-          <CardHeader className="pb-2 border-b border-purple-100 dark:border-purple-900/40 flex flex-row justify-between items-center">
-            <CardTitle className="text-xs font-extrabold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-2">
-              <Compass className="h-4 w-4 text-purple-600" />
-              Primary Next Best Action
+        <Card className="bg-[#0A0A0A] border-2 border-[#FFD400]/60 text-white rounded-sm">
+          <CardHeader className="p-6 pb-2 border-b border-white/10 flex flex-row justify-between items-center">
+            <CardTitle className="font-condensed text-xl font-extrabold uppercase text-[#FFD400] flex items-center gap-2">
+              <Compass className="h-5 w-5 text-[#FFD400]" />
+              PRIMARY NEXT BEST ACTION
             </CardTitle>
             <Badge
-              variant={
-                nextBestAction.priority === 'CRITICAL'
-                  ? 'rose'
-                  : nextBestAction.priority === 'HIGH'
-                  ? 'purple'
-                  : 'default'
-              }
-              className="text-[10px] uppercase font-bold"
+              variant="default"
+              className="text-[10px] font-mono font-bold uppercase bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400]"
             >
               {nextBestAction.priority} PRIORITY
             </Badge>
           </CardHeader>
 
-          <CardContent className="p-6 space-y-4">
+          <CardContent className="p-6 space-y-4 font-sans">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="text-[10px] uppercase font-bold">
+                <div className="flex items-center gap-2 font-mono">
+                  <Badge variant="default" className="text-[10px] uppercase font-bold bg-zinc-800 text-white">
                     {nextBestAction.type.replace('_', ' ')}
                   </Badge>
                   {nextBestAction.skillName && (
-                    <Badge variant="purple" className="text-[10px] py-0 font-bold">
+                    <Badge variant="default" className="text-[10px] font-bold bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                       {nextBestAction.skillName}
                     </Badge>
                   )}
                 </div>
-                <h3 className="text-lg font-black text-zinc-900 dark:text-zinc-100">
+                <h3 className="font-condensed text-2xl font-extrabold text-white uppercase">
                   {nextBestAction.title}
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+                <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
                   {nextBestAction.reason}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-2 shrink-0 font-mono">
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => handleDismissRecommendation(nextBestAction)}
-                  className="text-xs font-semibold"
+                  className="text-xs font-bold uppercase border-white/20 text-white"
                 >
                   Dismiss
                 </Button>
                 <Button
                   size="sm"
                   onClick={() => handleAcceptRecommendation(nextBestAction)}
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs gap-1.5"
+                  className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5"
                 >
                   {nextBestAction.actionLabel} ↗
                 </Button>
@@ -395,78 +383,70 @@ export default function AdaptiveLearningPage() {
       {/* Main Content Grid: Skill Performance Trends & Recommendations */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Skill Performance Trends Matrix (2 Cols) */}
-        <Card className="lg:col-span-2 shadow-sm border border-zinc-200 dark:border-zinc-800">
-          <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-            <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-purple-600" />
-              Skill Performance Trends & Score Trajectory
+        <Card className="lg:col-span-2 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+          <CardHeader className="p-6 pb-3 border-b border-white/10">
+            <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-[#FFD400]" />
+              SKILL PERFORMANCE TRENDS & SCORE TRAJECTORY
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             {trends.length === 0 ? (
-              <div className="text-center py-8 text-xs text-zinc-500">No skill trends analyzed yet.</div>
+              <div className="text-center py-8 text-xs text-zinc-400 font-mono">No skill trends analyzed yet.</div>
             ) : (
               <div className="space-y-4">
                 {trends.map((item) => {
                   return (
                     <div
                       key={item.skillName}
-                      className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-3"
+                      className="p-4 rounded-sm border border-white/10 bg-[#111111] space-y-3 font-sans"
                     >
                       <div className="flex justify-between items-start">
                         <div className="space-y-0.5">
-                          <h4 className="font-extrabold text-sm text-zinc-900 dark:text-zinc-100">
+                          <h4 className="font-condensed font-bold text-lg text-white uppercase">
                             {item.skillName}
                           </h4>
-                          <span className="text-[11px] text-zinc-500 font-mono">
+                          <span className="text-[11px] text-zinc-400 font-mono">
                             Current: {item.currentProficiency}% • Target: {item.targetProficiency}%
                           </span>
                         </div>
 
                         <Badge
-                          variant={
-                            item.trend === 'IMPROVING'
-                              ? 'success'
-                              : item.trend === 'DECLINING'
-                              ? 'rose'
-                              : item.trend === 'STABLE'
-                              ? 'purple'
-                              : 'secondary'
-                          }
-                          className="text-[10px] uppercase font-bold flex items-center gap-1"
+                          variant="default"
+                          className="text-[10px] font-mono font-bold uppercase flex items-center gap-1 bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40"
                         >
-                          {item.trend === 'IMPROVING' && <TrendingUp className="h-3 w-3" />}
-                          {item.trend === 'DECLINING' && <TrendingDown className="h-3 w-3" />}
-                          {item.trend === 'STABLE' && <Minus className="h-3 w-3" />}
-                          {item.trend === 'INSUFFICIENT_DATA' && <HelpCircle className="h-3 w-3" />}
+                          {item.trend === 'IMPROVING' && <TrendingUp className="h-3 w-3 text-[#FFD400]" />}
+                          {item.trend === 'DECLINING' && <TrendingDown className="h-3 w-3 text-rose-400" />}
+                          {item.trend === 'STABLE' && <Minus className="h-3 w-3 text-white" />}
+                          {item.trend === 'INSUFFICIENT_DATA' && <HelpCircle className="h-3 w-3 text-zinc-400" />}
                           {item.trend.replace('_', ' ')}
                         </Badge>
                       </div>
 
-                      <Progress value={item.currentProficiency} className="h-2" />
+                      <Progress value={item.currentProficiency} className="h-1.5 bg-zinc-800" />
 
                       {/* Score History Trail */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-1">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 pt-1">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[10px] text-zinc-400 font-bold uppercase">Assessment History:</span>
+                          <span className="text-[10px] text-zinc-500 font-bold uppercase">Assessment History:</span>
                           {item.scoreHistory && item.scoreHistory.length > 0 ? (
                             item.scoreHistory.map((s, idx) => (
                               <span
                                 key={idx}
-                                className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 font-bold text-zinc-800 dark:text-zinc-200 text-[10px]"
+                                className="px-1.5 py-0.5 rounded bg-black font-bold text-white text-[10px]"
                               >
                                 {s}%
                               </span>
                             ))
                           ) : (
-                            <span className="text-zinc-400 italic text-[10px]">Unassessed</span>
+                            <span className="text-zinc-500 italic text-[10px]">Unassessed</span>
                           )}
                         </div>
 
                         {item.changePoints !== 0 && (
                           <span
                             className={`font-extrabold ${
-                              item.changePoints > 0 ? 'text-emerald-600' : 'text-rose-600'
+                              item.changePoints > 0 ? 'text-[#FFD400]' : 'text-rose-400'
                             }`}
                           >
                             {item.changePoints > 0 ? `+${item.changePoints}%` : `${item.changePoints}%`}
@@ -483,52 +463,46 @@ export default function AdaptiveLearningPage() {
 
         {/* Side Column: All Adaptive Recommendations & Analytics */}
         <div className="space-y-6">
-          <Card className="shadow-sm border border-zinc-200 dark:border-zinc-800">
-            <CardHeader className="pb-3 border-b border-zinc-100 dark:border-zinc-800">
-              <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-                <Brain className="h-4 w-4 text-purple-600" />
-                Adaptive Recommendations ({activeRecommendations.length})
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+            <CardHeader className="p-6 pb-3 border-b border-white/10">
+              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+                <Brain className="h-5 w-5 text-[#FFD400]" />
+                ADAPTIVE RECOMMENDATIONS ({activeRecommendations.length})
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-4 space-y-3">
+            <CardContent className="p-4 space-y-3 font-sans">
               {activeRecommendations.length === 0 ? (
-                <div className="text-center py-6 text-xs text-zinc-500">No active recommendations.</div>
+                <div className="text-center py-6 text-xs text-zinc-400 font-mono">No active recommendations.</div>
               ) : (
                 activeRecommendations.map((rec) => (
                   <div
                     key={rec._id}
-                    className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-2"
+                    className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-2"
                   >
-                    <div className="flex justify-between items-start gap-1">
+                    <div className="flex justify-between items-start gap-1 font-mono">
                       <Badge
-                        variant={
-                          rec.priority === 'CRITICAL'
-                            ? 'rose'
-                            : rec.priority === 'HIGH'
-                            ? 'purple'
-                            : 'default'
-                        }
-                        className="text-[9px] uppercase font-bold py-0"
+                        variant="default"
+                        className="text-[9px] uppercase font-bold py-0 bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40"
                       >
                         {rec.priority}
                       </Badge>
 
-                      <Badge variant="outline" className="text-[9px] uppercase font-bold py-0">
+                      <Badge variant="default" className="text-[9px] uppercase font-bold py-0 bg-zinc-800 text-white">
                         {rec.type.replace('_', ' ')}
                       </Badge>
                     </div>
 
-                    <h4 className="font-extrabold text-xs text-zinc-900 dark:text-zinc-100 leading-snug">
+                    <h4 className="font-condensed font-bold text-base text-white leading-snug uppercase">
                       {rec.title}
                     </h4>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed">
                       {rec.reason}
                     </p>
 
-                    <div className="pt-2 flex justify-between items-center border-t border-zinc-100 dark:border-zinc-800">
+                    <div className="pt-2 flex justify-between items-center border-t border-white/10 font-mono">
                       <button
                         onClick={() => handleDismissRecommendation(rec)}
-                        className="text-[10px] font-semibold text-zinc-400 hover:text-zinc-600"
+                        className="text-[10px] font-bold uppercase text-zinc-500 hover:text-white"
                       >
                         Dismiss
                       </button>
@@ -536,7 +510,7 @@ export default function AdaptiveLearningPage() {
                       <Button
                         size="sm"
                         onClick={() => handleAcceptRecommendation(rec)}
-                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-[10px] h-6 px-2.5"
+                        className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-[10px] uppercase h-6 px-2.5"
                       >
                         {rec.actionLabel} ↗
                       </Button>
@@ -548,47 +522,47 @@ export default function AdaptiveLearningPage() {
           </Card>
 
           {/* Recent Improvements & Struggles Summary */}
-          <Card className="shadow-sm border border-zinc-200 dark:border-zinc-800">
-            <CardHeader className="pb-2 border-b border-zinc-100 dark:border-zinc-800">
-              <CardTitle className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-                <Layers className="h-4 w-4 text-purple-600" />
-                Adaptive Learning Breakdown
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+            <CardHeader className="p-6 pb-2 border-b border-white/10">
+              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+                <Layers className="h-5 w-5 text-[#FFD400]" />
+                ADAPTIVE LEARNING BREAKDOWN
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-3 text-xs">
               <div>
-                <span className="text-[10px] font-bold uppercase text-emerald-600 flex items-center gap-1 mb-1">
-                  <TrendingUp className="h-3 w-3" /> Recent Growth Areas
+                <span className="text-[10px] font-bold uppercase text-[#FFD400] flex items-center gap-1 mb-1">
+                  <TrendingUp className="h-3 w-3 text-[#FFD400]" /> Recent Growth Areas
                 </span>
                 {improvingSkills.length > 0 ? (
                   <ul className="space-y-1 font-mono text-[11px]">
                     {improvingSkills.map((s) => (
                       <li key={s.skillName} className="flex justify-between">
-                        <span>{s.skillName}</span>
-                        <span className="text-emerald-600 font-bold">+{s.changePoints}%</span>
+                        <span className="text-zinc-300">{s.skillName}</span>
+                        <span className="text-[#FFD400] font-bold">+{s.changePoints}%</span>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <span className="text-zinc-400 italic text-[11px]">No skill gains recorded yet.</span>
+                  <span className="text-zinc-500 italic text-[11px]">No skill gains recorded yet.</span>
                 )}
               </div>
 
-              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800">
-                <span className="text-[10px] font-bold uppercase text-purple-600 flex items-center gap-1 mb-1">
-                  <Target className="h-3 w-3" /> Primary Skill Gaps
+              <div className="pt-2 border-t border-white/10">
+                <span className="text-[10px] font-bold uppercase text-rose-400 flex items-center gap-1 mb-1">
+                  <Target className="h-3 w-3 text-rose-400" /> Primary Skill Gaps
                 </span>
                 {strugglingSkills.length > 0 ? (
                   <ul className="space-y-1 font-mono text-[11px]">
                     {strugglingSkills.slice(0, 3).map((s) => (
                       <li key={s.skillName} className="flex justify-between">
-                        <span>{s.skillName}</span>
-                        <span className="text-purple-600 font-bold">Gap: {s.gap}%</span>
+                        <span className="text-zinc-300">{s.skillName}</span>
+                        <span className="text-rose-400 font-bold">Gap: {s.gap}%</span>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <span className="text-zinc-400 italic text-[11px]">No major skill gaps detected.</span>
+                  <span className="text-zinc-500 italic text-[11px]">No major skill gaps detected.</span>
                 )}
               </div>
             </CardContent>
@@ -598,3 +572,4 @@ export default function AdaptiveLearningPage() {
     </PageWrapper>
   );
 }
+

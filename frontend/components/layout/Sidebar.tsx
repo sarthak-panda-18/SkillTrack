@@ -76,19 +76,19 @@ export function Sidebar() {
   const isAdmin = user?.role === 'ADMIN' || user?.role === 'TRAINER';
 
   return (
-    <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 min-h-screen sticky top-0 z-20 select-none">
+    <aside className="hidden md:flex flex-col w-64 border-r border-white/10 bg-[#000000] min-h-screen sticky top-0 z-20 select-none">
       {/* Sidebar Header */}
-      <div className="flex h-16 items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex h-16 items-center justify-between px-6 border-b border-white/10 bg-[#0A0A0A]">
         <Link href={isAdmin ? '/admin' : '/dashboard'} className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-sm">
-            <Sparkles className="h-4 w-4" />
+          <div className="h-8 w-8 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
+            <Zap className="h-4 w-4 fill-black text-black" />
           </div>
-          <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-slate-100">
-            SkillTrack <span className="text-indigo-600 dark:text-indigo-400">AI</span>
+          <span className="font-condensed font-black text-xl uppercase tracking-wider text-white">
+            SKILLTRACK <span className="text-[#FFD400]">AI</span>
           </span>
         </Link>
         {isAdmin && (
-          <Badge variant="default" className="text-[10px] py-0 px-1.5 font-bold bg-indigo-600 text-white">
+          <Badge variant="default" className="text-[10px] py-0.5 px-2 font-mono font-bold bg-[#FFD400] text-black">
             TRAINER
           </Badge>
         )}
@@ -99,12 +99,12 @@ export function Sidebar() {
         {isAdmin ? (
           /* TRAINER PORTAL SIDEBAR */
           <div className="space-y-6">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between px-3.5 mb-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <div className="space-y-1">
+              <div className="flex items-center justify-between px-3 mb-2">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FFD400]">
                   TRAINER WORKSPACE
                 </span>
-                <ShieldCheck className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+                <ShieldCheck className="h-3.5 w-3.5 text-[#FFD400]" />
               </div>
               {trainerWorkspaceItems.map((item) => {
                 const Icon = item.icon;
@@ -117,21 +117,16 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
+                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
                     )}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
-                    )}
                     <Icon
                       className={cn(
-                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
-                        isActive
-                          ? 'text-indigo-600 dark:text-indigo-400'
-                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
+                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
                       )}
                     />
                     <span>{item.name}</span>
@@ -140,8 +135,8 @@ export function Sidebar() {
               })}
             </div>
 
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
-              <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
+            <div className="pt-4 border-t border-white/10 space-y-1">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500 px-3 mb-2">
                 ACCOUNT
               </div>
               {trainerAccountItems.map((item) => {
@@ -152,21 +147,16 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
+                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
                     )}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
-                    )}
                     <Icon
                       className={cn(
-                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
-                        isActive
-                          ? 'text-indigo-600 dark:text-indigo-400'
-                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
+                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
                       )}
                     />
                     <span>{item.name}</span>
@@ -178,8 +168,8 @@ export function Sidebar() {
         ) : (
           /* STUDENT PORTAL SIDEBAR */
           <div className="space-y-6">
-            <div className="space-y-1.5">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
+            <div className="space-y-1">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FFD400] px-3 mb-2">
                 TRAINEE WORKSPACE
               </div>
               {studentWorkspaceItems.map((item) => {
@@ -192,21 +182,16 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
+                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
                     )}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
-                    )}
                     <Icon
                       className={cn(
-                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
-                        isActive
-                          ? 'text-indigo-600 dark:text-indigo-400'
-                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
+                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
                       )}
                     />
                     <span>{item.name}</span>
@@ -215,8 +200,8 @@ export function Sidebar() {
               })}
             </div>
 
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3.5 mb-2">
+            <div className="pt-4 border-t border-white/10 space-y-1">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500 px-3 mb-2">
                 ACCOUNT
               </div>
               {studentAccountItems.map((item) => {
@@ -227,21 +212,16 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
                       isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800/80 shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                        ? 'bg-[#111111] text-white border-l-2 border-[#FFD400] pl-3'
+                        : 'text-zinc-400 hover:bg-[#171717] hover:text-white'
                     )}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" />
-                    )}
                     <Icon
                       className={cn(
-                        'h-4 w-4 transition-transform duration-150 group-hover:scale-105',
-                        isActive
-                          ? 'text-indigo-600 dark:text-indigo-400'
-                          : 'text-slate-500 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                        'h-4 w-4 transition-transform duration-150 group-hover:scale-110',
+                        isActive ? 'text-[#FFD400]' : 'text-zinc-500 group-hover:text-white'
                       )}
                     />
                     <span>{item.name}</span>
@@ -255,3 +235,4 @@ export function Sidebar() {
     </aside>
   );
 }
+

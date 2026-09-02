@@ -25,18 +25,18 @@ export function MobileNav() {
       <ThemeToggle />
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+        className="p-2 rounded-sm text-zinc-300 hover:bg-[#171717] hover:text-[#FFD400]"
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
 
       {isOpen && (
-        <div className="fixed inset-x-0 top-16 z-50 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-xl space-y-4 max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-x-0 top-16 z-50 border-b border-white/15 bg-[#0A0A0A] p-4 shadow-2xl space-y-4 max-h-[80vh] overflow-y-auto text-white">
           {isAdmin ? (
             /* TRAINER PORTAL MOBILE NAV */
             <div className="space-y-4">
               <div className="space-y-1">
-                <div className="flex items-center justify-between px-3 text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
+                <div className="flex items-center justify-between px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFD400] mb-1">
                   <span>TRAINER WORKSPACE</span>
                   <ShieldCheck className="h-3.5 w-3.5" />
                 </div>
@@ -52,21 +52,21 @@ export function MobileNav() {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        'flex items-center gap-3 px-3 py-2 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-colors',
                         isActive
-                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                          ? 'bg-[#FFD400]/10 text-[#FFD400] font-bold border-l-2 border-[#FFD400]'
+                          : 'text-zinc-300 hover:bg-[#171717]'
                       )}
                     >
-                      <Icon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                      <Icon className="h-4 w-4 text-[#FFD400]" />
                       <span>{item.name}</span>
                     </Link>
                   );
                 })}
               </div>
 
-              <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-1">
-                <div className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400 px-3 mb-1">
+              <div className="pt-3 border-t border-white/10 space-y-1">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 px-3 mb-1">
                   ACCOUNT
                 </div>
                 {trainerAccountItems.map((item) => {
@@ -78,13 +78,13 @@ export function MobileNav() {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        'flex items-center gap-3 px-3 py-2 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-colors',
                         isActive
-                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                          ? 'bg-[#FFD400]/10 text-[#FFD400] font-bold border-l-2 border-[#FFD400]'
+                          : 'text-zinc-300 hover:bg-[#171717]'
                       )}
                     >
-                      <Icon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                      <Icon className="h-4 w-4 text-[#FFD400]" />
                       <span>{item.name}</span>
                     </Link>
                   );
@@ -95,7 +95,7 @@ export function MobileNav() {
             /* STUDENT PORTAL MOBILE NAV */
             <div className="space-y-4">
               <div className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-3 mb-1">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFD400] px-3 mb-1">
                   TRAINEE WORKSPACE
                 </div>
                 {studentWorkspaceItems.map((item) => {
@@ -109,21 +109,21 @@ export function MobileNav() {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        'flex items-center gap-3 px-3 py-2 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-colors',
                         isActive
-                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                          ? 'bg-[#FFD400]/10 text-[#FFD400] font-bold border-l-2 border-[#FFD400]'
+                          : 'text-zinc-300 hover:bg-[#171717]'
                       )}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4 text-[#FFD400]" />
                       <span>{item.name}</span>
                     </Link>
                   );
                 })}
               </div>
 
-              <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-3 mb-1">
+              <div className="pt-3 border-t border-white/10 space-y-1">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 px-3 mb-1">
                   ACCOUNT
                 </div>
                 {studentAccountItems.map((item) => {
@@ -135,13 +135,13 @@ export function MobileNav() {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                        'flex items-center gap-3 px-3 py-2 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-colors',
                         isActive
-                          ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold'
-                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                          ? 'bg-[#FFD400]/10 text-[#FFD400] font-bold border-l-2 border-[#FFD400]'
+                          : 'text-zinc-300 hover:bg-[#171717]'
                       )}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4 text-[#FFD400]" />
                       <span>{item.name}</span>
                     </Link>
                   );
@@ -154,3 +154,4 @@ export function MobileNav() {
     </div>
   );
 }
+

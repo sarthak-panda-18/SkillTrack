@@ -30,16 +30,16 @@ export function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 sm:py-24 bg-slate-50/50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+    <section id="how-it-works" className="py-20 bg-[#000000] border-b border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <Badge variant="default" className="text-[11px] font-bold uppercase tracking-wider mb-3">
-            4-Step Process
+          <Badge variant="default" className="text-xs font-mono font-bold uppercase tracking-widest bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 mb-3">
+            4-STEP PROCESS
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-            How SkillTrack AI Works
+          <h2 className="font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white">
+            HOW SKILLTRACK AI <span className="text-[#FFD400]">WORKS.</span>
           </h2>
-          <p className="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          <p className="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed">
             From profile registration to placement readiness in four clear steps.
           </p>
         </div>
@@ -50,20 +50,20 @@ export function HowItWorks() {
             return (
               <div
                 key={idx}
-                className="relative p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                className="relative p-6 rounded-sm border border-white/10 bg-[#0A0A0A] hover:border-[#FFD400]/40 transition-colors group"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2.5 py-1 rounded-md border border-indigo-200 dark:border-indigo-800">
+                  <span className="text-[10px] font-mono font-bold text-[#FFD400] bg-[#FFD400]/10 px-2.5 py-1 rounded-sm border border-[#FFD400]/30">
                     STEP {step.num}
                   </span>
-                  <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <div className="p-2 rounded-sm bg-[#171717] text-[#FFD400] group-hover:bg-[#FFD400] group-hover:text-black transition-colors">
                     <Icon className="h-4 w-4" />
                   </div>
                 </div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">
+                <h3 className="font-condensed text-xl font-bold uppercase text-white mb-2 tracking-wide">
                   {step.title}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-zinc-400 leading-relaxed font-sans">
                   {step.description}
                 </p>
               </div>
@@ -74,3 +74,4 @@ export function HowItWorks() {
     </section>
   );
 }
+

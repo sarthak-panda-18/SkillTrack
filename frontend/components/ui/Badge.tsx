@@ -7,20 +7,20 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   const variants = {
-    default: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80',
-    secondary: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700',
-    outline: 'border border-slate-300 text-slate-700 dark:border-slate-700 dark:text-slate-300',
-    success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80',
-    warning: 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80',
-    purple: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80',
-    rose: 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200 dark:border-rose-800/80',
-    blue: 'bg-sky-50 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300 border border-sky-200 dark:border-sky-800/80',
+    default: 'bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
+    secondary: 'bg-[#171717] text-white border border-white/15 font-mono text-[11px] uppercase tracking-wider',
+    outline: 'border border-white/25 text-zinc-300 font-mono text-[11px] uppercase tracking-wider',
+    success: 'bg-emerald-950/50 text-emerald-400 border border-emerald-500/40 font-mono text-[11px] uppercase tracking-wider',
+    warning: 'bg-amber-950/50 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
+    purple: 'bg-[#FFD400]/15 text-[#FFD400] border border-[#FFD400]/40 font-mono text-[11px] uppercase tracking-wider',
+    rose: 'bg-rose-950/50 text-rose-400 border border-rose-500/40 font-mono text-[11px] uppercase tracking-wider',
+    blue: 'bg-zinc-900 text-white border border-zinc-700 font-mono text-[11px] uppercase tracking-wider',
   };
 
   return (
     <div
       className={cn(
-        'inline-flex items-center rounded-md px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+        'inline-flex items-center rounded-sm px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-1 focus:ring-[#FFD400]',
         variants[variant],
         className
       )}
@@ -28,3 +28,4 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
     />
   );
 }
+

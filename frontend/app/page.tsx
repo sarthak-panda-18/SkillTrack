@@ -9,7 +9,7 @@ import { Footer } from '@/components/landing/Footer';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen flex flex-col bg-[#000000] text-white selection:bg-[#FFD400] selection:text-black">
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -23,3 +23,4 @@ export default function LandingPage() {
     </div>
   );
 }
+

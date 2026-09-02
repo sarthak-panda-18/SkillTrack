@@ -13,7 +13,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="w-full space-y-1.5">
         {label && (
-          <label htmlFor={inputId} className="block text-xs font-semibold tracking-wide uppercase text-slate-600 dark:text-slate-400">
+          <label htmlFor={inputId} className="block text-xs font-bold tracking-wider uppercase text-zinc-300 font-mono">
             {label}
           </label>
         )}
@@ -21,15 +21,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={inputId}
           ref={ref}
           className={cn(
-            'flex min-h-[100px] w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50 text-slate-900 dark:text-slate-100 transition-all duration-150',
+            'flex min-h-[100px] w-full rounded-sm border border-white/15 bg-[#0A0A0A] px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FFD400] focus-visible:border-[#FFD400] disabled:cursor-not-allowed disabled:opacity-40 transition-all duration-150',
             error && 'border-rose-500 focus-visible:ring-rose-500',
             className
           )}
           {...props}
         />
-        {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-xs text-rose-400 font-semibold">{error}</p>}
       </div>
     );
   }
 );
 Textarea.displayName = 'Textarea';
+

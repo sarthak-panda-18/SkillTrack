@@ -32,6 +32,9 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/Dialog';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { notificationService } from '@/services/notification.service';
+import { NotificationPreferences } from '@/types/notification';
 
 const changePasswordSchema = z
   .object({
@@ -46,10 +49,6 @@ const changePasswordSchema = z
 
 type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { notificationService } from '@/services/notification.service';
-import { NotificationPreferences } from '@/types/notification';
-
 export default function SettingsPage() {
   const { user, logout } = useAuth();
   const { theme, setTheme } = useTheme();
@@ -59,7 +58,7 @@ export default function SettingsPage() {
   const [isChangingPass, setIsChangingPass] = useState(false);
 
   // Fetch real notification preferences
-  const { data: prefData, isLoading: isLoadingPref } = useQuery({
+  const { data: prefData } = useQuery({
     queryKey: ['notificationPreferences'],
     queryFn: () => notificationService.getPreferences(),
   });
@@ -131,31 +130,31 @@ export default function SettingsPage() {
   return (
     <PageWrapper className="space-y-6 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100">Account Settings</h1>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+        <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">ACCOUNT SETTINGS</h1>
+        <p className="text-sm text-zinc-400 mt-1 font-sans">
           Manage your personal details, theme preferences, security, and notifications.
         </p>
       </div>
 
       <Tabs defaultValue="account" className="w-full">
-        <TabsList className="w-full justify-start overflow-x-auto">
-          <TabsTrigger value="account" className="gap-2 text-xs">
+        <TabsList className="w-full justify-start overflow-x-auto bg-[#0A0A0A] border border-white/10 p-1 rounded-sm">
+          <TabsTrigger value="account" className="gap-2 text-xs font-mono font-bold uppercase data-[state=active]:bg-[#FFD400] data-[state=active]:text-black">
             <UserIcon className="h-3.5 w-3.5" />
             Account
           </TabsTrigger>
-          <TabsTrigger value="appearance" className="gap-2 text-xs">
+          <TabsTrigger value="appearance" className="gap-2 text-xs font-mono font-bold uppercase data-[state=active]:bg-[#FFD400] data-[state=active]:text-black">
             <Sun className="h-3.5 w-3.5" />
             Appearance
           </TabsTrigger>
-          <TabsTrigger value="notifications" className="gap-2 text-xs">
+          <TabsTrigger value="notifications" className="gap-2 text-xs font-mono font-bold uppercase data-[state=active]:bg-[#FFD400] data-[state=active]:text-black">
             <Bell className="h-3.5 w-3.5" />
             Notifications
           </TabsTrigger>
-          <TabsTrigger value="security" className="gap-2 text-xs">
+          <TabsTrigger value="security" className="gap-2 text-xs font-mono font-bold uppercase data-[state=active]:bg-[#FFD400] data-[state=active]:text-black">
             <Lock className="h-3.5 w-3.5" />
             Security
           </TabsTrigger>
-          <TabsTrigger value="danger" className="gap-2 text-xs text-rose-600 dark:text-rose-400">
+          <TabsTrigger value="danger" className="gap-2 text-xs font-mono font-bold uppercase text-rose-400 data-[state=active]:bg-rose-600 data-[state=active]:text-white">
             <Trash2 className="h-3.5 w-3.5" />
             Danger Zone
           </TabsTrigger>
@@ -163,17 +162,17 @@ export default function SettingsPage() {
 
         {/* Account Tab */}
         <TabsContent value="account">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Personal Information</CardTitle>
-              <CardDescription>View your registered student account information.</CardDescription>
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">PERSONAL INFORMATION</CardTitle>
+              <CardDescription className="text-xs text-zinc-400 font-sans">View your registered student account information.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <Input label="Full Name" value={user?.name || ''} readOnly className="bg-zinc-100 dark:bg-zinc-800/50" />
-              <Input label="Email Address" value={user?.email || ''} readOnly className="bg-zinc-100 dark:bg-zinc-800/50" />
+            <CardContent className="p-6 space-y-4 font-sans">
+              <Input label="Full Name" value={user?.name || ''} readOnly className="bg-black border-white/15 text-white" />
+              <Input label="Email Address" value={user?.email || ''} readOnly className="bg-black border-white/15 text-white" />
               <div className="grid grid-cols-2 gap-4">
-                <Input label="College" value={user?.college || ''} readOnly className="bg-zinc-100 dark:bg-zinc-800/50" />
-                <Input label="Graduation Year" value={user?.graduationYear || ''} readOnly className="bg-zinc-100 dark:bg-zinc-800/50" />
+                <Input label="College" value={user?.college || ''} readOnly className="bg-black border-white/15 text-white" />
+                <Input label="Graduation Year" value={user?.graduationYear || ''} readOnly className="bg-black border-white/15 text-white" />
               </div>
             </CardContent>
           </Card>
@@ -181,16 +180,16 @@ export default function SettingsPage() {
 
         {/* Appearance Tab */}
         <TabsContent value="appearance">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Theme Preference</CardTitle>
-              <CardDescription>Choose how SkillTrack AI looks on your screen.</CardDescription>
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">THEME PREFERENCE</CardTitle>
+              <CardDescription className="text-xs text-zinc-400 font-sans">Choose how SkillTrack AI looks on your screen.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { key: 'light', label: 'Light Mode', icon: Sun },
-                  { key: 'dark', label: 'Dark Mode', icon: Moon },
+                  { key: 'dark', label: 'Dark Mode (iQOO Black)', icon: Moon },
                   { key: 'system', label: 'System Default', icon: Laptop },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -199,14 +198,14 @@ export default function SettingsPage() {
                     <button
                       key={item.key}
                       onClick={() => setTheme(item.key)}
-                      className={`p-5 rounded-xl border flex flex-col items-center gap-3 transition-all ${
+                      className={`p-5 rounded-sm border flex flex-col items-center gap-3 transition-all font-mono text-xs uppercase cursor-pointer ${
                         isSelected
-                          ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold shadow-sm'
-                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-700 dark:text-zinc-300'
+                          ? 'border-[#FFD400] bg-[#FFD400]/10 text-[#FFD400] font-bold'
+                          : 'border-white/10 bg-[#111111] hover:border-white/20 text-zinc-400'
                       }`}
                     >
                       <Icon className="h-6 w-6" />
-                      <span className="text-xs">{item.label}</span>
+                      <span>{item.label}</span>
                     </button>
                   );
                 })}
@@ -217,16 +216,16 @@ export default function SettingsPage() {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Notification Preferences</CardTitle>
-              <CardDescription>Customize which email and in-app notifications you receive.</CardDescription>
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">NOTIFICATION PREFERENCES</CardTitle>
+              <CardDescription className="text-xs text-zinc-400 font-sans">Customize which email and in-app notifications you receive.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="p-6 space-y-6">
               {/* Email Notifications */}
               <div className="space-y-3">
-                <h3 className="text-xs font-extrabold uppercase tracking-wider text-purple-700 dark:text-purple-400">
-                  Email Notifications
+                <h3 className="font-mono text-xs font-extrabold uppercase tracking-wider text-[#FFD400]">
+                  EMAIL NOTIFICATIONS
                 </h3>
                 {[
                   { key: 'emailLearningCompletion', title: 'Learning Milestone Emails', desc: 'Receive emails when you complete learning pathway topics.' },
@@ -234,10 +233,10 @@ export default function SettingsPage() {
                   { key: 'emailGoalMilestones', title: 'Goal Achievement Emails', desc: 'Get notified via email when you achieve target milestones.' },
                   { key: 'emailSecurityNotifications', title: 'Security Alert Emails', desc: 'Receive security notifications when important account changes occur.' },
                 ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-3 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                  <div key={item.key} className="flex items-center justify-between p-3 rounded-sm border border-white/10 bg-[#111111]">
                     <div>
-                      <h4 className="font-semibold text-xs text-zinc-900 dark:text-zinc-100">{item.title}</h4>
-                      <p className="text-[11px] text-zinc-500">{item.desc}</p>
+                      <h4 className="font-condensed font-bold text-base text-white uppercase">{item.title}</h4>
+                      <p className="text-xs text-zinc-400 font-sans">{item.desc}</p>
                     </div>
                     <input
                       type="checkbox"
@@ -247,16 +246,16 @@ export default function SettingsPage() {
                         setPreferences(updated);
                         updatePrefMutation.mutate(updated);
                       }}
-                      className="h-4 w-4 rounded border-zinc-300 text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      className="h-4 w-4 rounded-sm border-white/20 text-[#FFD400] accent-[#FFD400] cursor-pointer"
                     />
                   </div>
                 ))}
               </div>
 
               {/* In-App Notifications */}
-              <div className="space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                <h3 className="text-xs font-extrabold uppercase tracking-wider text-purple-700 dark:text-purple-400">
-                  In-App Header Alerts
+              <div className="space-y-3 pt-4 border-t border-white/10">
+                <h3 className="font-mono text-xs font-extrabold uppercase tracking-wider text-[#FFD400]">
+                  IN-APP HEADER ALERTS
                 </h3>
                 {[
                   { key: 'inAppLearning', title: 'Learning Alerts', desc: 'Show in-app bell notifications for learning milestones.' },
@@ -264,10 +263,10 @@ export default function SettingsPage() {
                   { key: 'inAppGoals', title: 'Goal Milestone Alerts', desc: 'Show in-app bell notifications when goals are achieved.' },
                   { key: 'inAppAchievements', title: 'Achievement Alerts', desc: 'Show in-app bell notifications for platform achievements.' },
                 ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-3 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                  <div key={item.key} className="flex items-center justify-between p-3 rounded-sm border border-white/10 bg-[#111111]">
                     <div>
-                      <h4 className="font-semibold text-xs text-zinc-900 dark:text-zinc-100">{item.title}</h4>
-                      <p className="text-[11px] text-zinc-500">{item.desc}</p>
+                      <h4 className="font-condensed font-bold text-base text-white uppercase">{item.title}</h4>
+                      <p className="text-xs text-zinc-400 font-sans">{item.desc}</p>
                     </div>
                     <input
                       type="checkbox"
@@ -277,7 +276,7 @@ export default function SettingsPage() {
                         setPreferences(updated);
                         updatePrefMutation.mutate(updated);
                       }}
-                      className="h-4 w-4 rounded border-zinc-300 text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      className="h-4 w-4 rounded-sm border-white/20 text-[#FFD400] accent-[#FFD400] cursor-pointer"
                     />
                   </div>
                 ))}
@@ -288,12 +287,12 @@ export default function SettingsPage() {
 
         {/* Security Tab */}
         <TabsContent value="security">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Change Password</CardTitle>
-              <CardDescription>Update your password to keep your account secure.</CardDescription>
+          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-white/10 mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white">CHANGE PASSWORD</CardTitle>
+              <CardDescription className="text-xs text-zinc-400 font-sans">Update your password to keep your account secure.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6 font-sans">
               <form onSubmit={handleSubmitPass(onChangePasswordSubmit)} className="space-y-4 max-w-md">
                 <Input
                   label="Current Password"
@@ -313,17 +312,17 @@ export default function SettingsPage() {
                   {...registerPass('confirmPassword')}
                   error={passErrors.confirmPassword?.message}
                 />
-                <Button type="submit" isLoading={isChangingPass} className="gap-2">
+                <Button type="submit" isLoading={isChangingPass} className="gap-2 bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase">
                   Update Password
                 </Button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
+              <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-center font-mono">
                 <div>
-                  <h4 className="font-semibold text-xs text-zinc-900 dark:text-zinc-100">Sign out of session</h4>
-                  <p className="text-[11px] text-zinc-500">Log out from your current device.</p>
+                  <h4 className="font-condensed font-bold text-base text-white uppercase">Sign out of session</h4>
+                  <p className="text-xs text-zinc-400 font-sans">Log out from your current device.</p>
                 </div>
-                <Button variant="outline" onClick={logout} className="gap-2 text-xs">
+                <Button variant="outline" onClick={logout} className="gap-2 text-xs font-mono font-bold uppercase border-white/20 text-white hover:border-[#FFD400]">
                   <LogOut className="h-4 w-4" />
                   Log Out
                 </Button>
@@ -334,21 +333,21 @@ export default function SettingsPage() {
 
         {/* Danger Zone Tab */}
         <TabsContent value="danger">
-          <Card className="border-rose-200 dark:border-rose-950/80">
-            <CardHeader>
-              <CardTitle className="text-base text-rose-600 dark:text-rose-400 flex items-center gap-2">
+          <Card className="bg-[#0A0A0A] border-rose-500/40 text-white rounded-sm">
+            <CardHeader className="p-6 pb-4 border-b border-rose-500/20 mb-4">
+              <CardTitle className="font-condensed text-xl font-extrabold uppercase text-rose-400 flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5" />
-                Delete Account
+                DELETE ACCOUNT
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs text-zinc-400 font-sans">
                 Permanently remove your account and all associated skill tracking data.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 text-xs text-zinc-600 dark:text-zinc-400">
-              <p>
+            <CardContent className="p-6 space-y-4 text-xs font-sans">
+              <p className="text-zinc-300">
                 Once deleted, your account cannot be recovered. All user skills, onboarding responses, and profile records will be permanently erased.
               </p>
-              <Button variant="destructive" onClick={() => setIsDeleteOpen(true)} className="gap-2">
+              <Button variant="destructive" onClick={() => setIsDeleteOpen(true)} className="gap-2 text-xs font-mono font-bold uppercase bg-rose-600 hover:bg-rose-700 text-white">
                 <Trash2 className="h-4 w-4" />
                 Delete Account
               </Button>
@@ -359,22 +358,22 @@ export default function SettingsPage() {
 
       {/* Delete Confirmation Modal */}
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-[#0A0A0A] border-rose-500/40 text-white rounded-sm">
           <DialogHeader>
-            <DialogTitle className="text-rose-600 flex items-center gap-2">
+            <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-rose-400 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
-              Confirm Account Deletion
+              CONFIRM ACCOUNT DELETION
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-xs text-zinc-400 font-mono">
               Are you sure you want to delete your account? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
 
-          <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
+          <DialogFooter className="mt-4 gap-2 font-mono">
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} className="text-xs uppercase border-white/20 text-white">
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteAccount} isLoading={isDeleting}>
+            <Button variant="destructive" onClick={handleDeleteAccount} isLoading={isDeleting} className="text-xs uppercase bg-rose-600 hover:bg-rose-700 text-white">
               Permanently Delete
             </Button>
           </DialogFooter>
@@ -383,3 +382,4 @@ export default function SettingsPage() {
     </PageWrapper>
   );
 }
+

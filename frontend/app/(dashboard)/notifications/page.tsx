@@ -20,7 +20,7 @@ export default function StudentNotificationsPage() {
             <Bell className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>TRAINEE NOTIFICATION CENTER</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             NOTIFICATIONS & ALERTS <span className="text-[#FFD400]">🔔</span>
           </h1>
           <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans">
@@ -29,13 +29,13 @@ export default function StudentNotificationsPage() {
         </div>
       </div>
 
-      <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+      <Card className="p-6 rounded-sm">
         <CardContent className="p-0 space-y-3 text-xs">
           {notifications.map((n) => (
-            <div key={n.id} className="p-4 rounded-sm bg-[#111111] border border-white/10 flex items-start justify-between gap-4 font-sans">
+            <div key={n.id} className="p-4 rounded-sm bg-surface-secondary border border-border flex items-start justify-between gap-4 font-sans">
               <div className="space-y-1">
-                <span className="font-condensed font-bold text-lg text-white block uppercase">{n.title}</span>
-                <p className="text-zinc-400 text-xs">{n.desc}</p>
+                <span className="font-bold text-lg text-card-foreground block uppercase">{n.title}</span>
+                <p className="text-muted-foreground text-xs">{n.desc}</p>
                 <span className="text-[10px] text-[#FFD400] font-mono block uppercase">{n.time}</span>
               </div>
             </div>

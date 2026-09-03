@@ -49,57 +49,57 @@ export default function AssessmentStartConfigPage() {
 
   return (
     <PageWrapper className="max-w-3xl mx-auto space-y-6">
-      <Card className="border-white/10 overflow-hidden bg-[#0A0A0A] text-white rounded-sm">
-        <div className="bg-[#111111] p-6 sm:p-8 text-white space-y-2 border-b border-white/10">
+      <Card className="overflow-hidden rounded-sm">
+        <div className="bg-surface-secondary p-6 sm:p-8 space-y-2 border-b border-border">
           <Badge variant="default" className="bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40 font-mono font-bold text-xs uppercase">
             {skill.category || 'Skill Assessment'}
           </Badge>
-          <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">{assessment?.title}</h1>
-          <p className="text-zinc-400 text-xs sm:text-sm font-sans">{assessment?.description || `Evaluate your proficiency in ${skill.name || 'this skill'}.`}</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold uppercase text-card-foreground tracking-tight">{assessment?.title}</h1>
+          <p className="text-muted-foreground text-xs sm:text-sm font-sans">{assessment?.description || `Evaluate your proficiency in ${skill.name || 'this skill'}.`}</p>
         </div>
 
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-sm bg-black border border-white/10 text-center font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-sm bg-surface-secondary border border-border text-center font-mono">
             <div>
-              <span className="text-[10px] text-zinc-400 block font-bold uppercase">Questions</span>
-              <strong className="font-condensed text-xl font-extrabold text-[#FFD400]">
+              <span className="text-[10px] text-muted-foreground block font-bold uppercase">Questions</span>
+              <strong className="text-xl font-extrabold text-[#FFD400]">
                 20 Questions
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-400 block font-bold uppercase">Time Limit</span>
-              <strong className="font-condensed text-xl font-extrabold text-white flex items-center justify-center gap-1">
-                <Clock className="h-4 w-4 text-zinc-400" />
+              <span className="text-[10px] text-muted-foreground block font-bold uppercase">Time Limit</span>
+              <strong className="text-xl font-extrabold text-card-foreground flex items-center justify-center gap-1">
+                <Clock className="h-4 w-4 text-muted-foreground" />
                 {assessment?.timeLimit || 20} Mins
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-400 block font-bold uppercase">Passing Score</span>
-              <strong className="font-condensed text-xl font-extrabold text-white">
+              <span className="text-[10px] text-muted-foreground block font-bold uppercase">Passing Score</span>
+              <strong className="text-xl font-extrabold text-card-foreground">
                 {assessment?.passingScore || 60}%
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-400 block font-bold uppercase">Difficulty</span>
-              <strong className="font-condensed text-xl font-extrabold text-white uppercase">
+              <span className="text-[10px] text-muted-foreground block font-bold uppercase">Difficulty</span>
+              <strong className="text-xl font-extrabold text-card-foreground uppercase">
                 {assessment?.difficulty || 'MIXED'}
               </strong>
             </div>
           </div>
 
           <div className="space-y-3 font-sans">
-            <h3 className="font-condensed text-base font-bold text-white uppercase flex items-center gap-2">
+            <h3 className="text-base font-bold text-card-foreground uppercase flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-[#FFD400]" />
               ASSESSMENT GUIDELINES & RULES:
             </h3>
-            <ul className="space-y-2 text-xs text-zinc-400 font-mono">
+            <ul className="space-y-2 text-xs text-muted-foreground font-mono">
               <li className="flex items-start gap-2">
                 <span className="text-[#FFD400] font-bold">•</span>
-                <span>The assessment contains <strong className="text-white">exactly 20 conceptual multiple-choice questions</strong>.</span>
+                <span>The assessment contains <strong className="text-card-foreground">exactly 20 conceptual multiple-choice questions</strong>.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#FFD400] font-bold">•</span>
-                <span>You have <strong className="text-white">{assessment?.timeLimit || 20} minutes</strong> to complete all 20 questions.</span>
+                <span>You have <strong className="text-card-foreground">{assessment?.timeLimit || 20} minutes</strong> to complete all 20 questions.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#FFD400] font-bold">•</span>
@@ -112,11 +112,12 @@ export default function AssessmentStartConfigPage() {
             </ul>
           </div>
 
-          <div className="pt-4 border-t border-white/10 flex justify-end">
+          <div className="pt-4 border-t border-border flex justify-end">
             <Button
               onClick={() => startMutation.mutate()}
               isLoading={startMutation.isPending}
-              className="gap-2 bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase px-6"
+              variant="primary"
+              className="gap-2 font-bold text-xs uppercase px-6"
             >
               Start 20-Question Assessment Now
               <ArrowRight className="h-4 w-4 text-black" />

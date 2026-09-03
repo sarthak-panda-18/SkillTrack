@@ -104,7 +104,7 @@ export default function CareerGoalPage() {
     return (
       <PageWrapper className="max-w-5xl mx-auto py-12 text-center space-y-4 font-mono">
         <AlertCircle className="h-10 w-10 text-rose-500 mx-auto" />
-        <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">
+        <h2 className="text-2xl font-extrabold uppercase text-white">
           Unable to load your Career Goal.
         </h2>
         <Button variant="outline" size="sm" onClick={() => refetchProfile()} className="gap-2 text-xs uppercase border-white/20 text-white">
@@ -127,7 +127,7 @@ export default function CareerGoalPage() {
             <Target className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>SINGLE TARGET ROLE SOURCE OF TRUTH</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             CAREER GOAL
           </h1>
           <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
@@ -150,7 +150,7 @@ export default function CareerGoalPage() {
                     <Target className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h2 className="font-condensed text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
                       {targetRoleName}
                     </h2>
                     <Badge variant="default" className="text-[10px] font-mono uppercase font-bold mt-1 bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
@@ -173,7 +173,8 @@ export default function CareerGoalPage() {
                   setSelectedRoleObj(currentRoleObj);
                   setIsModalOpen(true);
                 }}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2 shrink-0 font-mono"
+                variant="primary"
+                className="font-bold text-xs uppercase gap-2 shrink-0 font-mono"
               >
                 <RefreshCw className="h-4 w-4 text-black" /> Change Career Goal
               </Button>
@@ -184,7 +185,7 @@ export default function CareerGoalPage() {
                 <Target className="h-8 w-8 text-[#FFD400]" />
               </div>
               <div className="space-y-1">
-                <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">
+                <h2 className="text-2xl font-extrabold uppercase text-white">
                   No Career Goal Set
                 </h2>
                 <p className="text-xs text-zinc-400 max-w-md mx-auto font-sans">
@@ -193,7 +194,8 @@ export default function CareerGoalPage() {
               </div>
               <Button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2"
+                variant="primary"
+                className="font-bold text-xs uppercase gap-2"
               >
                 Set Career Goal <ArrowRight className="h-4 w-4 text-black" />
               </Button>
@@ -203,12 +205,12 @@ export default function CareerGoalPage() {
       </Card>
 
       {/* Alignment Journey Pathway Card */}
-      <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
-        <CardHeader className="p-6 pb-3 border-b border-white/10">
-          <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+      <Card className="rounded-sm font-mono">
+        <CardHeader className="p-6 pb-3 border-b border-border">
+          <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-[#FFD400]" /> SKILLTRACK JOURNEY ALIGNMENT
           </CardTitle>
-          <CardDescription className="text-xs text-zinc-400 font-sans">
+          <CardDescription className="text-xs text-muted-foreground font-sans">
             How your selected career goal automatically synchronizes intelligent features across SkillTrack.
           </CardDescription>
         </CardHeader>
@@ -218,43 +220,43 @@ export default function CareerGoalPage() {
               <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#FFD400] uppercase">
                 <Target className="h-3.5 w-3.5 text-[#FFD400]" /> 1. Career Goal
               </div>
-              <p className="text-[11px] text-zinc-300 font-bold uppercase">
+              <p className="text-[11px] text-card-foreground font-bold uppercase">
                 {targetRoleName}
               </p>
             </div>
 
-            <div className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-1">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white uppercase">
+            <div className="p-3.5 rounded-sm border border-border bg-surface-secondary space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-card-foreground uppercase">
                 <Brain className="h-3.5 w-3.5 text-[#FFD400]" /> 2. Skill Gap
               </div>
-              <p className="text-[11px] text-zinc-400">
+              <p className="text-[11px] text-muted-foreground">
                 Target role skill requirements & readiness score
               </p>
             </div>
 
-            <div className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-1">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white uppercase">
+            <div className="p-3.5 rounded-sm border border-border bg-surface-secondary space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-card-foreground uppercase">
                 <BookOpen className="h-3.5 w-3.5 text-[#FFD400]" /> 3. Learning
               </div>
-              <p className="text-[11px] text-zinc-400">
+              <p className="text-[11px] text-muted-foreground">
                 Personalized YouTube & topic roadmap
               </p>
             </div>
 
-            <div className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-1">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white uppercase">
+            <div className="p-3.5 rounded-sm border border-border bg-surface-secondary space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-card-foreground uppercase">
                 <Calendar className="h-3.5 w-3.5 text-[#FFD400]" /> 4. Study Plan
               </div>
-              <p className="text-[11px] text-zinc-400">
+              <p className="text-[11px] text-muted-foreground">
                 Role-aligned study schedule
               </p>
             </div>
 
-            <div className="p-3.5 rounded-sm border border-white/10 bg-[#111111] space-y-1">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white uppercase">
+            <div className="p-3.5 rounded-sm border border-border bg-surface-secondary space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-card-foreground uppercase">
                 <LineChart className="h-3.5 w-3.5 text-[#FFD400]" /> 5. Progress
               </div>
-              <p className="text-[11px] text-zinc-400">
+              <p className="text-[11px] text-muted-foreground">
                 Preparation & readiness analytics
               </p>
             </div>
@@ -266,9 +268,9 @@ export default function CareerGoalPage() {
       {currentRoleObj && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono">
           {/* Required Core Skills Card */}
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-            <CardHeader className="p-6 pb-3 border-b border-white/10">
-              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+          <Card className="rounded-sm">
+            <CardHeader className="p-6 pb-3 border-b border-border">
+              <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
                 <Award className="h-5 w-5 text-[#FFD400]" /> CORE REQUIRED SKILLS
               </CardTitle>
             </CardHeader>
@@ -289,26 +291,26 @@ export default function CareerGoalPage() {
                   })}
                 </div>
               ) : (
-                <div className="text-xs text-zinc-400 font-mono">Core skills catalog available for this role.</div>
+                <div className="text-xs text-muted-foreground font-mono">Core skills catalog available for this role.</div>
               )}
             </CardContent>
           </Card>
 
           {/* Role Responsibilities Card */}
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-            <CardHeader className="p-6 pb-3 border-b border-white/10">
-              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+          <Card className="rounded-sm">
+            <CardHeader className="p-6 pb-3 border-b border-border">
+              <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
                 <Briefcase className="h-5 w-5 text-[#FFD400]" /> ROLE OVERVIEW
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-3 text-xs">
               <div>
-                <span className="text-[10px] text-zinc-400 font-bold uppercase block">Category Domain</span>
-                <div className="font-condensed font-bold text-[#FFD400] text-base uppercase">{currentRoleObj.category || 'Technology'}</div>
+                <span className="text-[10px] text-muted-foreground font-bold uppercase block">Category Domain</span>
+                <div className="font-bold text-[#FFD400] text-base uppercase">{currentRoleObj.category || 'Technology'}</div>
               </div>
               <div>
-                <span className="text-[10px] text-zinc-400 font-bold uppercase block">Description</span>
-                <div className="text-zinc-400 mt-0.5 font-sans">
+                <span className="text-[10px] text-muted-foreground font-bold uppercase block">Description</span>
+                <div className="text-muted-foreground mt-0.5 font-sans">
                   {currentRoleObj.description || 'Prepares students for professional industry standards.'}
                 </div>
               </div>
@@ -320,23 +322,23 @@ export default function CareerGoalPage() {
       {/* Change Career Goal Confirmation Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#0A0A0A] border border-white/10 rounded-sm p-6 max-w-md w-full space-y-5 shadow-2xl font-mono text-white">
+          <div className="bg-card border border-border rounded-sm p-6 max-w-md w-full space-y-5 shadow-2xl font-mono text-card-foreground">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-sm bg-[#FFD400] text-black flex items-center justify-center font-bold shrink-0">
                 <Target className="h-5 w-5 text-black" />
               </div>
               <div>
-                <h3 className="font-condensed text-xl font-extrabold uppercase text-white">
+                <h3 className="text-xl font-extrabold uppercase text-card-foreground">
                   CHANGE CAREER GOAL?
                 </h3>
-                <p className="text-xs text-zinc-400 font-sans">
+                <p className="text-xs text-muted-foreground font-sans">
                   Changing your career goal will realign your personalized learning pathway, study schedule, and skill gap metrics.
                 </p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 font-mono">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono">
                 Select Target Career Role
               </label>
               <CareerRoleSelect
@@ -349,14 +351,15 @@ export default function CareerGoalPage() {
             </div>
 
             <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)} className="text-xs uppercase border-white/20 text-white">
+              <Button variant="secondary" size="sm" onClick={() => setIsModalOpen(false)} className="text-xs uppercase">
                 Keep Current Goal
               </Button>
               <Button
                 size="sm"
                 isLoading={updateGoalMutation.isPending}
                 onClick={handleConfirmChange}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5"
+                variant="primary"
+                className="font-bold text-xs uppercase gap-1.5"
               >
                 <CheckCircle2 className="h-3.5 w-3.5 text-black" /> Confirm Goal
               </Button>

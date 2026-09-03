@@ -87,7 +87,7 @@ export default function UnifiedCareerStatusPage() {
           <Zap className="h-3.5 w-3.5 text-[#FFD400]" />
           <span>UNIFIED CAREER WORKSPACE</span>
         </div>
-        <h1 className="font-condensed font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+        <h1 className="font-bold text-3xl sm:text-4xl uppercase tracking-wider text-white">
           CAREER STATUS <span className="text-[#FFD400]">// HUB</span>
         </h1>
         <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans leading-relaxed">

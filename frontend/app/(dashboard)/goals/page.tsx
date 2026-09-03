@@ -272,22 +272,22 @@ export default function GoalsPage() {
       {/* Page Title & Subtitle */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="font-condensed text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
+          <h1 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground flex items-center gap-2.5">
             <Target className="h-7 w-7 text-[#FFD400]" />
             GOALS & MILESTONES
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-sans">
             Turn your career goal into measurable steps and track your preparation progress.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Button
-            variant="outline"
+            variant="secondary"
             size="sm"
             onClick={() => refetch()}
             disabled={isFetching}
-            className="gap-2 text-xs font-mono font-bold uppercase border-white/20 text-white hover:border-[#FFD400]"
+            className="gap-2 text-xs font-mono font-bold uppercase"
           >
             <RotateCw className={`h-3.5 w-3.5 ${isFetching ? 'animate-spin' : ''}`} />
             Refresh
@@ -298,7 +298,8 @@ export default function GoalsPage() {
               resetForm();
               setIsCreateModalOpen(true);
             }}
-            className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold gap-2 text-xs uppercase"
+            variant="primary"
+            className="font-bold gap-2 text-xs uppercase"
           >
             <Plus className="h-4 w-4 text-black" />
             Create Goal
@@ -317,7 +318,7 @@ export default function GoalsPage() {
 
             {currentCareerGoal?.targetRole ? (
               <div>
-                <h2 className="font-condensed text-3xl font-extrabold text-white tracking-tight flex items-center gap-2 uppercase">
+                <h2 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2 uppercase">
                   🎯 {currentCareerGoal.targetRole}
                 </h2>
                 <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
@@ -326,7 +327,7 @@ export default function GoalsPage() {
               </div>
             ) : (
               <div>
-                <h2 className="font-condensed text-2xl font-extrabold text-white uppercase">
+                <h2 className="text-2xl font-extrabold text-white uppercase">
                   No Target Career Goal Selected
                 </h2>
                 <p className="text-xs text-[#FFD400] mt-1 font-mono">
@@ -339,14 +340,14 @@ export default function GoalsPage() {
           <div className="shrink-0">
             {currentCareerGoal?.targetRole ? (
               <Link href="/career-goal">
-                <Button variant="outline" className="border-white/20 text-white font-mono font-bold text-xs gap-2 uppercase hover:border-[#FFD400]">
+                <Button variant="secondary" className="font-mono font-bold text-xs gap-2 uppercase">
                   <Target className="h-4 w-4" />
                   View Role Details
                 </Button>
               </Link>
             ) : (
               <Link href="/career-goal">
-                <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs gap-2 uppercase">
+                <Button variant="primary" className="font-bold text-xs gap-2 uppercase">
                   <Target className="h-4 w-4 text-black" />
                   Set Career Goal
                   <ArrowRight className="h-3.5 w-3.5 text-black" />
@@ -360,41 +361,41 @@ export default function GoalsPage() {
       {/* HERO SUMMARY CARDS */}
       {data?.summary && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
-          <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
-            <div className="font-condensed text-3xl font-black text-white">
+          <div className="p-4 rounded-sm bg-surface-secondary border border-border text-center space-y-1">
+            <div className="text-3xl font-black text-card-foreground">
               {data.summary.totalGoals}
             </div>
-            <div className="text-[10px] font-bold text-zinc-400 uppercase">Total Goals</div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase">Total Goals</div>
           </div>
 
-          <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
-            <div className="font-condensed text-3xl font-black text-[#FFD400]">
+          <div className="p-4 rounded-sm bg-surface-secondary border border-border text-center space-y-1">
+            <div className="text-3xl font-black text-[#FFD400]">
               {data.summary.activeCount}
             </div>
-            <div className="text-[10px] font-bold text-zinc-400 uppercase">Active Goals</div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase">Active Goals</div>
           </div>
 
-          <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
-            <div className="font-condensed text-3xl font-black text-emerald-400">
+          <div className="p-4 rounded-sm bg-surface-secondary border border-border text-center space-y-1">
+            <div className="text-3xl font-black text-emerald-500 dark:text-emerald-400">
               {data.summary.completedCount}
             </div>
-            <div className="text-[10px] font-bold text-zinc-400 uppercase">Completed Goals</div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase">Completed Goals</div>
           </div>
 
-          <div className="p-4 rounded-sm bg-[#0A0A0A] border border-white/10 text-center space-y-1">
-            <div className="font-condensed text-3xl font-black text-rose-400">
+          <div className="p-4 rounded-sm bg-surface-secondary border border-border text-center space-y-1">
+            <div className="text-3xl font-black text-rose-500 dark:text-rose-400">
               {data.summary.overdueCount}
             </div>
-            <div className="text-[10px] font-bold text-zinc-400 uppercase">Overdue Goals</div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase">Overdue Goals</div>
           </div>
         </div>
       )}
 
       {/* SUGGESTED GOALS / RECOMMENDATIONS DRAWER */}
       {recommendations.length > 0 && (
-        <Card className="border-white/10 bg-[#0A0A0A] text-white rounded-sm">
-          <CardHeader className="p-6 pb-3 border-b border-white/10">
-            <CardTitle className="font-condensed text-xl font-extrabold uppercase text-[#FFD400] flex items-center gap-2">
+        <Card className="rounded-sm">
+          <CardHeader className="p-6 pb-3 border-b border-border">
+            <CardTitle className="text-xl font-extrabold uppercase text-[#FFD400] flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-[#FFD400]" />
               CAREER-ALIGNED GOAL TEMPLATES ({currentCareerGoal?.targetRole || 'RECOMMENDED'})
             </CardTitle>
@@ -407,22 +408,22 @@ export default function GoalsPage() {
               return (
                 <div
                   key={rec.templateId}
-                  className="p-4 rounded-sm bg-[#111111] border border-white/10 flex flex-col justify-between gap-3 font-sans"
+                  className="p-4 rounded-sm bg-surface-secondary border border-border flex flex-col justify-between gap-3 font-sans"
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <h4 className="font-condensed font-bold text-base text-white uppercase">{rec.title}</h4>
+                      <h4 className="font-bold text-base text-card-foreground uppercase">{rec.title}</h4>
                       <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-sm bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 uppercase">
                         {rec.category}
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-400 mt-1">{rec.description}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{rec.description}</p>
                   </div>
 
                   {isAlreadyAdded ? (
                     <Button
                       size="sm"
-                      variant="outline"
+                      variant="secondary"
                       disabled
                       className="w-full text-[11px] font-mono font-bold gap-1.5 border-[#FFD400]/40 bg-[#FFD400]/10 text-[#FFD400] opacity-90 cursor-not-allowed h-8 uppercase"
                     >
@@ -432,9 +433,9 @@ export default function GoalsPage() {
                   ) : isAddingThis ? (
                     <Button
                       size="sm"
-                      variant="outline"
+                      variant="secondary"
                       disabled
-                      className="w-full text-[11px] font-mono font-bold gap-1.5 border-white/20 bg-black text-zinc-400 h-8 opacity-80 cursor-wait uppercase"
+                      className="w-full text-[11px] font-mono font-bold gap-1.5 h-8 opacity-80 cursor-wait uppercase"
                     >
                       <RotateCw className="h-3.5 w-3.5 animate-spin text-[#FFD400]" />
                       Adding...
@@ -442,10 +443,10 @@ export default function GoalsPage() {
                   ) : (
                     <Button
                       size="sm"
-                      variant="outline"
+                      variant="secondary"
                       onClick={() => handleAddTemplateGoal(rec)}
                       disabled={!!addingTemplateId}
-                      className="w-full text-[11px] font-mono font-bold gap-1.5 border-white/20 text-white hover:border-[#FFD400] hover:text-[#FFD400] h-8 transition-all uppercase"
+                      className="w-full text-[11px] font-mono font-bold gap-1.5 h-8 transition-all uppercase"
                     >
                       <Plus className="h-3.5 w-3.5" />
                       Add to My Goals
@@ -459,7 +460,7 @@ export default function GoalsPage() {
       )}
 
       {/* FILTER & SORT BAR */}
-      <div className="flex flex-col gap-4 p-4 rounded-sm bg-[#0A0A0A] border border-white/10 font-mono">
+      <div className="flex flex-col gap-4 p-4 rounded-sm bg-surface-secondary border border-border font-mono">
         {/* Categories */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
           <Filter className="h-4 w-4 text-[#FFD400] shrink-0 mr-1" />
@@ -470,7 +471,7 @@ export default function GoalsPage() {
               className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
                 category === cat.value
                   ? 'bg-[#FFD400] text-black font-extrabold'
-                  : 'bg-[#111111] border border-white/10 text-zinc-400 hover:text-white'
+                  : 'bg-background border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
               {cat.label}
@@ -479,13 +480,13 @@ export default function GoalsPage() {
         </div>
 
         {/* Status & Sort */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-border">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-zinc-400 uppercase">Status:</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-black border border-white/15 text-xs font-bold text-white rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
+              className="bg-background border border-input text-xs font-bold text-foreground rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
             >
               <option value="ALL">All Goals</option>
               <option value="ACTIVE">Active Goals</option>
@@ -496,11 +497,11 @@ export default function GoalsPage() {
 
           <div className="flex items-center gap-2">
             <ArrowUpDown className="h-3.5 w-3.5 text-[#FFD400]" />
-            <span className="text-xs font-bold text-zinc-400 uppercase">Sort:</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase">Sort:</span>
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="bg-black border border-white/15 text-xs font-bold text-white rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
+              className="bg-background border border-input text-xs font-bold text-foreground rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
             >
               <option value="active_first">Active First</option>
               <option value="deadline">Closest Deadline</option>
@@ -515,20 +516,20 @@ export default function GoalsPage() {
       {/* LOADING STATE */}
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Skeleton className="h-48 rounded-sm bg-[#0A0A0A]" />
-          <Skeleton className="h-48 rounded-sm bg-[#0A0A0A]" />
+          <Skeleton className="h-48 rounded-sm bg-surface-secondary" />
+          <Skeleton className="h-48 rounded-sm bg-surface-secondary" />
         </div>
       )}
 
       {/* ERROR STATE */}
       {error && !isLoading && (
-        <Card className="border-rose-500/40 bg-rose-950/20 text-center p-8 rounded-sm space-y-4 max-w-md mx-auto font-mono text-white">
+        <Card className="border-rose-500/40 text-center p-8 rounded-sm space-y-4 max-w-md mx-auto font-mono text-card-foreground">
           <div className="h-12 w-12 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
             <AlertCircle className="h-6 w-6" />
           </div>
           <div>
-            <h3 className="font-condensed text-xl font-bold uppercase text-white">Unable to load goals</h3>
-            <p className="text-xs text-zinc-400 mt-1 font-sans">Please check your connection and try again.</p>
+            <h3 className="text-xl font-bold uppercase text-card-foreground">Unable to load goals</h3>
+            <p className="text-xs text-muted-foreground mt-1 font-sans">Please check your connection and try again.</p>
           </div>
           <Button onClick={() => refetch()} className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase">
             Try Again
@@ -538,15 +539,15 @@ export default function GoalsPage() {
 
       {/* EMPTY STATE */}
       {data && data.goals.length === 0 && !isLoading && !error && (
-        <Card className="border-white/10 bg-[#0A0A0A] text-center p-12 rounded-sm space-y-4 max-w-lg mx-auto font-mono text-white">
-          <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+        <Card className="text-center p-12 rounded-sm space-y-4 max-w-lg mx-auto font-mono text-card-foreground">
+          <div className="h-16 w-16 rounded-sm bg-surface-secondary text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
             <Target className="h-8 w-8" />
           </div>
           <div className="space-y-1">
-            <h2 className="font-condensed text-2xl font-black uppercase text-white tracking-tight">
+            <h2 className="text-2xl font-black uppercase text-card-foreground tracking-tight">
               NO GOALS YET
             </h2>
-            <p className="text-xs text-zinc-400 font-sans">
+            <p className="text-xs text-muted-foreground font-sans">
               Create your first goal and turn your career plan into measurable milestones.
             </p>
           </div>
@@ -555,7 +556,8 @@ export default function GoalsPage() {
               resetForm();
               setIsCreateModalOpen(true);
             }}
-            className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2 px-6 rounded-sm mt-2"
+            variant="primary"
+            className="font-bold text-xs uppercase gap-2 px-6 rounded-sm mt-2"
           >
             <Plus className="h-4 w-4 text-black" />
             Create Goal
@@ -587,7 +589,7 @@ export default function GoalsPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Card className="border-white/10 bg-[#0A0A0A] text-white rounded-sm overflow-hidden flex flex-col justify-between">
+                  <Card className="rounded-sm overflow-hidden flex flex-col justify-between">
                     <CardHeader className="p-6 pb-3 space-y-2">
                       {/* Top Badges & Actions */}
                       <div className="flex items-center justify-between flex-wrap gap-2">
@@ -608,7 +610,7 @@ export default function GoalsPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => handleOpenEdit(goal)}
-                            className="h-7 w-7 p-0 text-zinc-400 hover:text-white"
+                            className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
                           >
                             <Edit3 className="h-3.5 w-3.5" />
                           </Button>
@@ -616,7 +618,7 @@ export default function GoalsPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => setDeletingGoalId(goal._id)}
-                            className="h-7 w-7 p-0 text-zinc-400 hover:text-rose-400"
+                            className="h-7 w-7 p-0 text-muted-foreground hover:text-rose-500"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
@@ -625,11 +627,11 @@ export default function GoalsPage() {
 
                       {/* Title & Description */}
                       <div>
-                        <h3 className="font-condensed text-xl font-bold text-white flex items-center gap-2 uppercase">
+                        <h3 className="text-xl font-bold text-card-foreground flex items-center gap-2 uppercase">
                           🎯 {goal.title}
                         </h3>
                         {goal.description && (
-                          <p className="text-xs text-zinc-400 mt-1 font-sans line-clamp-2">
+                          <p className="text-xs text-muted-foreground mt-1 font-sans line-clamp-2">
                             {goal.description}
                           </p>
                         )}
@@ -637,7 +639,7 @@ export default function GoalsPage() {
 
                       {/* Role Change Banner */}
                       {isPreviousRole && (
-                        <div className="text-[10px] font-mono font-bold text-[#FFD400] bg-black p-2 rounded-sm border border-[#FFD400]/40 uppercase">
+                        <div className="text-[10px] font-mono font-bold text-[#FFD400] bg-surface-secondary p-2 rounded-sm border border-[#FFD400]/40 uppercase">
                           Role History: Created for target role "{goal.careerRoleName}"
                         </div>
                       )}
@@ -647,20 +649,20 @@ export default function GoalsPage() {
                       {/* Progress Bar & Numeric Text */}
                       <div className="space-y-1.5 font-mono">
                         <div className="flex justify-between items-center text-xs">
-                          <span className="font-bold text-zinc-400 uppercase">Progress</span>
-                          <span className="font-condensed font-black text-lg text-[#FFD400]">
+                          <span className="font-bold text-muted-foreground uppercase">Progress</span>
+                          <span className="font-black text-lg text-[#FFD400]">
                             {goal.progress}%
                           </span>
                         </div>
-                        <Progress value={goal.progress} className="h-1.5 bg-zinc-800" />
-                        <div className="flex justify-between items-center text-[11px] text-zinc-400 font-bold">
+                        <Progress value={goal.progress} className="h-1.5 bg-background" />
+                        <div className="flex justify-between items-center text-[11px] text-muted-foreground font-bold">
                           <span>
                             {goal.milestones.length > 0
                               ? `${completedMsCount} / ${goal.milestones.length} Milestones Completed`
                               : `${goal.currentValue || 0} / ${goal.targetValue || 1} ${goal.unit || 'items'}`}
                           </span>
                           {goal.deadline && (
-                            <span className={deadlineInfo.isOverdue ? 'text-rose-400 font-bold' : ''}>
+                            <span className={deadlineInfo.isOverdue ? 'text-rose-500 font-bold' : ''}>
                               {deadlineInfo.text}
                             </span>
                           )}
@@ -669,10 +671,10 @@ export default function GoalsPage() {
 
                       {/* Milestones Accordion */}
                       {goal.milestones.length > 0 && (
-                        <div className="border-t border-white/10 pt-3 space-y-2">
+                        <div className="border-t border-border pt-3 space-y-2">
                           <button
                             onClick={() => setExpandedGoalId(isExpanded ? null : goal._id)}
-                            className="w-full flex items-center justify-between text-xs font-mono font-bold text-zinc-300 hover:text-[#FFD400] uppercase transition-colors"
+                            className="w-full flex items-center justify-between text-xs font-mono font-bold text-muted-foreground hover:text-[#FFD400] uppercase transition-colors"
                           >
                             <span>Milestones ({goal.milestones.length})</span>
                             {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -689,8 +691,8 @@ export default function GoalsPage() {
                                     key={ms.milestoneId}
                                     className={`p-2.5 rounded-sm border text-xs flex items-start justify-between gap-3 transition-all ${
                                       isDone
-                                        ? 'bg-[#111111] border-[#FFD400]/40'
-                                        : 'bg-black border-white/10'
+                                        ? 'bg-surface-secondary border-[#FFD400]/40'
+                                        : 'bg-background border-border'
                                     }`}
                                   >
                                     <div className="flex items-start gap-2.5">
@@ -709,14 +711,14 @@ export default function GoalsPage() {
                                         {isDone ? (
                                           <CheckSquare className="h-4 w-4 text-[#FFD400]" />
                                         ) : (
-                                          <Square className="h-4 w-4 text-zinc-500 hover:text-white" />
+                                          <Square className="h-4 w-4 text-muted-foreground hover:text-foreground" />
                                         )}
                                       </button>
                                       <div>
-                                        <div className={`font-bold ${isDone ? 'line-through text-zinc-500' : 'text-white'}`}>
+                                        <div className={`font-bold ${isDone ? 'line-through text-muted-foreground' : 'text-card-foreground'}`}>
                                           {ms.title}
                                         </div>
-                                        <div className="text-[10px] font-mono text-zinc-400 flex items-center gap-1.5 mt-0.5">
+                                        <div className="text-[10px] font-mono text-muted-foreground flex items-center gap-1.5 mt-0.5">
                                           {isAuto ? (
                                             <span className="flex items-center gap-1 text-[#FFD400] font-bold uppercase">
                                               <Lock className="h-3 w-3" /> Auto-tracked ({ms.currentValue} / {ms.targetValue} {ms.unit})
@@ -755,10 +757,10 @@ export default function GoalsPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0A0A0A] border border-white/10 rounded-sm p-6 sm:p-8 max-w-lg w-full text-white space-y-5 overflow-y-auto max-h-[90vh]"
+            className="bg-card border border-border rounded-sm p-6 sm:p-8 max-w-lg w-full text-card-foreground space-y-5 overflow-y-auto max-h-[90vh]"
           >
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <h3 className="font-condensed text-xl font-extrabold uppercase text-white">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h3 className="text-xl font-extrabold uppercase text-card-foreground">
                 {editingGoal ? 'Edit Goal' : 'Create New Preparation Goal'}
               </h3>
               <button
@@ -766,7 +768,7 @@ export default function GoalsPage() {
                   setIsCreateModalOpen(false);
                   setEditingGoal(null);
                 }}
-                className="text-zinc-400 hover:text-white font-bold"
+                className="text-muted-foreground hover:text-foreground font-bold"
               >
                 ✕
               </button>
@@ -774,35 +776,35 @@ export default function GoalsPage() {
 
             <form onSubmit={handleFormSubmit} className="space-y-4 font-mono text-xs">
               <div>
-                <label className="font-bold text-zinc-300 uppercase block mb-1">Goal Title *</label>
+                <label className="font-bold text-card-foreground uppercase block mb-1">Goal Title *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Master SQL & Relational Databases"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                  className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                 />
               </div>
 
               <div>
-                <label className="font-bold text-zinc-300 uppercase block mb-1">Description</label>
+                <label className="font-bold text-card-foreground uppercase block mb-1">Description</label>
                 <textarea
                   rows={2}
                   placeholder="Describe your goal objective..."
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                  className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-zinc-300 uppercase block mb-1">Category</label>
+                  <label className="font-bold text-card-foreground uppercase block mb-1">Category</label>
                   <select
                     value={formCategory}
                     onChange={(e) => setFormCategory(e.target.value as GoalCategory)}
-                    className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                    className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                   >
                     <option value="SKILL">Skill</option>
                     <option value="LEARNING">Learning</option>
@@ -816,50 +818,50 @@ export default function GoalsPage() {
                 </div>
 
                 <div>
-                  <label className="font-bold text-zinc-300 uppercase block mb-1">Deadline</label>
+                  <label className="font-bold text-card-foreground uppercase block mb-1">Deadline</label>
                   <input
                     type="date"
                     value={formDeadline}
                     onChange={(e) => setFormDeadline(e.target.value)}
-                    className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                    className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-zinc-300 uppercase block mb-1">Target Value</label>
+                  <label className="font-bold text-card-foreground uppercase block mb-1">Target Value</label>
                   <input
                     type="number"
                     min={1}
                     value={formTargetValue}
                     onChange={(e) => setFormTargetValue(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                    className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold text-zinc-300 uppercase block mb-1">Unit</label>
+                  <label className="font-bold text-card-foreground uppercase block mb-1">Unit</label>
                   <input
                     type="text"
                     placeholder="e.g. topics / problems / %"
                     value={formUnit}
                     onChange={(e) => setFormUnit(e.target.value)}
-                    className="w-full px-3 py-2 rounded-sm bg-black border border-white/15 text-white font-mono text-xs focus:outline-none focus:border-[#FFD400]"
+                    className="w-full px-3 py-2 rounded-sm bg-background border border-input text-foreground font-mono text-xs focus:outline-none focus:border-[#FFD400]"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex justify-end gap-3 pt-4 border-t border-border">
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
                   onClick={() => {
                     setIsCreateModalOpen(false);
                     setEditingGoal(null);
                   }}
-                  className="text-xs uppercase border-white/20 text-white"
+                  className="text-xs uppercase"
                 >
                   Cancel
                 </Button>
@@ -868,7 +870,8 @@ export default function GoalsPage() {
                   type="submit"
                   size="sm"
                   isLoading={createMutation.isPending || updateMutation.isPending}
-                  className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
+                  variant="primary"
+                  className="font-bold text-xs uppercase"
                 >
                   {editingGoal ? 'Save Changes' : 'Create Goal'}
                 </Button>
@@ -884,21 +887,21 @@ export default function GoalsPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0A0A0A] border border-rose-500/40 rounded-sm p-6 max-w-sm w-full text-white text-center space-y-4"
+            className="bg-card border border-rose-500/40 rounded-sm p-6 max-w-sm w-full text-card-foreground text-center space-y-4"
           >
             <div className="h-12 w-12 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
               <Trash2 className="h-6 w-6" />
             </div>
-            <h3 className="font-condensed text-xl font-bold uppercase text-white">Delete this goal?</h3>
-            <p className="text-xs text-zinc-400 font-sans leading-relaxed">
+            <h3 className="text-xl font-bold uppercase text-card-foreground">Delete this goal?</h3>
+            <p className="text-xs text-muted-foreground font-sans leading-relaxed">
               This will remove the goal definition. Underlying assessment, learning, and skill data will NOT be deleted.
             </p>
             <div className="flex gap-2 pt-2">
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={() => setDeletingGoalId(null)}
-                className="w-full text-xs uppercase border-white/20 text-white"
+                className="w-full text-xs uppercase"
               >
                 Cancel
               </Button>

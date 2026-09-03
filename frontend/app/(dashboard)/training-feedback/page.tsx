@@ -54,7 +54,7 @@ export default function TrainingFeedbackPage() {
             <MessageSquare className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>TRAINING RELEVANCE & JOB SKILL ALIGNMENT</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             TRAINING FEEDBACK & SKILLS EVALUATION 💬
           </h1>
           <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans">
@@ -65,17 +65,17 @@ export default function TrainingFeedbackPage() {
 
       {/* Effectiveness Indicator */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
-        <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm text-center">
-          <span className="text-xs font-bold uppercase text-zinc-400 block">Training Effectiveness Score</span>
-          <span className="font-condensed text-5xl font-black text-[#FFD400] mt-2 block">88%</span>
-          <p className="text-xs text-zinc-400 mt-1 font-sans">High career relevance alignment</p>
+        <Card className="p-6 rounded-sm text-center">
+          <span className="text-xs font-bold uppercase text-muted-foreground block">Training Effectiveness Score</span>
+          <span className="text-5xl font-black text-[#FFD400] mt-2 block">88%</span>
+          <p className="text-xs text-muted-foreground mt-1 font-sans">High career relevance alignment</p>
         </Card>
 
-        <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm md:col-span-2 space-y-2 text-xs">
-          <span className="font-condensed text-xl font-bold uppercase text-white block">Skills Trained vs Currently Used in Industry</span>
+        <Card className="p-6 rounded-sm md:col-span-2 space-y-2 text-xs">
+          <span className="text-xl font-bold uppercase text-card-foreground block">Skills Trained vs Currently Used in Industry</span>
           <div className="grid grid-cols-2 gap-4 pt-1 font-sans">
             <div>
-              <span className="text-zinc-400 font-mono font-bold uppercase block mb-2">Trained & Utilized</span>
+              <span className="text-muted-foreground font-mono font-bold uppercase block mb-2">Trained & Utilized</span>
               <div className="flex flex-wrap gap-1 font-mono">
                 <Badge variant="default" className="bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400] uppercase font-bold text-[10px]">Java</Badge>
                 <Badge variant="default" className="bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400] uppercase font-bold text-[10px]">SQL</Badge>
@@ -83,7 +83,7 @@ export default function TrainingFeedbackPage() {
               </div>
             </div>
             <div>
-              <span className="text-zinc-400 font-mono font-bold uppercase block mb-2">Missing for Current Role</span>
+              <span className="text-muted-foreground font-mono font-bold uppercase block mb-2">Missing for Current Role</span>
               <div className="flex flex-wrap gap-1 font-mono">
                 <Badge variant="default" className="bg-rose-950 text-rose-300 border-rose-500/40 uppercase font-bold text-[10px]">Spring Boot</Badge>
                 <Badge variant="default" className="bg-rose-950 text-rose-300 border-rose-500/40 uppercase font-bold text-[10px]">Docker</Badge>
@@ -94,9 +94,9 @@ export default function TrainingFeedbackPage() {
       </div>
 
       {/* Feedback Form */}
-      <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
-        <CardHeader className="p-0 pb-4 border-b border-white/10 mb-4">
-          <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+      <Card className="p-6 rounded-sm font-mono">
+        <CardHeader className="p-0 pb-4 border-b border-border mb-4">
+          <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
             <Send className="h-5 w-5 text-[#FFD400]" />
             SUBMIT TRAINING EVALUATION
           </CardTitle>
@@ -104,11 +104,11 @@ export default function TrainingFeedbackPage() {
         <CardContent className="p-0">
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="font-bold text-zinc-300 block mb-1 uppercase">Overall Training Relevance (1-5 Stars)</label>
+              <label className="font-bold text-card-foreground block mb-1 uppercase">Overall Training Relevance (1-5 Stars)</label>
               <select
                 value={relevance}
                 onChange={(e) => setRelevance(Number(e.target.value))}
-                className="w-full sm:w-64 px-3 py-2 rounded-sm border border-white/15 bg-black text-white font-mono font-bold"
+                className="w-full sm:w-64 px-3 py-2 rounded-sm border border-input bg-background text-foreground font-mono font-bold"
               >
                 <option value={5}>★★★★★ (5 Stars - Highly Relevant)</option>
                 <option value={4}>★★★★☆ (4 Stars - Relevant)</option>
@@ -119,17 +119,17 @@ export default function TrainingFeedbackPage() {
             </div>
 
             <div>
-              <label className="font-bold text-zinc-300 block mb-1 uppercase">Feedback & Recommendations</label>
+              <label className="font-bold text-card-foreground block mb-1 uppercase">Feedback & Recommendations</label>
               <textarea
                 rows={3}
                 placeholder="Which topics should be improved? Was practical exposure sufficient?"
                 value={comments}
                 onChange={(e) => setComments(e.target.value)}
-                className="w-full px-3 py-2 rounded-sm border border-white/15 bg-black text-white font-sans text-xs focus:outline-none focus:border-[#FFD400]"
+                className="w-full px-3 py-2 rounded-sm border border-input bg-background text-foreground font-sans text-xs focus:outline-none focus:border-[#FFD400]"
               />
             </div>
 
-            <Button type="submit" isLoading={submitMutation.isPending} className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase flex items-center gap-2">
+            <Button type="submit" isLoading={submitMutation.isPending} variant="primary" className="font-bold text-xs uppercase flex items-center gap-2">
               <Send className="h-4 w-4 text-black" /> Submit Feedback
             </Button>
           </form>

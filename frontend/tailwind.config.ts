@@ -11,7 +11,6 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],
-        condensed: ['var(--font-condensed)', 'sans-serif'],
       },
       colors: {
         background: 'var(--background)',

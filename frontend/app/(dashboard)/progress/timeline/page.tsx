@@ -149,20 +149,20 @@ export default function ProgressTimelinePage() {
             <ArrowLeft className="h-3.5 w-3.5 text-[#FFD400]" />
             Back to Readiness Overview
           </Link>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground uppercase">
             PROGRESS TIMELINE
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-sans">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-sans">
             Track your SkillTrack journey and see how your preparation has evolved over time.
           </p>
         </div>
 
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
           onClick={() => refetch()}
           disabled={isFetching}
-          className="self-start sm:self-center gap-2 border-white/20 text-white font-mono uppercase text-xs"
+          className="self-start sm:self-center gap-2 font-mono uppercase text-xs"
         >
           <RotateCw className={`h-3.5 w-3.5 ${isFetching ? 'animate-spin' : ''}`} />
           Refresh
@@ -171,10 +171,10 @@ export default function ProgressTimelinePage() {
 
       {/* HERO SUMMARY */}
       {data?.heroSummary && (
-        <Card className="bg-[#0A0A0A] border border-[#FFD400]/40 text-white rounded-sm font-mono">
-          <CardHeader className="p-6 pb-2 border-b border-white/10">
+        <Card className="border-[#FFD400]/40 rounded-sm font-mono">
+          <CardHeader className="p-6 pb-2 border-b border-border">
             <div className="flex items-center justify-between">
-              <CardTitle className="font-condensed text-xl font-bold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+              <CardTitle className="text-xl font-bold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-[#FFD400]" />
                 YOUR JOURNEY
               </CardTitle>
@@ -185,47 +185,47 @@ export default function ProgressTimelinePage() {
           </CardHeader>
 
           <CardContent className="p-6 pt-4 grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
-            <div className="p-3 rounded-sm bg-[#111111] border border-white/10">
-              <div className="font-condensed text-3xl font-black text-white">
+            <div className="p-3 rounded-sm bg-surface-secondary border border-border">
+              <div className="text-3xl font-black text-card-foreground">
                 {data.heroSummary.totalActivities}
               </div>
-              <div className="text-[11px] font-bold uppercase text-zinc-400 mt-0.5">
+              <div className="text-[11px] font-bold uppercase text-muted-foreground mt-0.5">
                 Total Activities
               </div>
             </div>
 
-            <div className="p-3 rounded-sm bg-[#111111] border border-white/10">
-              <div className="font-condensed text-3xl font-black text-[#FFD400]">
+            <div className="p-3 rounded-sm bg-surface-secondary border border-border">
+              <div className="text-3xl font-black text-[#FFD400]">
                 {data.heroSummary.assessmentsCompleted}
               </div>
-              <div className="text-[11px] font-bold uppercase text-zinc-400 mt-0.5">
+              <div className="text-[11px] font-bold uppercase text-muted-foreground mt-0.5">
                 Assessments
               </div>
             </div>
 
-            <div className="p-3 rounded-sm bg-[#111111] border border-white/10">
-              <div className="font-condensed text-3xl font-black text-[#FFD400]">
+            <div className="p-3 rounded-sm bg-surface-secondary border border-border">
+              <div className="text-3xl font-black text-[#FFD400]">
                 {data.heroSummary.topicsCompleted}
               </div>
-              <div className="text-[11px] font-bold uppercase text-zinc-400 mt-0.5">
+              <div className="text-[11px] font-bold uppercase text-muted-foreground mt-0.5">
                 Topics Completed
               </div>
             </div>
 
-            <div className="p-3 rounded-sm bg-[#111111] border border-white/10">
-              <div className="font-condensed text-3xl font-black text-[#FFD400]">
+            <div className="p-3 rounded-sm bg-surface-secondary border border-border">
+              <div className="text-3xl font-black text-[#FFD400]">
                 {data.heroSummary.skillsImproved}
               </div>
-              <div className="text-[11px] font-bold uppercase text-zinc-400 mt-0.5">
+              <div className="text-[11px] font-bold uppercase text-muted-foreground mt-0.5">
                 Skills Improved
               </div>
             </div>
 
-            <div className="p-3 rounded-sm bg-[#111111] border border-white/10 col-span-2 sm:col-span-1">
-              <div className="font-condensed text-3xl font-black text-[#FFD400]">
+            <div className="p-3 rounded-sm bg-surface-secondary border border-border col-span-2 sm:col-span-1">
+              <div className="text-3xl font-black text-[#FFD400]">
                 {data.heroSummary.careerMilestones}
               </div>
-              <div className="text-[11px] font-bold uppercase text-zinc-400 mt-0.5">
+              <div className="text-[11px] font-bold uppercase text-muted-foreground mt-0.5">
                 Milestones
               </div>
             </div>
@@ -234,10 +234,10 @@ export default function ProgressTimelinePage() {
       )}
 
       {/* FILTER & CONTROL BAR */}
-      <div className="flex flex-col gap-4 p-4 rounded-sm bg-[#0A0A0A] border border-white/10 font-mono">
+      <div className="flex flex-col gap-4 p-4 rounded-sm bg-surface-secondary border border-border font-mono">
         {/* Category Filters */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <Filter className="h-4 w-4 text-zinc-400 shrink-0 mr-1" />
+          <Filter className="h-4 w-4 text-muted-foreground shrink-0 mr-1" />
           {categories.map((cat) => (
             <button
               key={cat.value}
@@ -248,7 +248,7 @@ export default function ProgressTimelinePage() {
               className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
                 category === cat.value
                   ? 'bg-[#FFD400] text-black font-extrabold'
-                  : 'bg-[#111111] border border-white/10 text-zinc-400 hover:text-white'
+                  : 'bg-background border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
               {cat.label}
@@ -257,17 +257,17 @@ export default function ProgressTimelinePage() {
         </div>
 
         {/* Date Filter & Sort Toggle */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-border">
           <div className="flex items-center gap-2">
-            <Calendar className="h-3.5 w-3.5 text-zinc-400" />
-            <span className="text-xs font-bold text-zinc-400 uppercase">Timeframe:</span>
+            <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-xs font-bold text-muted-foreground uppercase">Timeframe:</span>
             <select
               value={dateFilter}
               onChange={(e) => {
                 setDateFilter(e.target.value as TimelineDateFilter);
                 setPage(1);
               }}
-              className="bg-black border border-white/15 text-xs font-mono font-bold text-white rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
+              className="bg-background border border-input text-xs font-mono font-bold text-foreground rounded-sm px-2.5 py-1 focus:outline-none focus:border-[#FFD400]"
             >
               {dateFilters.map((df) => (
                 <option key={df.value} value={df.value}>
@@ -281,9 +281,9 @@ export default function ProgressTimelinePage() {
             variant="ghost"
             size="sm"
             onClick={() => setSort(sort === 'DESC' ? 'ASC' : 'DESC')}
-            className="text-xs font-bold uppercase text-zinc-400 hover:text-white gap-1.5 h-8 px-2.5"
+            className="text-xs font-bold uppercase text-muted-foreground hover:text-foreground gap-1.5 h-8 px-2.5"
           >
-            <ArrowUpDown className="h-3.5 w-3.5 text-zinc-400" />
+            <ArrowUpDown className="h-3.5 w-3.5 text-muted-foreground" />
             Order: {sort === 'DESC' ? 'Newest First' : 'Oldest First'}
           </Button>
         </div>
@@ -295,7 +295,7 @@ export default function ProgressTimelinePage() {
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="relative pl-6">
               <div className="absolute -left-[31px] top-1 h-6 w-6 rounded-sm bg-[#FFD400] border-2 border-black" />
-              <Skeleton className="h-24 w-full rounded-sm bg-[#0A0A0A]" />
+              <Skeleton className="h-24 w-full rounded-sm bg-surface-secondary" />
             </div>
           ))}
         </div>
@@ -303,15 +303,15 @@ export default function ProgressTimelinePage() {
 
       {/* ERROR STATE */}
       {error && !isLoading && (
-        <Card className="bg-[#0A0A0A] border-rose-500/40 text-white text-center p-8 rounded-sm space-y-4 max-w-md mx-auto font-mono">
+        <Card className="border-rose-500/40 text-center p-8 rounded-sm space-y-4 max-w-md mx-auto font-mono">
           <div className="h-12 w-12 rounded-sm bg-rose-950 text-rose-400 flex items-center justify-center mx-auto border border-rose-500/40">
             <AlertCircle className="h-6 w-6 text-rose-400" />
           </div>
           <div>
-            <h3 className="font-condensed text-xl font-bold uppercase text-white">
+            <h3 className="text-xl font-bold uppercase text-card-foreground">
               Unable to load your progress timeline.
             </h3>
-            <p className="text-xs text-zinc-400 mt-1 font-sans">
+            <p className="text-xs text-muted-foreground mt-1 font-sans">
               Please check your connection or try again.
             </p>
           </div>
@@ -327,20 +327,20 @@ export default function ProgressTimelinePage() {
 
       {/* EMPTY STATE */}
       {data && data.events.length === 0 && !isLoading && !error && (
-        <Card className="bg-[#0A0A0A] border-white/10 text-white text-center p-12 rounded-sm space-y-4 max-w-lg mx-auto font-mono">
-          <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+        <Card className="text-center p-12 rounded-sm space-y-4 max-w-lg mx-auto font-mono">
+          <div className="h-16 w-16 rounded-sm bg-surface-secondary text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
             <Sparkles className="h-8 w-8 text-[#FFD400]" />
           </div>
           <div className="space-y-1">
-            <h2 className="font-condensed text-2xl font-black text-white uppercase tracking-tight">
+            <h2 className="text-2xl font-black text-card-foreground uppercase tracking-tight">
               YOUR JOURNEY STARTS HERE
             </h2>
-            <p className="text-xs text-zinc-400 font-sans">
+            <p className="text-xs text-muted-foreground font-sans">
               You haven't completed any tracked activities yet.
             </p>
           </div>
           <Link href="/learning">
-            <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2 px-6 rounded-sm mt-2">
+            <Button variant="primary" className="font-bold text-xs uppercase gap-2 px-6 rounded-sm mt-2">
               <BookOpen className="h-4 w-4 text-black" />
               Start Learning
             </Button>
@@ -362,32 +362,32 @@ export default function ProgressTimelinePage() {
                 className="relative group font-mono"
               >
                 {/* Timeline Dot Node */}
-                <div className="absolute -left-[37px] sm:-left-[45px] top-4 h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-[#0A0A0A] border-2 border-[#FFD400] flex items-center justify-center">
+                <div className="absolute -left-[37px] sm:-left-[45px] top-4 h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-background border-2 border-[#FFD400] flex items-center justify-center">
                   {icon}
                 </div>
 
                 {/* Event Card */}
-                <div className="p-4 sm:p-5 rounded-sm bg-[#0A0A0A] border border-white/10 hover:border-[#FFD400]/50 transition-all duration-200 space-y-3">
+                <div className="p-4 sm:p-5 rounded-sm bg-card border border-border hover:border-[#FFD400]/50 transition-all duration-200 space-y-3">
                   {/* Top Row: Category Badge & Date */}
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="px-2.5 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-[#111111] text-[#FFD400] border border-[#FFD400]/40">
+                    <span className="px-2.5 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-surface-secondary text-[#FFD400] border border-[#FFD400]/40">
                       {event.category}
                     </span>
-                    <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-mono">
-                      <Calendar className="h-3 w-3 text-zinc-400" />
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+                      <Calendar className="h-3 w-3 text-muted-foreground" />
                       <span>{formattedDate}</span>
-                      <span className="text-zinc-600">•</span>
+                      <span className="text-muted-foreground">•</span>
                       <span>{formattedTime}</span>
                     </div>
                   </div>
 
                   {/* Title & Description */}
                   <div>
-                    <h3 className="font-condensed font-bold text-xl text-white uppercase flex items-center gap-2">
+                    <h3 className="font-bold text-xl text-card-foreground uppercase flex items-center gap-2">
                       {event.title}
                     </h3>
                     {event.description && (
-                      <p className="text-xs text-zinc-400 mt-1 leading-relaxed font-sans">
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed font-sans">
                         {event.description}
                       </p>
                     )}
@@ -415,19 +415,19 @@ export default function ProgressTimelinePage() {
                       )}
 
                       {event.metadata.proficiency && (
-                        <span className="text-[11px] font-bold text-zinc-300 px-2 py-0.5 rounded-sm bg-[#111111] border border-white/10 uppercase">
+                        <span className="text-[11px] font-bold text-muted-foreground px-2 py-0.5 rounded-sm bg-surface-secondary border border-border uppercase">
                           Level: {event.metadata.proficiency}
                         </span>
                       )}
 
                       {event.metadata.roleName && (
-                        <Badge variant="default" className="text-[11px] font-bold uppercase bg-zinc-800 text-white">
+                        <Badge variant="default" className="text-[11px] font-bold uppercase bg-surface text-card-foreground">
                           Role: {event.metadata.roleName}
                         </Badge>
                       )}
 
                       {event.metadata.status && (
-                        <Badge variant="default" className="text-[11px] font-bold uppercase text-zinc-400 bg-[#111111] border-white/10">
+                        <Badge variant="default" className="text-[11px] font-bold uppercase text-muted-foreground bg-surface-secondary border-border">
                           {event.metadata.status}
                         </Badge>
                       )}
@@ -442,28 +442,28 @@ export default function ProgressTimelinePage() {
 
       {/* PAGINATION CONTROLS */}
       {data && data.pagination && data.pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between pt-6 border-t border-white/10 font-mono">
+        <div className="flex items-center justify-between pt-6 border-t border-border font-mono">
           <Button
-            variant="outline"
+            variant="secondary"
             size="sm"
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="gap-1.5 text-xs font-bold uppercase border-white/20 text-white"
+            className="gap-1.5 text-xs font-bold uppercase"
           >
             <ChevronLeft className="h-4 w-4" />
             Previous
           </Button>
 
-          <span className="text-xs font-bold text-zinc-400 uppercase">
+          <span className="text-xs font-bold text-muted-foreground uppercase">
             Page {data.pagination.page} of {data.pagination.totalPages}
           </span>
 
           <Button
-            variant="outline"
+            variant="secondary"
             size="sm"
             disabled={!data.pagination.hasMore}
             onClick={() => setPage((p) => p + 1)}
-            className="gap-1.5 text-xs font-bold uppercase border-white/20 text-white"
+            className="gap-1.5 text-xs font-bold uppercase"
           >
             Next
             <ChevronRight className="h-4 w-4" />

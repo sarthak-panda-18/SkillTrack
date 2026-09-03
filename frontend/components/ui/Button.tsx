@@ -2,28 +2,31 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  variant?: 'default' | 'primary' | 'destructive' | 'danger' | 'outline' | 'secondary' | 'ghost' | 'success' | 'link';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   isLoading?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', isLoading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-semibold tracking-wide transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD400] disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] duration-150';
+    const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-bold tracking-normal transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD400] disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] duration-150';
 
     const variants = {
-      default: 'bg-[#FFD400] text-black font-bold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(255,212,0,0.3)] border border-[#FFD400]',
-      destructive: 'bg-rose-500/10 text-rose-600 dark:text-rose-300 border border-rose-500/30 hover:bg-rose-500/20',
-      outline: 'border border-border bg-surface text-foreground hover:border-[#FFD400] hover:text-[#FFD400] font-bold uppercase tracking-wider',
-      secondary: 'bg-surface-secondary border border-border text-foreground hover:bg-surface-hover hover:border-border',
-      ghost: 'hover:bg-surface-hover text-muted-foreground hover:text-foreground',
+      default: 'bg-[#FFD400] text-[#000000] font-bold border-none hover:bg-[#E6BF00] hover:text-[#000000]',
+      primary: 'bg-[#FFD400] text-[#000000] font-bold border-none hover:bg-[#E6BF00] hover:text-[#000000]',
+      secondary: 'bg-white dark:bg-[#111111] text-[#111111] dark:text-white border border-[#D4D4D4] dark:border-[#444444] hover:bg-[#F3F3F3] hover:text-[#000000] dark:hover:bg-[#1A1A1A] dark:hover:text-white',
+      outline: 'bg-transparent text-[#111111] dark:text-white border border-[#D4D4D4] dark:border-[#444444] hover:bg-[#F3F3F3] hover:text-[#000000] dark:hover:bg-[#1A1A1A] dark:hover:text-white',
+      ghost: 'bg-transparent text-[#111111] dark:text-white hover:bg-[#F3F3F3] hover:text-[#000000] dark:hover:bg-[#1A1A1A] dark:hover:text-white',
+      destructive: 'bg-rose-600 text-white font-bold border-none hover:bg-rose-700',
+      danger: 'bg-rose-600 text-white font-bold border-none hover:bg-rose-700',
+      success: 'bg-emerald-600 text-white font-bold border-none hover:bg-emerald-700',
       link: 'text-[#FFD400] underline-offset-4 hover:underline p-0 h-auto font-bold',
     };
 
     const sizes = {
       default: 'h-10 px-5 py-2 text-xs font-bold uppercase tracking-wider',
-      sm: 'h-8 px-3 text-[11px] font-bold uppercase tracking-wider',
-      lg: 'h-12 px-7 text-sm font-extrabold uppercase tracking-widest',
+      sm: 'h-8 px-3 text-xs font-semibold uppercase tracking-wider',
+      lg: 'h-12 px-7 text-sm font-bold uppercase tracking-wider',
       icon: 'h-10 w-10 p-0',
     };
 

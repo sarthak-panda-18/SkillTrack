@@ -64,7 +64,7 @@ export default function SkillGapPage() {
           <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
             <Target className="h-8 w-8 text-[#FFD400]" />
           </div>
-          <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Target Role Required</h2>
+          <h2 className="text-2xl font-extrabold uppercase text-white">Target Role Required</h2>
           <p className="text-xs text-zinc-400 font-sans leading-relaxed">{errMsg}</p>
           <Link href="/profile">
             <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
@@ -121,7 +121,7 @@ export default function SkillGapPage() {
             <Target className="h-4 w-4 text-[#FFD400]" />
             SKILL GAP ANALYSIS ENGINE
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase text-white tracking-tight flex items-center gap-3">
             {careerRoleName}
           </h1>
           <p className="text-xs text-zinc-400 font-sans">
@@ -132,8 +132,8 @@ export default function SkillGapPage() {
         <Button
           onClick={() => analyzeMutation.mutate()}
           isLoading={analyzeMutation.isPending}
-          variant="outline"
-          className="relative z-10 border-white/20 text-white font-mono font-bold text-xs uppercase hover:border-[#FFD400] gap-2 shrink-0"
+          variant="secondary"
+          className="relative z-10 font-mono font-bold text-xs uppercase gap-2 shrink-0"
         >
           <RotateCw className={`h-4 w-4 ${analyzeMutation.isPending ? 'animate-spin' : ''}`} />
           Analyze My Skills
@@ -143,9 +143,9 @@ export default function SkillGapPage() {
       {/* Overview Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
         {/* Overall Readiness Ring Card */}
-        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm flex flex-col justify-between">
-          <CardHeader className="p-6 pb-2 border-b border-white/10">
-            <CardTitle className="font-mono text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+        <Card className="rounded-sm flex flex-col justify-between">
+          <CardHeader className="p-6 pb-2 border-b border-border">
+            <CardTitle className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <Award className="h-4 w-4 text-[#FFD400]" />
               Career Skill Readiness
             </CardTitle>
@@ -159,7 +159,7 @@ export default function SkillGapPage() {
                   r="60"
                   stroke="currentColor"
                   strokeWidth="12"
-                  className="text-zinc-800"
+                  className="text-surface-secondary"
                   fill="transparent"
                 />
                 <circle
@@ -176,10 +176,10 @@ export default function SkillGapPage() {
                 />
               </svg>
               <div className="absolute flex flex-col items-center">
-                <span className="font-condensed text-4xl font-extrabold text-[#FFD400]">
+                <span className="text-4xl font-extrabold text-[#FFD400]">
                   {overallReadiness}%
                 </span>
-                <span className="text-[10px] text-zinc-400 uppercase font-bold">Readiness</span>
+                <span className="text-[10px] text-muted-foreground uppercase font-bold">Readiness</span>
               </div>
             </div>
 
@@ -190,9 +190,9 @@ export default function SkillGapPage() {
         </Card>
 
         {/* AI Strategic Insights Card */}
-        <Card className="md:col-span-2 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-          <CardHeader className="p-6 pb-2 border-b border-white/10 flex flex-row justify-between items-center">
-            <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+        <Card className="md:col-span-2 rounded-sm">
+          <CardHeader className="p-6 pb-2 border-b border-border flex flex-row justify-between items-center">
+            <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
               <Brain className="h-5 w-5 text-[#FFD400]" />
               AI STRATEGIC INSIGHTS & ADVISOR SUMMARY
             </CardTitle>
@@ -201,7 +201,7 @@ export default function SkillGapPage() {
             </Badge>
           </CardHeader>
           <CardContent className="p-6 space-y-4 text-xs font-sans">
-            <p className="text-zinc-300 leading-relaxed font-medium bg-[#111111] p-4 rounded-sm border border-white/10">
+            <p className="text-foreground leading-relaxed font-medium bg-surface-secondary p-4 rounded-sm border border-border">
               {aiSummary}
             </p>
 
@@ -210,7 +210,7 @@ export default function SkillGapPage() {
                 <h4 className="font-bold text-[#FFD400] text-xs uppercase">Key Priorities:</h4>
                 <ul className="space-y-1.5 font-sans">
                   {aiInsights.map((insight, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-zinc-400">
+                    <li key={idx} className="flex items-start gap-2 text-muted-foreground">
                       <Sparkles className="h-3.5 w-3.5 text-[#FFD400] shrink-0 mt-0.5" />
                       <span>{insight}</span>
                     </li>
@@ -224,9 +224,9 @@ export default function SkillGapPage() {
 
       {/* Top 3 Priorities Section */}
       {topPriorities.length > 0 && (
-        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
-          <CardHeader className="p-6 pb-3 border-b border-white/10">
-            <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+        <Card className="rounded-sm font-mono">
+          <CardHeader className="p-6 pb-3 border-b border-border">
+            <CardTitle className="text-xl font-extrabold uppercase text-card-foreground flex items-center gap-2">
               <Zap className="h-5 w-5 text-[#FFD400]" />
               TOP RECOMMENDED FOCUS AREAS
             </CardTitle>
@@ -235,10 +235,10 @@ export default function SkillGapPage() {
             {topPriorities.slice(0, 3).map((item, idx) => (
               <div
                 key={item.skillId}
-                className="p-4 rounded-sm bg-[#111111] border border-white/10 space-y-2 relative font-sans"
+                className="p-4 rounded-sm bg-surface-secondary border border-border space-y-2 relative font-sans"
               >
                 <div className="flex justify-between items-start font-mono">
-                  <span className="h-5 w-5 rounded-sm bg-[#FFD400] text-black font-condensed font-bold text-xs flex items-center justify-center">
+                  <span className="h-5 w-5 rounded-sm bg-[#FFD400] text-black font-bold text-xs flex items-center justify-center">
                     {idx + 1}
                   </span>
                   <Badge
@@ -248,8 +248,8 @@ export default function SkillGapPage() {
                     {item.priority}
                   </Badge>
                 </div>
-                <h4 className="font-condensed font-bold text-lg text-white uppercase">{item.name}</h4>
-                <div className="flex justify-between items-center text-xs text-zinc-400 font-mono">
+                <h4 className="font-bold text-lg text-card-foreground uppercase">{item.name}</h4>
+                <div className="flex justify-between items-center text-xs text-muted-foreground font-mono">
                   <span>Current: {item.currentProficiency}%</span>
                   <span className="font-bold text-[#FFD400]">Target: {item.recommendedProficiency}%</span>
                 </div>
@@ -261,13 +261,13 @@ export default function SkillGapPage() {
 
       {/* Skill Categories Tabs & Grids */}
       <div className="space-y-4 font-mono">
-        <div className="flex flex-wrap gap-2 border-b border-white/10 pb-2">
+        <div className="flex flex-wrap gap-2 border-b border-border pb-2">
           <button
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 rounded-sm text-xs font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'all'
                 ? 'bg-[#FFD400] text-black font-extrabold'
-                : 'bg-[#111111] border border-white/10 text-zinc-400 hover:text-white'
+                : 'bg-surface-secondary border border-border text-muted-foreground hover:text-foreground'
             }`}
           >
             All Skills ({skills.length})
@@ -307,7 +307,7 @@ export default function SkillGapPage() {
             className={`px-4 py-2 rounded-sm text-xs font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'unassessed'
                 ? 'bg-zinc-700 text-white font-extrabold'
-                : 'bg-[#111111] border border-white/10 text-zinc-400'
+                : 'bg-surface-secondary border border-border text-muted-foreground'
             }`}
           >
             ⚪ Unassessed ({unassessedSkills.length})
@@ -323,26 +323,26 @@ export default function SkillGapPage() {
             return (
               <Card
                 key={item.skillId}
-                className={`bg-[#0A0A0A] text-white rounded-sm transition-all border ${
+                className={`rounded-sm transition-all border ${
                   isCritical
                     ? 'border-rose-500/40 bg-rose-950/10'
                     : isStrong
                     ? 'border-[#FFD400]/40 bg-[#FFD400]/5'
-                    : 'border-white/10'
+                    : 'border-border'
                 }`}
               >
                 <CardContent className="p-5 space-y-3 font-sans">
                   <div className="flex justify-between items-start">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-condensed font-bold text-lg text-white uppercase">
+                        <h3 className="font-bold text-lg text-card-foreground uppercase">
                           {item.name}
                         </h3>
-                        <Badge variant="default" className="text-[10px] py-0 font-mono bg-zinc-800 text-zinc-300 uppercase">
+                        <Badge variant="default" className="text-[10px] py-0 font-mono bg-surface-secondary text-muted-foreground uppercase">
                           {item.category}
                         </Badge>
                       </div>
-                      <span className="text-[10px] text-zinc-400 uppercase font-bold font-mono">
+                      <span className="text-[10px] text-muted-foreground uppercase font-bold font-mono">
                         Importance: {item.importance} • Source: {item.source}
                       </span>
                     </div>
@@ -358,15 +358,15 @@ export default function SkillGapPage() {
                   {/* Benchmark Progress Bar */}
                   <div className="space-y-1 font-mono">
                     <div className="flex justify-between text-xs">
-                      <span className="text-zinc-400">
-                        Current: <strong className="text-white">{item.currentProficiency}%</strong>
+                      <span className="text-muted-foreground">
+                        Current: <strong className="text-card-foreground">{item.currentProficiency}%</strong>
                       </span>
                       <span className="text-[#FFD400] font-bold">
                         Target: {item.recommendedProficiency}%
                       </span>
                     </div>
 
-                    <div className="h-2 w-full rounded-sm bg-zinc-800 overflow-hidden relative">
+                    <div className="h-2 w-full rounded-sm bg-surface-secondary overflow-hidden relative">
                       <div
                         className={`h-full transition-all ${
                           isStrong
@@ -379,14 +379,14 @@ export default function SkillGapPage() {
                       />
                       {/* Recommended Target Indicator Line */}
                       <div
-                        className="absolute top-0 bottom-0 w-0.5 bg-white z-10"
+                        className="absolute top-0 bottom-0 w-0.5 bg-foreground z-10"
                         style={{ left: `${item.recommendedProficiency}%` }}
                         title={`Target: ${item.recommendedProficiency}%`}
                       />
                     </div>
 
                     {item.gap > 0 && (
-                      <p className="text-[10px] text-rose-400 font-bold pt-0.5 flex items-center justify-end gap-1 uppercase">
+                      <p className="text-[10px] text-rose-500 dark:text-rose-400 font-bold pt-0.5 flex items-center justify-end gap-1 uppercase">
                         <AlertTriangle className="h-3 w-3" />
                         Gap: {item.gap}% points below target
                       </p>
@@ -394,15 +394,15 @@ export default function SkillGapPage() {
                   </div>
 
                   {/* Action Link */}
-                  <div className="pt-2 flex justify-between items-center border-t border-white/10 font-mono">
-                    <span className="text-[10px] text-zinc-400">
+                  <div className="pt-2 flex justify-between items-center border-t border-border font-mono">
+                    <span className="text-[10px] text-muted-foreground">
                       {item.latestAssessmentScore !== undefined
                         ? `Assessed: ${item.latestAssessmentScore}%`
                         : 'Not yet assessed'}
                     </span>
 
                     <Link href="/assessment">
-                      <Button size="sm" variant="ghost" className="text-[#FFD400] hover:text-[#FFE033] text-xs font-bold gap-1 py-1 h-auto uppercase">
+                      <Button size="sm" variant="ghost" className="text-[#FFD400] hover:text-[#FFD400] text-xs font-bold gap-1 py-1 h-auto uppercase">
                         Take Assessment
                         <ArrowRight className="h-3 w-3 text-[#FFD400]" />
                       </Button>
@@ -416,15 +416,15 @@ export default function SkillGapPage() {
       </div>
 
       {/* Bottom CTA Banner */}
-      <div className="p-6 rounded-sm bg-[#0A0A0A] border border-[#FFD400]/40 text-white flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="p-6 rounded-sm bg-surface-secondary border border-[#FFD400]/40 text-card-foreground flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
-          <h3 className="font-condensed text-2xl font-extrabold uppercase text-white">Ready to close these skill gaps?</h3>
-          <p className="text-xs text-zinc-400 font-sans">
+          <h3 className="text-2xl font-extrabold uppercase text-card-foreground">Ready to close these skill gaps?</h3>
+          <p className="text-xs text-muted-foreground font-sans">
             Generate your personalized step-by-step learning roadmap tailored to your target career role.
           </p>
         </div>
         <Link href="/learning">
-          <Button className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs px-6 py-2.5 rounded-sm uppercase gap-2 shrink-0">
+          <Button variant="primary" className="font-bold text-xs px-6 py-2.5 uppercase gap-2 shrink-0">
             Build My Learning Roadmap
             <ArrowRight className="h-4 w-4 text-black" />
           </Button>

@@ -61,7 +61,7 @@ export default function AssessmentHubPage() {
             <Brain className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>AI-POWERED SKILL ASSESSMENT ENGINE</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             ASSESS YOUR TECHNICAL SKILLS <span className="text-[#FFD400]">🎯</span>
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base max-w-2xl font-sans">
@@ -72,14 +72,14 @@ export default function AssessmentHubPage() {
 
       {/* Tabs & Search Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex bg-[#0A0A0A] p-1 rounded-sm border border-white/10 text-xs font-mono font-bold uppercase">
+        <div className="flex bg-surface-secondary p-1 rounded-sm border border-border text-xs font-mono font-bold uppercase">
           <button
             type="button"
             onClick={() => setActiveTab('available')}
             className={`px-4 py-2 rounded-sm transition-all ${
               activeTab === 'available'
                 ? 'bg-[#FFD400] text-black font-extrabold'
-                : 'text-zinc-400 hover:text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             AVAILABLE ASSESSMENTS ({assessments.length})
@@ -90,7 +90,7 @@ export default function AssessmentHubPage() {
             className={`px-4 py-2 rounded-sm transition-all ${
               activeTab === 'history'
                 ? 'bg-[#FFD400] text-black font-extrabold'
-                : 'text-zinc-400 hover:text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             MY ATTEMPT HISTORY
@@ -99,12 +99,12 @@ export default function AssessmentHubPage() {
 
         {activeTab === 'available' && (
           <div className="relative w-full sm:w-72">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-zinc-500" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="SEARCH SKILL ASSESSMENT..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 text-xs font-mono uppercase bg-black border-white/15 focus:border-[#FFD400]"
+              className="pl-9 text-xs font-mono uppercase bg-background border-input focus:border-[#FFD400]"
             />
           </div>
         )}
@@ -116,13 +116,13 @@ export default function AssessmentHubPage() {
           {isLoadingAssessments ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Skeleton key={i} className="h-56 w-full rounded-sm bg-[#0A0A0A]" />
+                <Skeleton key={i} className="h-56 w-full rounded-sm bg-surface-secondary" />
               ))}
             </div>
           ) : filteredAssessments.length === 0 ? (
-            <Card className="p-12 text-center bg-[#0A0A0A] border-white/10 text-zinc-400 font-mono rounded-sm">
-              <Brain className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
-              <h3 className="font-condensed text-lg font-bold text-white uppercase">NO ASSESSMENTS FOUND</h3>
+            <Card className="p-12 text-center text-muted-foreground font-mono rounded-sm">
+              <Brain className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-card-foreground uppercase">NO ASSESSMENTS FOUND</h3>
               <p className="text-xs mt-1">Try adjusting your search filter or select another skill.</p>
             </Card>
           ) : (
@@ -134,39 +134,39 @@ export default function AssessmentHubPage() {
                 return (
                   <Card
                     key={a._id}
-                    className="p-5 bg-[#0A0A0A] border-white/10 hover:border-[#FFD400]/50 transition-all duration-200 flex flex-col justify-between rounded-sm"
+                    className="p-5 hover:border-[#FFD400]/50 transition-all duration-200 flex flex-col justify-between rounded-sm"
                   >
                     <CardHeader className="p-0 space-y-3 pb-4">
                       <div className="flex justify-between items-start">
                         <Badge variant="default" className="text-[10px] font-mono font-bold uppercase bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                           {skillCategory}
                         </Badge>
-                        <Badge variant="outline" className="text-[10px] font-mono uppercase border-white/20 text-zinc-400">
+                        <Badge variant="default" className="text-[10px] font-mono uppercase bg-surface-secondary text-muted-foreground border-border">
                           {a.difficulty}
                         </Badge>
                       </div>
-                      <CardTitle className="font-condensed text-xl font-extrabold text-white uppercase">
+                      <CardTitle className="text-xl font-extrabold text-card-foreground uppercase">
                         {a.title}
                       </CardTitle>
-                      <CardDescription className="line-clamp-2 text-xs text-zinc-400 font-sans">
+                      <CardDescription className="line-clamp-2 text-xs text-muted-foreground font-sans">
                         {a.description || `Comprehensive 20-question evaluation covering ${skillName} concepts.`}
                       </CardDescription>
                     </CardHeader>
 
                     <CardContent className="p-0 pt-2 space-y-4">
-                      <div className="p-3 rounded-sm bg-[#111111] border border-white/10 flex justify-between items-center text-xs font-mono">
-                        <span className="flex items-center gap-1.5 text-white">
+                      <div className="p-3 rounded-sm bg-surface-secondary border border-border flex justify-between items-center text-xs font-mono">
+                        <span className="flex items-center gap-1.5 text-card-foreground">
                           <Brain className="h-4 w-4 text-[#FFD400]" />
                           <strong>20 Questions</strong>
                         </span>
-                        <span className="flex items-center gap-1.5 text-zinc-400">
-                          <Clock className="h-4 w-4 text-zinc-500" />
+                        <span className="flex items-center gap-1.5 text-muted-foreground">
+                          <Clock className="h-4 w-4 text-muted-foreground" />
                           <span>{a.timeLimit || 20} Mins</span>
                         </span>
                       </div>
 
                       <Link href={`/assessment/${a._id}`} className="block">
-                        <Button className="w-full gap-2 text-xs font-extrabold uppercase bg-[#FFD400] hover:bg-[#FFE033] text-black">
+                        <Button variant="primary" className="w-full gap-2 text-xs font-bold uppercase">
                           Start 20-Q Assessment
                           <ArrowRight className="h-4 w-4 text-black" />
                         </Button>
@@ -184,11 +184,11 @@ export default function AssessmentHubPage() {
       {activeTab === 'history' && (
         <>
           {isLoadingHistory ? (
-            <Skeleton className="h-96 w-full rounded-sm bg-[#0A0A0A]" />
+            <Skeleton className="h-96 w-full rounded-sm bg-surface-secondary" />
           ) : history.length === 0 ? (
-            <Card className="p-12 text-center bg-[#0A0A0A] border-white/10 text-zinc-400 font-mono rounded-sm">
-              <Award className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
-              <h3 className="font-condensed text-lg font-bold text-white uppercase">NO COMPLETED ATTEMPTS YET</h3>
+            <Card className="p-12 text-center text-muted-foreground font-mono rounded-sm">
+              <Award className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-card-foreground uppercase">NO COMPLETED ATTEMPTS YET</h3>
               <p className="text-xs mt-1">Start your first 20-question skill evaluation above!</p>
             </Card>
           ) : (
@@ -204,11 +204,11 @@ export default function AssessmentHubPage() {
                 return (
                   <Card
                     key={att._id}
-                    className="p-5 bg-[#0A0A0A] border-white/10 hover:border-white/20 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-sm"
+                    className="p-5 hover:border-border/80 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-sm"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-condensed font-extrabold text-lg text-white uppercase">{skillName}</span>
+                        <span className="font-bold text-lg text-card-foreground uppercase">{skillName}</span>
                         <Badge
                           variant="default"
                           className="text-[10px] font-mono font-bold uppercase bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40"
@@ -216,21 +216,21 @@ export default function AssessmentHubPage() {
                           {att.proficiency}
                         </Badge>
                       </div>
-                      <p className="text-xs text-zinc-400 font-mono">
+                      <p className="text-xs text-muted-foreground font-mono">
                         Attempted on {dateStr} • {att.correctAnswers} / {att.totalQuestions || 20} Correct
                       </p>
                     </div>
 
                     <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                       <div className="text-right">
-                        <span className="font-condensed text-2xl font-black text-[#FFD400] block">
+                        <span className="text-2xl font-black text-[#FFD400] block">
                           {att.percentage}%
                         </span>
-                        <span className="text-[10px] text-zinc-400 uppercase font-mono font-bold">{att.status}</span>
+                        <span className="text-[10px] text-muted-foreground uppercase font-mono font-bold">{att.status}</span>
                       </div>
 
                       <Link href={`/assessment/results/${att._id}`}>
-                        <Button size="sm" variant="outline" className="gap-1.5 text-xs font-mono font-bold uppercase border-white/20 text-white hover:border-[#FFD400]">
+                        <Button size="sm" variant="secondary" className="gap-1.5 text-xs font-mono font-bold uppercase">
                           View Results
                           <ArrowRight className="h-3.5 w-3.5" />
                         </Button>

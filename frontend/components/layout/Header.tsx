@@ -15,7 +15,7 @@ export function Header() {
           <div className="h-7 w-7 rounded-sm bg-[#FFD400] flex items-center justify-center text-black font-bold">
             <Zap className="h-4 w-4 fill-black text-black" />
           </div>
-          <span className="font-condensed font-black text-lg uppercase tracking-wider text-foreground">
+          <span className="font-bold text-lg uppercase tracking-wider text-foreground">
             SKILLTRACK <span className="text-[#FFD400]">AI</span>
           </span>
         </Link>

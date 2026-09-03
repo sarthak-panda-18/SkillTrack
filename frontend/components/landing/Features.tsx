@@ -43,7 +43,7 @@ export function Features() {
           <Badge variant="default" className="text-xs font-mono font-bold uppercase tracking-widest bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 mb-3">
             PLATFORM FEATURES
           </Badge>
-          <h2 className="font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white">
+          <h2 className="font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-white">
             EVERYTHING YOU NEED FOR <span className="text-[#FFD400]">PLACEMENT READINESS.</span>
           </h2>
           <p className="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed">
@@ -60,7 +60,7 @@ export function Features() {
                   <div className="h-10 w-10 rounded-sm bg-[#171717] flex items-center justify-center text-[#FFD400] mb-3 border border-white/10 group-hover:bg-[#FFD400] group-hover:text-black transition-colors">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <CardTitle className="font-condensed text-xl font-bold uppercase text-white tracking-wide">
+                  <CardTitle className="text-xl font-bold uppercase text-white tracking-wide">
                     {feat.title}
                   </CardTitle>
                 </CardHeader>

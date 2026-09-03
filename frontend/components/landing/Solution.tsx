@@ -29,7 +29,7 @@ export function Solution() {
             <Badge variant="default" className="text-xs font-mono font-bold uppercase tracking-widest bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30">
               WHY SKILLTRACK AI
             </Badge>
-            <h2 className="font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white leading-none">
+            <h2 className="font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-white leading-tight">
               A STRUCTURED ROADMAP TO <span className="text-[#FFD400]">ENGINEERING EXCELLENCE.</span>
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
@@ -41,7 +41,7 @@ export function Solution() {
                 <div key={idx} className="flex gap-3">
                   <CheckCircle2 className="h-5 w-5 text-[#FFD400] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-condensed font-bold text-white text-base uppercase tracking-wide">
+                    <h4 className="font-bold text-white text-base uppercase tracking-wide">
                       {sol.title}
                     </h4>
                     <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed font-sans">
@@ -60,7 +60,7 @@ export function Solution() {
                   <Target className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-condensed font-bold text-lg text-white uppercase">Competency Scorecard Breakdown</h3>
+                  <h3 className="font-bold text-lg text-white uppercase">Competency Scorecard Breakdown</h3>
                   <p className="text-zinc-400 text-xs font-mono">Standardized evaluation metrics</p>
                 </div>
               </div>

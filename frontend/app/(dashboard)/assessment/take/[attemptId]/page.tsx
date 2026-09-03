@@ -140,13 +140,13 @@ export default function AssessmentPlayerPage() {
   return (
     <PageWrapper className="max-w-4xl mx-auto space-y-6">
       {/* Top Header Bar */}
-      <div className="p-4 sm:p-5 rounded-sm bg-[#0A0A0A] border border-white/10 text-white flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="p-4 sm:p-5 rounded-sm bg-surface-secondary border border-border text-card-foreground flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
-          <h1 className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+          <h1 className="text-xl font-extrabold uppercase text-card-foreground flex items-center gap-2">
             <Brain className="h-5 w-5 text-[#FFD400]" />
             {assessmentData.assessment.title}
           </h1>
-          <p className="text-xs text-zinc-400 font-mono mt-0.5 uppercase">
+          <p className="text-xs text-muted-foreground font-mono mt-0.5 uppercase">
             Question {currentIdx + 1} of {totalQuestions} • {answeredCount} / {totalQuestions} Answered
           </p>
         </div>
@@ -158,7 +158,7 @@ export default function AssessmentPlayerPage() {
               ? 'bg-rose-950/80 text-rose-400 border-rose-500 animate-pulse'
               : isTimeLow
               ? 'bg-amber-950/80 text-amber-400 border-amber-500'
-              : 'bg-[#111111] text-[#FFD400] border-[#FFD400]/40'
+              : 'bg-background text-[#FFD400] border-[#FFD400]/40'
           }`}
         >
           <Clock className="h-4 w-4" />
@@ -168,18 +168,18 @@ export default function AssessmentPlayerPage() {
 
       {/* Main Question Interface */}
       {currentQuestion && (
-        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-          <CardHeader className="p-5 pb-3 border-b border-white/10">
+        <Card className="rounded-sm">
+          <CardHeader className="p-5 pb-3 border-b border-border">
             <div className="flex justify-between items-center">
               <Badge variant="default" className="text-[10px] font-mono font-bold uppercase bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">
                 Topic: {currentQuestion.topic}
               </Badge>
-              <Badge variant="outline" className="text-[10px] font-mono uppercase border-white/20 text-zinc-400">
+              <Badge variant="default" className="text-[10px] font-mono uppercase bg-surface-secondary text-muted-foreground border-border">
                 Difficulty: {currentQuestion.difficulty}
               </Badge>
             </div>
 
-            <CardTitle className="font-condensed text-xl font-bold text-white pt-2 leading-relaxed uppercase">
+            <CardTitle className="text-xl font-bold text-card-foreground pt-2 leading-relaxed uppercase">
               {currentIdx + 1}. {currentQuestion.question}
             </CardTitle>
           </CardHeader>
@@ -198,15 +198,15 @@ export default function AssessmentPlayerPage() {
                     onClick={() => handleSelectOption(currentQuestion._id, optionIdx)}
                     className={`w-full p-4 rounded-sm text-left border text-xs sm:text-sm font-sans transition-all flex items-start gap-3 cursor-pointer ${
                       isSelected
-                        ? 'bg-[#FFD400]/10 border-[#FFD400] text-white font-bold'
-                        : 'bg-[#111111] border-white/10 hover:border-white/20 text-zinc-300'
+                        ? 'bg-[#FFD400]/10 border-[#FFD400] text-card-foreground font-bold'
+                        : 'bg-surface-secondary border-border hover:border-border/80 text-muted-foreground'
                     }`}
                   >
                     <span
                       className={`h-6 w-6 rounded-sm font-mono text-xs flex items-center justify-center shrink-0 font-bold ${
                         isSelected
                           ? 'bg-[#FFD400] text-black'
-                          : 'bg-zinc-800 text-zinc-400'
+                          : 'bg-surface text-muted-foreground'
                       }`}
                     >
                       {optionLetters[optionIdx]}
@@ -218,12 +218,12 @@ export default function AssessmentPlayerPage() {
             </div>
 
             {/* Bottom Controls */}
-            <div className="flex justify-between items-center pt-4 border-t border-white/10">
+            <div className="flex justify-between items-center pt-4 border-t border-border">
               <Button
-                variant="outline"
+                variant="secondary"
                 disabled={currentIdx === 0}
                 onClick={() => setCurrentIdx((prev) => prev - 1)}
-                className="gap-2 text-xs font-mono font-bold uppercase border-white/20 text-white"
+                className="gap-2 text-xs font-mono font-bold uppercase"
               >
                 <ChevronLeft className="h-4 w-4" />
                 Previous
@@ -233,7 +233,8 @@ export default function AssessmentPlayerPage() {
                 {currentIdx < totalQuestions - 1 ? (
                   <Button
                     onClick={() => setCurrentIdx((prev) => prev + 1)}
-                    className="gap-2 text-xs font-extrabold uppercase bg-[#FFD400] hover:bg-[#FFE033] text-black"
+                    variant="primary"
+                    className="gap-2 text-xs font-bold uppercase"
                   >
                     Next Question
                     <ChevronRight className="h-4 w-4 text-black" />
@@ -241,7 +242,8 @@ export default function AssessmentPlayerPage() {
                 ) : (
                   <Button
                     onClick={() => setIsSubmitModalOpen(true)}
-                    className="gap-2 text-xs font-extrabold uppercase bg-[#FFD400] hover:bg-[#FFE033] text-black"
+                    variant="primary"
+                    className="gap-2 text-xs font-bold uppercase"
                   >
                     Review & Submit
                     <Send className="h-4 w-4 text-black" />
@@ -254,10 +256,10 @@ export default function AssessmentPlayerPage() {
       )}
 
       {/* 20-Question Quick Jump Palette */}
-      <Card className="p-4 border-white/10 bg-[#0A0A0A] text-white rounded-sm">
-        <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3 flex items-center justify-between">
+      <Card className="p-4 rounded-sm">
+        <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center justify-between">
           <span>Question Overview ({totalQuestions} Total)</span>
-          <span className="text-[10px] text-zinc-500 font-normal">Click number to jump</span>
+          <span className="text-[10px] text-muted-foreground font-normal">Click number to jump</span>
         </h3>
         <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 font-mono">
           {questions.map((q, idx) => {
@@ -273,8 +275,8 @@ export default function AssessmentPlayerPage() {
                   isCurrent
                     ? 'border-[#FFD400] bg-[#FFD400]/20 text-[#FFD400]'
                     : isAnswered
-                    ? 'bg-[#111111] border-[#FFD400]/40 text-[#FFD400]'
-                    : 'bg-[#111111] border-white/10 text-zinc-500 hover:border-white/20'
+                    ? 'bg-surface-secondary border-[#FFD400]/40 text-[#FFD400]'
+                    : 'bg-surface-secondary border-border text-muted-foreground hover:border-border/80'
                 }`}
               >
                 {idx + 1}
@@ -286,14 +288,14 @@ export default function AssessmentPlayerPage() {
 
       {/* Confirmation Modal */}
       <Dialog open={isSubmitModalOpen} onOpenChange={setIsSubmitModalOpen}>
-        <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+        <DialogContent className="max-w-md bg-card border-border text-card-foreground rounded-sm">
           <DialogHeader>
-            <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+            <DialogTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-[#FFD400]" />
               SUBMIT ASSESSMENT?
             </DialogTitle>
-            <DialogDescription className="text-xs text-zinc-400 font-mono">
-              You have answered <strong className="text-white">{answeredCount} of {totalQuestions}</strong> questions.
+            <DialogDescription className="text-xs text-muted-foreground font-mono">
+              You have answered <strong className="text-card-foreground">{answeredCount} of {totalQuestions}</strong> questions.
             </DialogDescription>
           </DialogHeader>
 
@@ -304,7 +306,7 @@ export default function AssessmentPlayerPage() {
           )}
 
           <DialogFooter className="mt-4 gap-2">
-            <Button variant="outline" onClick={() => setIsSubmitModalOpen(false)} className="text-xs font-mono uppercase border-white/20 text-white">
+            <Button variant="secondary" onClick={() => setIsSubmitModalOpen(false)} className="text-xs font-mono uppercase">
               Back to Player
             </Button>
             <Button
@@ -313,7 +315,8 @@ export default function AssessmentPlayerPage() {
                 submitMutation.mutate();
               }}
               isLoading={submitMutation.isPending}
-              className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2"
+              variant="primary"
+              className="font-bold text-xs uppercase gap-2"
             >
               <Send className="h-4 w-4 text-black" />
               Confirm & Submit

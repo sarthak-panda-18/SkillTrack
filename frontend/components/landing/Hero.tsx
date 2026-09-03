@@ -28,7 +28,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="font-condensed font-black text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-foreground max-w-5xl mx-auto leading-[0.95]"
+          className="font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-foreground max-w-5xl mx-auto leading-tight uppercase"
         >
           MASTER YOUR <span className="text-[#FFD400]">CAREER.</span>
         </motion.h1>
@@ -51,13 +51,13 @@ export function Hero() {
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link href="/register" className="w-full sm:w-auto">
-            <Button size="lg" className="w-full sm:w-auto gap-2 bg-[#FFD400] hover:bg-yellow-hover dark:hover:bg-[#FFE033] text-black font-extrabold text-sm uppercase tracking-wider">
+            <Button size="lg" variant="primary" className="w-full sm:w-auto gap-2 font-bold text-sm uppercase tracking-wider">
               GET STARTED
               <ArrowRight className="h-4 w-4 text-black" />
             </Button>
           </Link>
           <a href="#features" className="w-full sm:w-auto">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto text-sm font-extrabold uppercase tracking-wider border-border hover:border-[#FFD400]">
+            <Button size="lg" variant="secondary" className="w-full sm:w-auto text-sm font-bold uppercase tracking-wider">
               EXPLORE SKILLTRACK
             </Button>
           </a>
@@ -90,7 +90,7 @@ export function Hero() {
                 </div>
                 <div>
                   <h4 className="text-xs text-muted-foreground font-mono uppercase">Target Role</h4>
-                  <p className="font-condensed font-bold text-lg text-foreground uppercase">Full Stack Engineer</p>
+                  <p className="font-bold text-lg text-foreground uppercase">Full Stack Engineer</p>
                 </div>
               </div>
               <div className="mt-3 space-y-1.5">
@@ -111,7 +111,7 @@ export function Hero() {
                 </div>
                 <div>
                   <h4 className="text-xs text-muted-foreground font-mono uppercase">Skill Gap Analysis</h4>
-                  <p className="font-condensed font-bold text-lg text-foreground uppercase">3 Target Gaps Identified</p>
+                  <p className="font-bold text-lg text-foreground uppercase">3 Target Gaps Identified</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-3">
@@ -128,7 +128,7 @@ export function Hero() {
                 </div>
                 <div>
                   <h4 className="text-xs text-muted-foreground font-mono uppercase">Evaluations Completed</h4>
-                  <p className="font-condensed font-bold text-lg text-foreground uppercase">20-Question Assessments</p>
+                  <p className="font-bold text-lg text-foreground uppercase">20-Question Assessments</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 mt-3 text-xs text-emerald-600 dark:text-emerald-400 font-mono">

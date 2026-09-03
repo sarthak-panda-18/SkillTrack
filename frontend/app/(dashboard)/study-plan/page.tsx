@@ -189,7 +189,7 @@ export default function StudyPlanPage() {
           <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
             <CalendarIcon className="h-8 w-8 text-[#FFD400]" />
           </div>
-          <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">AI Personalized Study Plan</h2>
+          <h2 className="text-2xl font-extrabold uppercase text-white">AI Personalized Study Plan</h2>
           <p className="text-xs text-zinc-400 font-sans leading-relaxed">{errMsg}</p>
           <Link href="/learning">
             <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
@@ -233,15 +233,15 @@ export default function StudyPlanPage() {
             </span>
           </div>
 
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">{title}</h1>
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">{title}</h1>
           <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed font-sans">{summary}</p>
         </div>
 
         <div className="relative z-10 flex flex-wrap items-center gap-2 shrink-0 font-mono">
           <Button
             onClick={() => setIsPrefsModalOpen(true)}
-            variant="outline"
-            className="border-white/20 text-white font-mono font-bold text-xs uppercase hover:border-[#FFD400] gap-2"
+            variant="secondary"
+            className="font-mono font-bold text-xs uppercase gap-2"
           >
             <Sliders className="h-4 w-4" />
             Preferences
@@ -249,8 +249,8 @@ export default function StudyPlanPage() {
           <Button
             onClick={() => regeneratePlanMutation.mutate()}
             isLoading={regeneratePlanMutation.isPending}
-            variant="outline"
-            className="border-white/20 text-white font-mono font-bold text-xs uppercase hover:border-[#FFD400] gap-1.5"
+            variant="secondary"
+            className="font-mono font-bold text-xs uppercase gap-1.5"
           >
             <RotateCw className="h-3.5 w-3.5" />
             Refresh
@@ -261,16 +261,16 @@ export default function StudyPlanPage() {
       {/* Main Grid: Weekly Calendar Matrix & Today's Focus */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Today's Focus Task Card List (2 Cols) */}
-        <Card className="lg:col-span-2 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-          <CardHeader className="p-6 pb-3 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <Card className="lg:col-span-2 rounded-sm">
+          <CardHeader className="p-6 pb-3 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
             <div>
-              <CardTitle className="font-condensed text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+              <CardTitle className="text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
                 <Zap className="h-5 w-5 text-[#FFD400] fill-[#FFD400]" />
                 {activeDisplayDay?.date === todayStr
                   ? "TODAY'S STUDY FOCUS"
                   : `SCHEDULE FOR ${activeDisplayDay?.dayOfWeek} (${activeDisplayDay?.date})`}
               </CardTitle>
-              <p className="text-xs text-zinc-400 mt-0.5 font-mono">
+              <p className="text-xs text-muted-foreground mt-0.5 font-mono">
                 {activeDisplayDay?.isRestDay
                   ? 'Scheduled Rest & Recovery Day'
                   : `${activeDisplayDay?.completedMinutes || 0} / ${activeDisplayDay?.totalPlannedMinutes || 0} mins completed • ${activeDisplayDay?.tasks.length || 0} tasks`}
@@ -290,11 +290,11 @@ export default function StudyPlanPage() {
           <CardContent className="p-6 space-y-4">
             {activeDisplayDay?.isRestDay ? (
               <div className="text-center py-10 space-y-3 font-mono">
-                <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
+                <div className="h-16 w-16 rounded-sm bg-surface-secondary text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
                   <Coffee className="h-8 w-8 text-[#FFD400]" />
                 </div>
-                <h3 className="font-condensed text-2xl font-bold uppercase text-white">Scheduled Rest & Review Day</h3>
-                <p className="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed font-sans">
+                <h3 className="text-2xl font-bold uppercase text-card-foreground">Scheduled Rest & Review Day</h3>
+                <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed font-sans">
                   No heavy learning tasks scheduled for today. Take time to relax or lightly review your past notes.
                 </p>
               </div>
@@ -310,12 +310,12 @@ export default function StudyPlanPage() {
                       key={task.taskId}
                       className={`p-4 rounded-sm border transition-all space-y-3 ${
                         isTaskCompleted
-                          ? 'bg-[#111111] border-[#FFD400]/40'
+                          ? 'bg-surface-secondary border-[#FFD400]/40'
                           : isTaskInProgress
-                          ? 'bg-black border-[#FFD400]'
+                          ? 'bg-background border-[#FFD400]'
                           : isTaskSkipped
-                          ? 'bg-zinc-950 border-white/5 opacity-50'
-                          : 'bg-[#111111] border-white/10'
+                          ? 'bg-surface-secondary border-border opacity-50'
+                          : 'bg-surface-secondary border-border'
                       }`}
                     >
                       <div className="flex justify-between items-start gap-2">
@@ -327,45 +327,45 @@ export default function StudyPlanPage() {
                             >
                               {task.type}
                             </Badge>
-                            <Badge variant="default" className="text-[9px] py-0 font-bold bg-zinc-800 text-zinc-300 border-zinc-700">
+                            <Badge variant="default" className="text-[9px] py-0 font-bold bg-surface text-muted-foreground border-border">
                               {task.skillName}
                             </Badge>
-                            <span className="text-[10px] text-zinc-400 font-mono flex items-center gap-1">
+                            <span className="text-[10px] text-muted-foreground font-mono flex items-center gap-1">
                               <Clock className="h-3 w-3 text-[#FFD400]" /> {task.durationMinutes} mins
                             </span>
                           </div>
 
-                          <h4 className="font-condensed font-bold text-lg text-white leading-snug uppercase">
+                          <h4 className="font-bold text-lg text-card-foreground leading-snug uppercase">
                             {task.title}
                           </h4>
                         </div>
 
                         <Badge
                           variant="default"
-                          className="text-[9px] font-mono py-0 uppercase font-bold bg-zinc-800 text-white"
+                          className="text-[9px] font-mono py-0 uppercase font-bold bg-surface text-card-foreground"
                         >
                           {task.status.replace('_', ' ')}
                         </Badge>
                       </div>
 
                       {task.reason && (
-                        <p className="text-xs text-zinc-400 leading-relaxed bg-black p-2.5 rounded-sm border border-white/10 font-sans">
+                        <p className="text-xs text-muted-foreground leading-relaxed bg-background p-2.5 rounded-sm border border-border font-sans">
                           <strong className="text-[#FFD400] font-mono uppercase">Reason:</strong> {task.reason}
                         </p>
                       )}
 
                       {/* Action Bar */}
-                      <div className="pt-2 flex flex-wrap justify-between items-center gap-2 border-t border-white/10 font-mono">
+                      <div className="pt-2 flex flex-wrap justify-between items-center gap-2 border-t border-border font-mono">
                         <div className="flex items-center gap-2">
                           {task.roadmapTopicId && (
                             <Button
                               size="sm"
-                              variant="outline"
+                              variant="secondary"
                               onClick={() => watchTutorialMutation.mutate(task.roadmapTopicId!)}
                               isLoading={watchTutorialMutation.isPending}
-                              className="text-rose-400 border-rose-500/40 hover:bg-rose-950/40 text-[11px] h-7 px-2.5 gap-1 font-bold uppercase"
+                              className="text-[11px] h-7 px-2.5 gap-1 font-bold uppercase"
                             >
-                              <Play className="h-3 w-3 fill-rose-400" />
+                              <Play className="h-3 w-3 text-card-foreground" />
                               Watch Tutorial ↗
                             </Button>
                           )}
@@ -379,12 +379,13 @@ export default function StudyPlanPage() {
                                   setRescheduleTaskObj(task);
                                   setRescheduleDateStr(todayStr);
                                 }}
-                                className="text-[11px] font-mono font-bold uppercase text-zinc-400 hover:text-white px-2 py-1"
+                                className="text-[11px] font-mono font-bold uppercase text-muted-foreground hover:text-foreground px-2 py-1"
                               >
                                 Reschedule
                               </button>
                               <Button
                                 size="sm"
+                                variant="primary"
                                 onClick={() =>
                                   updateTaskStatusMutation.mutate({
                                     taskId: task.taskId,
@@ -392,7 +393,7 @@ export default function StudyPlanPage() {
                                   })
                                 }
                                 isLoading={updateTaskStatusMutation.isPending}
-                                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-[11px] uppercase h-7 px-3 gap-1"
+                                className="font-bold text-[11px] uppercase h-7 px-3 gap-1"
                               >
                                 <CheckCircle2 className="h-3.5 w-3.5 text-black" />
                                 Mark Complete
@@ -403,14 +404,14 @@ export default function StudyPlanPage() {
                           {isTaskCompleted && (
                             <Button
                               size="sm"
-                              variant="outline"
+                              variant="secondary"
                               onClick={() =>
                                 updateTaskStatusMutation.mutate({
                                   taskId: task.taskId,
                                   status: 'NOT_STARTED',
                                 })
                               }
-                              className="text-[11px] h-7 px-2.5 text-zinc-400 border-white/20 uppercase"
+                              className="text-[11px] h-7 px-2.5 uppercase"
                             >
                               Undo
                             </Button>
@@ -422,7 +423,7 @@ export default function StudyPlanPage() {
                 })}
               </div>
             ) : (
-              <div className="text-center py-8 text-xs text-zinc-400 font-mono">No study tasks scheduled for this day.</div>
+              <div className="text-center py-8 text-xs text-muted-foreground font-mono">No study tasks scheduled for this day.</div>
             )}
           </CardContent>
         </Card>
@@ -430,39 +431,39 @@ export default function StudyPlanPage() {
         {/* Weekly Calendar & Analytics Sidebar (1 Col) */}
         <div className="space-y-6">
           {/* Study Plan Analytics */}
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
-            <CardHeader className="p-6 pb-2 border-b border-white/10">
-              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+          <Card className="rounded-sm font-mono">
+            <CardHeader className="p-6 pb-2 border-b border-border">
+              <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
                 <Award className="h-5 w-5 text-[#FFD400]" />
                 WEEKLY STUDY METRICS
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div className="space-y-1 text-center">
-                <div className="font-condensed text-4xl font-black text-[#FFD400]">
+                <div className="text-4xl font-black text-[#FFD400]">
                   {overallProgress}%
                 </div>
-                <p className="text-xs font-bold text-zinc-300 uppercase">Plan Execution Rate</p>
-                <Progress value={overallProgress} className="h-1.5 bg-zinc-800 mt-2" />
+                <p className="text-xs font-bold text-muted-foreground uppercase">Plan Execution Rate</p>
+                <Progress value={overallProgress} className="h-1.5 bg-surface-secondary mt-2" />
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-white/10">
-                <div className="p-2.5 rounded-sm bg-[#111111] border border-white/10 text-center">
-                  <span className="text-[10px] text-zinc-400 uppercase font-bold block">Tasks Done</span>
-                  <span className="font-extrabold text-sm text-white">
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-border">
+                <div className="p-2.5 rounded-sm bg-surface-secondary border border-border text-center">
+                  <span className="text-[10px] text-muted-foreground uppercase font-bold block">Tasks Done</span>
+                  <span className="font-extrabold text-sm text-card-foreground">
                     {completedTasksCount} / {totalTasksCount}
                   </span>
                 </div>
-                <div className="p-2.5 rounded-sm bg-[#111111] border border-white/10 text-center">
-                  <span className="text-[10px] text-zinc-400 uppercase font-bold block">Time Spent</span>
-                  <span className="font-extrabold text-sm text-white">
+                <div className="p-2.5 rounded-sm bg-surface-secondary border border-border text-center">
+                  <span className="text-[10px] text-muted-foreground uppercase font-bold block">Time Spent</span>
+                  <span className="font-extrabold text-sm text-card-foreground">
                     {Math.round(completedMinutes / 60)}h / {Math.round(totalPlannedMinutes / 60)}h
                   </span>
                 </div>
               </div>
 
               {aiSummary && (
-                <p className="text-[11px] text-zinc-300 font-sans leading-relaxed italic bg-black p-3 rounded-sm border border-white/10">
+                <p className="text-[11px] text-muted-foreground font-sans leading-relaxed italic bg-surface-secondary p-3 rounded-sm border border-border">
                   "{aiSummary}"
                 </p>
               )}
@@ -470,9 +471,9 @@ export default function StudyPlanPage() {
           </Card>
 
           {/* 7-Day Weekly Calendar Matrix */}
-          <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
-            <CardHeader className="p-6 pb-2 border-b border-white/10">
-              <CardTitle className="font-condensed text-xl font-bold uppercase text-white flex items-center gap-2">
+          <Card className="rounded-sm font-mono">
+            <CardHeader className="p-6 pb-2 border-b border-border">
+              <CardTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
                 <CalendarIcon className="h-5 w-5 text-[#FFD400]" />
                 7-DAY STUDY MATRIX
               </CardTitle>
@@ -488,10 +489,10 @@ export default function StudyPlanPage() {
                     onClick={() => setSelectedDayId(day.dayId)}
                     className={`p-3 rounded-sm border transition-all cursor-pointer flex items-center justify-between text-xs uppercase ${
                       isSelected
-                        ? 'bg-[#111111] border-[#FFD400] text-white font-bold'
+                        ? 'bg-surface-secondary border-[#FFD400] text-card-foreground font-bold'
                         : isToday
-                        ? 'bg-black border-[#FFD400]/40'
-                        : 'bg-[#111111] border-white/10 hover:border-white/20'
+                        ? 'bg-background border-[#FFD400]/40'
+                        : 'bg-surface-secondary border-border hover:border-border/80'
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -499,7 +500,7 @@ export default function StudyPlanPage() {
                         className={`w-10 text-center font-mono font-black text-xs py-1 rounded-sm ${
                           isToday
                             ? 'bg-[#FFD400] text-black'
-                            : 'bg-zinc-800 text-white'
+                            : 'bg-surface text-foreground'
                         }`}
                       >
                         {day.dayOfWeek.slice(0, 3)}
@@ -507,12 +508,12 @@ export default function StudyPlanPage() {
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-bold text-white truncate text-xs">
+                          <span className="font-bold text-card-foreground truncate text-xs">
                             {day.date}
                           </span>
                           {isToday && <Badge variant="default" className="text-[9px] py-0 bg-[#FFD400]/10 text-[#FFD400] border-[#FFD400]/40">TODAY</Badge>}
                         </div>
-                        <span className="text-[10px] text-zinc-400 block font-mono">
+                        <span className="text-[10px] text-muted-foreground block font-mono">
                           {day.isRestDay ? 'Rest Day' : `${day.completedMinutes}/${day.totalPlannedMinutes} mins`}
                         </span>
                       </div>
@@ -521,11 +522,11 @@ export default function StudyPlanPage() {
                     <div className="flex items-center gap-2 shrink-0">
                       <Badge
                         variant="default"
-                        className="text-[9px] py-0 font-bold uppercase bg-zinc-800 text-white"
+                        className="text-[9px] py-0 font-bold uppercase bg-surface text-card-foreground"
                       >
                         {day.isRestDay ? 'REST' : `${day.tasks.length} tasks`}
                       </Badge>
-                      <ChevronRight className="h-4 w-4 text-zinc-400" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
                     </div>
                   </div>
                 );
@@ -537,13 +538,13 @@ export default function StudyPlanPage() {
 
       {/* Preferences Setup Modal */}
       <Dialog open={isPrefsModalOpen} onOpenChange={setIsPrefsModalOpen}>
-        <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white rounded-sm">
+        <DialogContent className="max-w-md bg-card border-border text-card-foreground rounded-sm">
           <DialogHeader>
-            <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+            <DialogTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
               <Sliders className="h-5 w-5 text-[#FFD400]" />
               PERSONALIZE STUDY PREFERENCES
             </DialogTitle>
-            <DialogDescription className="text-xs text-zinc-400 font-mono">
+            <DialogDescription className="text-xs text-muted-foreground font-mono">
               Configure your daily study limit, active study days, and preferred study intensity.
             </DialogDescription>
           </DialogHeader>
@@ -551,7 +552,7 @@ export default function StudyPlanPage() {
           <div className="space-y-4 py-2 text-xs font-mono">
             {/* Daily Study Time */}
             <div className="space-y-2">
-              <label className="font-extrabold uppercase text-[10px] text-zinc-400">
+              <label className="font-bold uppercase text-[10px] text-muted-foreground">
                 Daily Study Time Limit
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -569,8 +570,8 @@ export default function StudyPlanPage() {
                     onClick={() => setPrefsForm({ ...prefsForm, dailyStudyMinutes: opt.mins })}
                     className={`p-2.5 rounded-sm border text-xs font-bold uppercase transition-all cursor-pointer ${
                       prefsForm.dailyStudyMinutes === opt.mins
-                        ? 'bg-[#FFD400] text-black border-[#FFD400] font-extrabold'
-                        : 'bg-black border-white/15 text-zinc-300 hover:border-white/30'
+                        ? 'bg-[#FFD400] text-black border-[#FFD400] font-bold'
+                        : 'bg-background border-border text-foreground hover:border-border/80'
                     }`}
                   >
                     {opt.label}
@@ -581,7 +582,7 @@ export default function StudyPlanPage() {
 
             {/* Active Study Days */}
             <div className="space-y-2">
-              <label className="font-extrabold uppercase text-[10px] text-zinc-400">
+              <label className="font-bold uppercase text-[10px] text-muted-foreground">
                 Active Study Days
               </label>
               <div className="flex flex-wrap gap-1.5">
@@ -592,10 +593,10 @@ export default function StudyPlanPage() {
                       key={w.value}
                       type="button"
                       onClick={() => toggleDayOfWeekPref(w.value)}
-                      className={`h-9 w-9 rounded-sm font-mono text-xs font-black uppercase transition-all cursor-pointer ${
+                      className={`h-9 w-9 rounded-sm font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#FFD400] text-black font-extrabold'
-                          : 'bg-[#111111] border border-white/10 text-zinc-400 hover:text-white'
+                          ? 'bg-[#FFD400] text-black font-bold'
+                          : 'bg-surface-secondary border border-border text-muted-foreground hover:text-foreground'
                       }`}
                     >
                       {w.label}
@@ -607,7 +608,7 @@ export default function StudyPlanPage() {
 
             {/* Preferred Study Time of Day */}
             <div className="space-y-2">
-              <label className="font-extrabold uppercase text-[10px] text-zinc-400">
+              <label className="font-bold uppercase text-[10px] text-muted-foreground">
                 Preferred Study Time
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -624,7 +625,7 @@ export default function StudyPlanPage() {
                     className={`p-2 rounded-sm border text-xs font-semibold uppercase transition-all cursor-pointer ${
                       prefsForm.preferredStudyTime === t.val
                         ? 'bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400] font-bold'
-                        : 'bg-black border-white/15 text-zinc-400'
+                        : 'bg-background border-border text-muted-foreground'
                     }`}
                   >
                     {t.label}
@@ -635,13 +636,14 @@ export default function StudyPlanPage() {
           </div>
 
           <DialogFooter className="mt-4 gap-2 font-mono">
-            <Button variant="outline" onClick={() => setIsPrefsModalOpen(false)} className="text-xs uppercase border-white/20 text-white">
+            <Button variant="secondary" onClick={() => setIsPrefsModalOpen(false)} className="text-xs uppercase">
               Cancel
             </Button>
             <Button
               onClick={() => generatePlanMutation.mutate(prefsForm)}
               isLoading={generatePlanMutation.isPending}
-              className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
+              variant="primary"
+              className="font-bold text-xs uppercase"
             >
               Generate Custom Study Plan
             </Button>
@@ -652,31 +654,31 @@ export default function StudyPlanPage() {
       {/* Reschedule Task Modal */}
       <Dialog open={!!rescheduleTaskObj} onOpenChange={(open) => !open && setRescheduleTaskObj(null)}>
         {rescheduleTaskObj && (
-          <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white rounded-sm font-mono">
+          <DialogContent className="max-w-md bg-card border-border text-card-foreground rounded-sm font-mono">
             <DialogHeader>
-              <DialogTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+              <DialogTitle className="text-xl font-bold uppercase text-card-foreground flex items-center gap-2">
                 <RotateCcw className="h-5 w-5 text-[#FFD400]" />
                 RESCHEDULE STUDY TASK
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-400 font-mono">
+              <DialogDescription className="text-xs text-muted-foreground font-mono">
                 Move "{rescheduleTaskObj.title}" to a future study day without overloading capacity.
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-3 py-2 text-xs">
-              <label className="font-extrabold uppercase text-[10px] text-zinc-400">
+              <label className="font-bold uppercase text-[10px] text-muted-foreground">
                 Target Date (YYYY-MM-DD)
               </label>
               <input
                 type="date"
                 value={rescheduleDateStr}
                 onChange={(e) => setRescheduleDateStr(e.target.value)}
-                className="w-full h-10 px-3 rounded-sm border border-white/15 bg-black font-mono text-xs text-white focus:outline-none focus:border-[#FFD400]"
+                className="w-full h-10 px-3 rounded-sm border border-input bg-background font-mono text-xs text-foreground focus:outline-none focus:border-[#FFD400]"
               />
             </div>
 
             <DialogFooter className="mt-4 gap-2">
-              <Button variant="outline" onClick={() => setRescheduleTaskObj(null)} className="text-xs uppercase border-white/20 text-white">
+              <Button variant="secondary" onClick={() => setRescheduleTaskObj(null)} className="text-xs uppercase">
                 Cancel
               </Button>
               <Button
@@ -687,7 +689,8 @@ export default function StudyPlanPage() {
                   })
                 }
                 isLoading={rescheduleTaskMutation.isPending}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
+                variant="primary"
+                className="font-bold text-xs uppercase"
               >
                 Confirm Reschedule
               </Button>

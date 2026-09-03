@@ -72,12 +72,12 @@ function ResetPasswordForm() {
         <div className="h-12 w-12 rounded-sm bg-[#FFD400]/10 border border-[#FFD400]/40 text-[#FFD400] flex items-center justify-center mx-auto">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h3 className="font-condensed font-bold text-foreground text-xl uppercase">PASSWORD CHANGED!</h3>
+        <h3 className="font-bold text-foreground text-xl uppercase">PASSWORD CHANGED!</h3>
         <p className="text-xs text-muted-foreground">
           Your account password has been updated. You can now log in to access your dashboard.
         </p>
         <Link href="/login" className="block pt-2">
-          <Button className="w-full gap-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033]">
+          <Button variant="primary" className="w-full gap-2 font-bold uppercase">
             PROCEED TO LOGIN
             <ArrowRight className="h-4 w-4 text-black" />
           </Button>
@@ -111,7 +111,7 @@ function ResetPasswordForm() {
         error={errors.confirmPassword?.message}
       />
 
-      <Button type="submit" size="lg" className="w-full gap-2 mt-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033]" isLoading={isLoading}>
+      <Button type="submit" size="lg" variant="primary" className="w-full gap-2 mt-2 font-bold uppercase" isLoading={isLoading}>
         UPDATE PASSWORD
         <ArrowRight className="h-4 w-4 text-black" />
       </Button>
@@ -132,11 +132,11 @@ export default function ResetPasswordPage() {
             <div className="h-10 w-10 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
               <Zap className="h-5 w-5 fill-black text-black" />
             </div>
-            <span className="font-condensed font-black text-3xl uppercase tracking-wider text-foreground">
+            <span className="font-bold text-3xl uppercase tracking-wider text-foreground">
               SKILLTRACK <span className="text-[#FFD400]">AI</span>
             </span>
           </Link>
-          <h2 className="mt-3 font-condensed font-extrabold text-2xl uppercase tracking-wider text-foreground">
+          <h2 className="mt-3 font-extrabold text-2xl uppercase tracking-wider text-foreground">
             SET YOUR NEW PASSWORD
           </h2>
           <p className="text-xs text-muted-foreground mt-1 font-sans">

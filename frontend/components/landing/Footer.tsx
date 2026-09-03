@@ -11,7 +11,7 @@ export function Footer() {
               <div className="h-7 w-7 rounded-sm bg-[#FFD400] flex items-center justify-center text-black font-bold">
                 <Zap className="h-4 w-4 fill-black text-black" />
               </div>
-              <span className="font-condensed font-black text-lg uppercase tracking-wider text-white">
+              <span className="font-bold text-lg uppercase tracking-wider text-white">
                 SKILLTRACK <span className="text-[#FFD400]">AI</span>
               </span>
             </Link>
@@ -22,7 +22,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-mono font-bold text-[#FFD400] mb-3 uppercase tracking-widest text-[10px]">Product</h4>
-            <ul className="space-y-2 text-zinc-400 font-condensed uppercase font-bold tracking-wider">
+            <ul className="space-y-2 text-zinc-400 uppercase font-semibold tracking-wider">
               <li><a href="#features" className="hover:text-white transition-colors">20-Q Assessments</a></li>
               <li><a href="#features" className="hover:text-white transition-colors">Skill Gap Analysis</a></li>
               <li><a href="#features" className="hover:text-white transition-colors">Learning Pathways</a></li>
@@ -32,7 +32,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-mono font-bold text-[#FFD400] mb-3 uppercase tracking-widest text-[10px]">Navigation</h4>
-            <ul className="space-y-2 text-zinc-400 font-condensed uppercase font-bold tracking-wider">
+            <ul className="space-y-2 text-zinc-400 uppercase font-semibold tracking-wider">
               <li><Link href="/login" className="hover:text-white transition-colors">Sign In</Link></li>
               <li><Link href="/register" className="hover:text-white transition-colors">Get Started</Link></li>
               <li><a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a></li>
@@ -42,7 +42,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-mono font-bold text-[#FFD400] mb-3 uppercase tracking-widest text-[10px]">Platform</h4>
-            <ul className="space-y-2 text-zinc-400 font-condensed uppercase font-bold tracking-wider">
+            <ul className="space-y-2 text-zinc-400 uppercase font-semibold tracking-wider">
               <li><span className="hover:text-white cursor-pointer">Student Workspace</span></li>
               <li><span className="hover:text-white cursor-pointer">Admin Access</span></li>
               <li><span className="hover:text-white cursor-pointer">System Status</span></li>

@@ -54,7 +54,7 @@ export default function CompanyInsightsPage() {
             <Building className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>PEER COMPANY & OPPORTUNITY CONTRIBUTIONS</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             COMPANY INSIGHTS & PEER CONTRIBUTIONS <span className="text-[#FFD400]">🌐</span>
           </h1>
           <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans">
@@ -64,9 +64,9 @@ export default function CompanyInsightsPage() {
       </div>
 
       {/* Share Contribution Form */}
-      <Card className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm">
-        <CardHeader className="p-0 pb-4 border-b border-white/10 mb-4">
-          <CardTitle className="font-condensed text-xl font-extrabold uppercase text-white flex items-center gap-2">
+      <Card className="p-6 rounded-sm">
+        <CardHeader className="p-0 pb-4 border-b border-border mb-4">
+          <CardTitle className="text-xl font-extrabold uppercase text-card-foreground flex items-center gap-2">
             <PlusCircle className="h-5 w-5 text-[#FFD400]" />
             CONTRIBUTE OPPORTUNITY / HIRING INFORMATION
           </CardTitle>
@@ -75,55 +75,55 @@ export default function CompanyInsightsPage() {
           <form onSubmit={handleSubmit} className="space-y-4 text-xs font-sans">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Company Name *</label>
+                <label className="font-mono font-bold text-card-foreground uppercase block mb-1">Company Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. ABC Technologies"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
+                  className="w-full px-3 py-2.5 rounded-sm border border-input bg-background text-foreground font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Job Role *</label>
+                <label className="font-mono font-bold text-card-foreground uppercase block mb-1">Job Role *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Java Backend Developer"
                   value={jobRole}
                   onChange={(e) => setJobRole(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
+                  className="w-full px-3 py-2.5 rounded-sm border border-input bg-background text-foreground font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">Location *</label>
+                <label className="font-mono font-bold text-card-foreground uppercase block mb-1">Location *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Bangalore / Remote"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
+                  className="w-full px-3 py-2.5 rounded-sm border border-input bg-background text-foreground font-mono text-xs focus:border-[#FFD400] focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="font-mono font-bold text-zinc-300 uppercase block mb-1">General Hiring & Interview Information *</label>
+              <label className="font-mono font-bold text-card-foreground uppercase block mb-1">General Hiring & Interview Information *</label>
               <textarea
                 rows={3}
                 required
                 placeholder="Share general hiring process, technical skill expectations, and application advice (no confidential internal data)."
                 value={hiringInfo}
                 onChange={(e) => setHiringInfo(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-sm border border-white/15 bg-black text-white font-mono text-xs focus:border-[#FFD400] focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-sm border border-input bg-background text-foreground font-mono text-xs focus:border-[#FFD400] focus:outline-none"
               />
             </div>
 
-            <Button type="submit" isLoading={submitMutation.isPending} className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase flex items-center gap-2">
+            <Button type="submit" isLoading={submitMutation.isPending} variant="primary" className="font-extrabold text-xs uppercase flex items-center gap-2">
               <Send className="h-4 w-4 text-black" /> Submit Contribution for Review
             </Button>
           </form>

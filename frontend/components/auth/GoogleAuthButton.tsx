@@ -48,9 +48,9 @@ export function GoogleAuthButton() {
     return (
       <Button
         type="button"
-        variant="outline"
+        variant="secondary"
         onClick={handleUnconfiguredClick}
-        className="w-full flex items-center justify-center gap-3 h-11 border-white/20 bg-[#111111] text-white hover:border-[#FFD400] font-mono text-xs uppercase"
+        className="w-full flex items-center justify-center gap-3 h-11 text-xs uppercase font-bold"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24">
           <path

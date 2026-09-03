@@ -137,7 +137,7 @@ export function NotificationCenter() {
             {/* Header */}
             <div className="p-3.5 px-4 border-b border-border flex items-center justify-between bg-surface-secondary">
               <div className="flex items-center gap-2">
-                <span className="font-condensed font-black text-xs text-foreground uppercase tracking-wider">
+                <span className="font-bold text-xs text-foreground uppercase tracking-wider">
                   Notifications
                 </span>
                 {unreadCount > 0 && (
@@ -207,7 +207,7 @@ export function NotificationCenter() {
                           }}
                           className="block group-hover:text-[#FFD400]"
                         >
-                          <h4 className="text-xs font-bold text-foreground truncate uppercase font-condensed">
+                          <h4 className="text-xs font-bold text-foreground truncate uppercase">
                             {item.title}
                           </h4>
                           <p className="text-[11px] text-muted-foreground line-clamp-2 mt-0.5">
@@ -221,7 +221,7 @@ export function NotificationCenter() {
                           }}
                           className="cursor-pointer"
                         >
-                          <h4 className="text-xs font-bold text-foreground truncate uppercase font-condensed">
+                          <h4 className="text-xs font-bold text-foreground truncate uppercase">
                             {item.title}
                           </h4>
                           <p className="text-[11px] text-muted-foreground line-clamp-2 mt-0.5">

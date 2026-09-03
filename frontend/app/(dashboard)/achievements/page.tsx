@@ -23,7 +23,7 @@ export default function AchievementsPage() {
             <Sparkles className="h-3.5 w-3.5 text-[#FFD400]" />
             <span>PLATFORM EVENT-DRIVEN MILESTONES</span>
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
             CAREER ACHIEVEMENTS & MILESTONES <span className="text-[#FFD400]">🏆</span>
           </h1>
           <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-sans">
@@ -37,17 +37,17 @@ export default function AchievementsPage() {
         {achievements.map((a, i) => {
           const Icon = a.icon;
           return (
-            <Card key={i} className="p-6 bg-[#0A0A0A] border-white/10 text-white rounded-sm hover:border-[#FFD400]/40 transition-all flex items-start gap-4">
+            <Card key={i} className="p-6 rounded-sm hover:border-[#FFD400]/40 transition-all flex items-start gap-4">
               <div className="h-12 w-12 rounded-sm bg-[#FFD400] text-black flex items-center justify-center font-bold shrink-0">
                 <Icon className="h-6 w-6 text-black" />
               </div>
               <div className="space-y-1 font-sans">
                 <div className="flex items-center gap-2">
-                  <span className="font-condensed font-bold text-[#FFD400] text-lg uppercase">{a.title}</span>
+                  <span className="font-bold text-[#FFD400] text-lg uppercase">{a.title}</span>
                   <Badge variant="default" className="bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400] font-mono font-bold text-[10px] uppercase">Unlocked</Badge>
                 </div>
-                <p className="text-zinc-400 text-xs">{a.desc}</p>
-                <span className="text-[10px] text-zinc-500 font-mono font-bold block uppercase">{a.date}</span>
+                <p className="text-muted-foreground text-xs">{a.desc}</p>
+                <span className="text-[10px] text-muted-foreground font-mono font-bold block uppercase">{a.date}</span>
               </div>
             </Card>
           );

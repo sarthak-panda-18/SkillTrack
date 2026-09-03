@@ -58,11 +58,11 @@ export default function LoginPage() {
             <div className="h-10 w-10 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
               <Zap className="h-5 w-5 fill-black text-black" />
             </div>
-            <span className="font-condensed font-black text-3xl uppercase tracking-wider text-foreground">
+            <span className="font-bold text-3xl uppercase tracking-wider text-foreground">
               SKILLTRACK <span className="text-[#FFD400]">AI</span>
             </span>
           </Link>
-          <h2 className="mt-3 font-condensed font-extrabold text-2xl uppercase tracking-wider text-foreground">
+          <h2 className="mt-3 font-extrabold text-2xl uppercase tracking-wider text-foreground">
             SIGN IN TO YOUR ACCOUNT
           </h2>
           <p className="text-xs text-muted-foreground mt-1 font-sans">
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full gap-2 mt-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033]" isLoading={isLoading}>
+              <Button type="submit" size="lg" variant="primary" className="w-full gap-2 mt-2 font-bold uppercase" isLoading={isLoading}>
                 SIGN IN
                 <ArrowRight className="h-4 w-4 text-black" />
               </Button>

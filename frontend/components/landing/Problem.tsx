@@ -35,7 +35,7 @@ export function Problem() {
           <span className="font-mono text-xs font-bold tracking-widest uppercase text-[#FFD400]">
             ENGINEERING CAREER READINESS WORKFLOW
           </span>
-          <h2 className="mt-3 font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white">
+          <h2 className="mt-3 font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-white">
             FOUR STEPS TO PLACEMENT READINESS
           </h2>
           <p className="mt-4 text-zinc-400 text-sm sm:text-base leading-relaxed">
@@ -59,7 +59,7 @@ export function Problem() {
                     <Icon className="h-4 w-4" />
                   </div>
                 </div>
-                <h3 className="font-condensed text-xl font-bold uppercase text-white mb-2 tracking-wide">
+                <h3 className="text-xl font-bold uppercase text-white mb-2 tracking-wide">
                   {item.title}
                 </h3>
                 <p className="text-xs text-zinc-400 leading-relaxed font-sans">

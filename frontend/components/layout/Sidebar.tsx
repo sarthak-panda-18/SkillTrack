@@ -83,7 +83,7 @@ export function Sidebar() {
           <div className="h-8 w-8 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
             <Zap className="h-4 w-4 fill-black text-black" />
           </div>
-          <span className="font-condensed font-black text-xl uppercase tracking-wider text-foreground">
+          <span className="font-bold text-xl uppercase tracking-wider text-foreground">
             SKILLTRACK <span className="text-[#FFD400]">AI</span>
           </span>
         </Link>
@@ -117,9 +117,9 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-sm font-semibold tracking-wide transition-all duration-150',
                       isActive
-                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-bold'
                         : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
@@ -147,9 +147,9 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-sm font-semibold tracking-wide transition-all duration-150',
                       isActive
-                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-bold'
                         : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
@@ -182,9 +182,9 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-sm font-semibold tracking-wide transition-all duration-150',
                       isActive
-                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-bold'
                         : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >
@@ -212,9 +212,9 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm font-condensed text-sm font-bold uppercase tracking-wider transition-all duration-150',
+                      'group relative flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-sm font-semibold tracking-wide transition-all duration-150',
                       isActive
-                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-black'
+                        ? 'bg-surface-secondary text-foreground border-l-4 border-[#FFD400] pl-3 bg-[#FFD400]/10 font-bold'
                         : 'text-muted-foreground hover:bg-surface-hover hover:text-foreground'
                     )}
                   >

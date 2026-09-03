@@ -47,11 +47,11 @@ export default function ForgotPasswordPage() {
             <div className="h-10 w-10 rounded-sm bg-[#FFD400] flex items-center justify-center text-black shadow-md font-bold">
               <Zap className="h-5 w-5 fill-black text-black" />
             </div>
-            <span className="font-condensed font-black text-3xl uppercase tracking-wider text-foreground">
+            <span className="font-bold text-3xl uppercase tracking-wider text-foreground">
               SKILLTRACK <span className="text-[#FFD400]">AI</span>
             </span>
           </Link>
-          <h2 className="mt-3 font-condensed font-extrabold text-2xl uppercase tracking-wider text-foreground">
+          <h2 className="mt-3 font-extrabold text-2xl uppercase tracking-wider text-foreground">
             RESET YOUR PASSWORD
           </h2>
           <p className="text-xs text-muted-foreground mt-1 font-sans">
@@ -66,11 +66,11 @@ export default function ForgotPasswordPage() {
                 <div className="h-12 w-12 rounded-sm bg-[#FFD400]/10 border border-[#FFD400]/40 text-[#FFD400] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="h-6 w-6" />
                 </div>
-                <h3 className="font-condensed font-bold text-foreground text-xl uppercase">CHECK YOUR INBOX</h3>
+                <h3 className="font-bold text-foreground text-xl uppercase">CHECK YOUR INBOX</h3>
                 <p className="text-xs text-muted-foreground">
                   We've sent a password reset link to <span className="font-mono font-bold text-[#FFD400]">{email}</span>.
                 </p>
-                <Button variant="outline" className="w-full mt-4 border-border text-foreground hover:border-[#FFD400] font-mono text-xs uppercase" onClick={() => setIsSubmitted(false)}>
+                <Button variant="secondary" className="w-full mt-4 font-mono text-xs uppercase" onClick={() => setIsSubmitted(false)}>
                   Send again
                 </Button>
               </div>
@@ -85,7 +85,7 @@ export default function ForgotPasswordPage() {
                   required
                 />
 
-                <Button type="submit" size="lg" className="w-full gap-2 mt-2 bg-[#FFD400] text-black font-extrabold uppercase hover:bg-yellow-hover dark:hover:bg-[#FFE033]" isLoading={isLoading}>
+                <Button type="submit" size="lg" variant="primary" className="w-full gap-2 mt-2 font-bold uppercase" isLoading={isLoading}>
                   SEND RESET LINK
                 </Button>
               </form>

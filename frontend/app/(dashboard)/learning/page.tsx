@@ -194,7 +194,7 @@ export default function LearningPage() {
           <div className="h-16 w-16 rounded-sm bg-[#111111] text-[#FFD400] flex items-center justify-center mx-auto border border-[#FFD400]/40">
             <BookOpen className="h-8 w-8 text-[#FFD400]" />
           </div>
-          <h2 className="font-condensed text-2xl font-extrabold uppercase text-white">Learning Roadmap</h2>
+          <h2 className="text-2xl font-extrabold uppercase text-white">Learning Roadmap</h2>
           <p className="text-xs text-zinc-400 font-sans leading-relaxed">{errMsg}</p>
           <Link href="/profile">
             <Button className="w-full bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-2">
@@ -228,16 +228,16 @@ export default function LearningPage() {
             <Sparkles className="h-3.5 w-3.5 text-[#FFD400]" />
             PERSONALIZED AI LEARNING PATHWAY
           </div>
-          <h1 className="font-condensed text-3xl sm:text-5xl font-extrabold uppercase text-white tracking-tight">{title}</h1>
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase text-white tracking-tight">{title}</h1>
           <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed font-sans">{description}</p>
         </div>
 
         <Button
           onClick={() => setIsRegenerateModalOpen(true)}
-          variant="outline"
-          className="relative z-10 border-white/20 text-white font-mono uppercase font-bold text-xs gap-2 shrink-0"
+          variant="secondary"
+          className="relative z-10 font-mono uppercase font-bold text-xs gap-2 shrink-0"
         >
-          <RotateCw className="h-4 w-4" />
+          <RotateCw className="h-4 w-4 text-card-foreground" />
           Regenerate Roadmap
         </Button>
       </div>
@@ -245,9 +245,9 @@ export default function LearningPage() {
       {/* Overview Cards & Current Focus Header */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Current Focus / Continue Learning Card */}
-        <Card className="lg:col-span-2 bg-[#0A0A0A] border border-[#FFD400]/40 text-white rounded-sm">
-          <CardHeader className="p-6 pb-2 border-b border-white/10 flex flex-row justify-between items-center font-mono">
-            <CardTitle className="font-condensed text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
+        <Card className="lg:col-span-2 border-[#FFD400]/40 rounded-sm">
+          <CardHeader className="p-6 pb-2 border-b border-border flex flex-row justify-between items-center font-mono">
+            <CardTitle className="text-xl font-extrabold uppercase tracking-wider text-[#FFD400] flex items-center gap-2">
               <Zap className="h-5 w-5 text-[#FFD400] fill-[#FFD400]" />
               ACTIVE LEARNING FOCUS
             </CardTitle>
@@ -264,36 +264,36 @@ export default function LearningPage() {
             {currentFocusTopic ? (
               <div className="space-y-4 font-sans">
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-zinc-400 font-mono">
+                  <span className="text-[10px] font-bold uppercase text-muted-foreground font-mono">
                     Skill: {currentFocusTopic.skillName} • Est. {currentFocusTopic.estimatedHours} hrs
                   </span>
-                  <h3 className="font-condensed text-2xl font-black text-white uppercase mt-0.5">
+                  <h3 className="text-2xl font-black text-card-foreground uppercase mt-0.5">
                     {currentFocusTopic.title}
                   </h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed mt-1">
+                  <p className="text-xs text-muted-foreground leading-relaxed mt-1">
                     {currentFocusTopic.description}
                   </p>
                 </div>
 
                 {/* Data-Driven Reason */}
                 {currentFocusTopic.reason && (
-                  <div className="p-3 rounded-sm bg-[#111111] border border-white/10 text-xs text-zinc-300 flex items-start gap-2 font-mono">
+                  <div className="p-3 rounded-sm bg-surface-secondary border border-border text-xs text-muted-foreground flex items-start gap-2 font-mono">
                     <Brain className="h-4 w-4 text-[#FFD400] shrink-0 mt-0.5" />
                     <span><strong className="text-[#FFD400] uppercase">Why this topic:</strong> {currentFocusTopic.reason}</span>
                   </div>
                 )}
 
                 {/* Direct Learning Video Action */}
-                <div className="p-4 rounded-sm bg-[#111111] border border-white/10 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono">
+                <div className="p-4 rounded-sm bg-surface-secondary border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-sm bg-rose-600 flex items-center justify-center shrink-0">
                       <Youtube className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold uppercase text-rose-400 tracking-wider">
+                      <div className="text-[10px] font-bold uppercase text-rose-500 dark:text-rose-400 tracking-wider">
                         Recommended Video Tutorial
                       </div>
-                      <div className="text-xs font-bold text-white line-clamp-1">
+                      <div className="text-xs font-bold text-card-foreground line-clamp-1">
                         {currentFocusTopic.learningResource?.title || `${currentFocusTopic.title} Tutorial`}
                       </div>
                     </div>
@@ -303,7 +303,7 @@ export default function LearningPage() {
                     size="sm"
                     onClick={() => fetchResourceMutation.mutate(currentFocusTopic.topicId)}
                     isLoading={fetchResourceMutation.isPending}
-                    className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs uppercase gap-1.5 shrink-0"
+                    className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase gap-1.5 shrink-0"
                   >
                     <Play className="h-3.5 w-3.5 fill-white" />
                     Watch Tutorial ↗
@@ -313,20 +313,21 @@ export default function LearningPage() {
                 {/* Progress Controls */}
                 <div className="space-y-2 pt-2 font-mono">
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-zinc-400 font-bold uppercase">Current Topic Progress</span>
-                    <span className="font-condensed text-lg font-black text-[#FFD400]">
+                    <span className="text-muted-foreground font-bold uppercase">Current Topic Progress</span>
+                    <span className="text-lg font-black text-[#FFD400]">
                       {currentFocusTopic.progress}%
                     </span>
                   </div>
-                  <Progress value={currentFocusTopic.progress} className="h-2 bg-zinc-800" />
+                  <Progress value={currentFocusTopic.progress} className="h-2 bg-surface-secondary" />
 
                   <div className="pt-2 flex flex-wrap gap-2 justify-end">
                     {currentFocusTopic.status === 'AVAILABLE' && (
                       <Button
                         size="sm"
+                        variant="primary"
                         onClick={() => fetchResourceMutation.mutate(currentFocusTopic.topicId)}
                         isLoading={fetchResourceMutation.isPending}
-                        className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5"
+                        className="font-bold text-xs uppercase gap-1.5"
                       >
                         <Play className="h-3.5 w-3.5 text-black fill-black" />
                         Start Learning Topic ↗
@@ -337,20 +338,21 @@ export default function LearningPage() {
                       <>
                         <Button
                           size="sm"
-                          variant="outline"
+                          variant="secondary"
                           onClick={() => {
                             setSelectedTopic(currentFocusTopic);
                             setSliderProgress(currentFocusTopic.progress);
                           }}
-                          className="text-xs font-mono font-bold uppercase border-white/20 text-white"
+                          className="text-xs font-mono font-bold uppercase"
                         >
                           Update Progress %
                         </Button>
                         <Button
                           size="sm"
+                          variant="primary"
                           onClick={() => completeTopicMutation.mutate(currentFocusTopic.topicId)}
                           isLoading={completeTopicMutation.isPending}
-                          className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5"
+                          className="font-bold text-xs uppercase gap-1.5"
                         >
                           <CheckCircle2 className="h-4 w-4 text-black" />
                           Mark Topic Complete
@@ -363,47 +365,47 @@ export default function LearningPage() {
             ) : (
               <div className="text-center py-6 space-y-2 font-mono">
                 <CheckCircle2 className="h-10 w-10 text-[#FFD400] mx-auto" />
-                <h4 className="font-condensed text-xl font-bold uppercase text-white">All Available Topics Complete!</h4>
-                <p className="text-xs text-zinc-400 font-sans">Great job! Keep progressing through your stages below.</p>
+                <h4 className="text-xl font-bold uppercase text-card-foreground">All Available Topics Complete!</h4>
+                <p className="text-xs text-muted-foreground font-sans">Great job! Keep progressing through your stages below.</p>
               </div>
             )}
           </CardContent>
         </Card>
 
         {/* Roadmap Stats & AI Executive Summary Card */}
-        <Card className="bg-[#0A0A0A] border-white/10 text-white rounded-sm flex flex-col justify-between font-mono">
-          <CardHeader className="p-6 pb-2 border-b border-white/10">
-            <CardTitle className="font-condensed text-xl font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+        <Card className="rounded-sm flex flex-col justify-between font-mono">
+          <CardHeader className="p-6 pb-2 border-b border-border">
+            <CardTitle className="text-xl font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <Award className="h-5 w-5 text-[#FFD400]" />
               ROADMAP ANALYTICS
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="space-y-1 text-center">
-              <div className="font-condensed text-5xl font-black text-[#FFD400]">
+              <div className="text-5xl font-black text-[#FFD400]">
                 {overallProgress}%
               </div>
-              <p className="text-xs font-bold text-zinc-300 uppercase">Overall Pathway Completion</p>
-              <Progress value={overallProgress} className="h-2 bg-zinc-800 mt-2" />
+              <p className="text-xs font-bold text-muted-foreground uppercase">Overall Pathway Completion</p>
+              <Progress value={overallProgress} className="h-2 bg-surface-secondary mt-2" />
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-white/10">
-              <div className="p-2.5 rounded-sm bg-[#111111] border border-white/10 text-center">
-                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Completed</span>
-                <span className="font-bold text-sm text-white">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-border">
+              <div className="p-2.5 rounded-sm bg-surface-secondary border border-border text-center">
+                <span className="text-[10px] text-muted-foreground uppercase font-bold block">Completed</span>
+                <span className="font-bold text-sm text-card-foreground">
                   {completedTopicsCount} / {totalTopicsCount}
                 </span>
               </div>
-              <div className="p-2.5 rounded-sm bg-[#111111] border border-white/10 text-center">
-                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Est. Time</span>
-                <span className="font-bold text-sm text-white">
+              <div className="p-2.5 rounded-sm bg-surface-secondary border border-border text-center">
+                <span className="text-[10px] text-muted-foreground uppercase font-bold block">Est. Time</span>
+                <span className="font-bold text-sm text-card-foreground">
                   ~{estimatedTotalHours} hrs
                 </span>
               </div>
             </div>
 
             {aiSummary && (
-              <p className="text-[11px] text-zinc-400 leading-relaxed italic bg-[#111111] p-3 rounded-sm border border-white/10 font-sans">
+              <p className="text-[11px] text-muted-foreground leading-relaxed italic bg-surface-secondary p-3 rounded-sm border border-border font-sans">
                 "{aiSummary}"
               </p>
             )}
@@ -413,7 +415,7 @@ export default function LearningPage() {
 
       {/* Multi-Stage Accordion List */}
       <div className="space-y-4 font-mono">
-        <h2 className="font-condensed text-2xl font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+        <h2 className="text-2xl font-extrabold text-foreground uppercase tracking-wider flex items-center gap-2">
           <BookOpen className="h-5 w-5 text-[#FFD400]" />
           LEARNING STAGES & SEQUENCE
         </h2>
@@ -427,18 +429,18 @@ export default function LearningPage() {
             return (
               <Card
                 key={stage.stageId}
-                className={`bg-[#0A0A0A] border rounded-sm transition-all ${
+                className={`border rounded-sm transition-all ${
                   isStageCompleted
                     ? 'border-[#FFD400]/40'
                     : isStageLocked
-                    ? 'opacity-60 border-white/10'
-                    : 'border-white/15'
+                    ? 'opacity-60 border-border'
+                    : 'border-border'
                 }`}
               >
                 {/* Stage Header Bar */}
                 <div
                   onClick={() => toggleStage(stage.stageId)}
-                  className="p-5 flex items-center justify-between cursor-pointer select-none border-b border-white/10"
+                  className="p-5 flex items-center justify-between cursor-pointer select-none border-b border-border"
                 >
                   <div className="flex items-center gap-4 min-w-0">
                     <div
@@ -446,7 +448,7 @@ export default function LearningPage() {
                         isStageCompleted
                           ? 'bg-[#FFD400] text-black'
                           : isStageLocked
-                          ? 'bg-[#111111] text-zinc-500 border border-white/10'
+                          ? 'bg-surface-secondary text-muted-foreground border border-border'
                           : 'bg-[#FFD400] text-black'
                       }`}
                     >
@@ -455,7 +457,7 @@ export default function LearningPage() {
 
                     <div className="space-y-0.5 min-w-0 font-sans">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-condensed font-bold text-xl text-white uppercase truncate">
+                        <h3 className="font-bold text-xl text-card-foreground uppercase truncate">
                           {stage.title}
                         </h3>
                         <Badge
@@ -465,29 +467,29 @@ export default function LearningPage() {
                           {stage.status.replace('_', ' ')}
                         </Badge>
                       </div>
-                      <p className="text-xs text-zinc-400 line-clamp-1">{stage.description}</p>
+                      <p className="text-xs text-muted-foreground line-clamp-1">{stage.description}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4 shrink-0 font-mono">
                     <div className="hidden sm:flex flex-col items-end text-xs">
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-card-foreground">
                         {stage.progress}% Complete
                       </span>
-                      <span className="text-[10px] text-zinc-400">~{stage.estimatedHours} hrs</span>
+                      <span className="text-[10px] text-muted-foreground">~{stage.estimatedHours} hrs</span>
                     </div>
 
                     {isExpanded ? (
-                      <ChevronUp className="h-5 w-5 text-zinc-400" />
+                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
                     ) : (
-                      <ChevronDown className="h-5 w-5 text-zinc-400" />
+                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
                     )}
                   </div>
                 </div>
 
                 {/* Stage Topics List */}
                 {isExpanded && (
-                  <CardContent className="p-5 space-y-3 bg-[#111111]">
+                  <CardContent className="p-5 space-y-3 bg-surface-secondary">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {stage.topics.map((topic) => {
                         const isTopicCompleted = topic.status === 'COMPLETED';
@@ -499,18 +501,18 @@ export default function LearningPage() {
                             key={topic.topicId}
                             className={`p-4 rounded-sm border transition-all space-y-3 font-mono ${
                               isTopicCompleted
-                                ? 'bg-[#0A0A0A] border-[#FFD400]/40 text-white'
+                                ? 'bg-card border-[#FFD400]/40 text-card-foreground'
                                 : isTopicInProgress
-                                ? 'bg-[#0A0A0A] border-[#FFD400] text-white shadow-sm'
+                                ? 'bg-card border-[#FFD400] text-card-foreground shadow-sm'
                                 : isTopicLocked
-                                ? 'bg-[#0A0A0A] border-white/10 opacity-60 text-zinc-400'
-                                : 'bg-[#0A0A0A] border-white/10 text-white'
+                                ? 'bg-card border-border opacity-60 text-muted-foreground'
+                                : 'bg-card border-border text-card-foreground'
                             }`}
                           >
                             <div className="flex justify-between items-start">
                               <div className="space-y-1 pr-2 font-sans">
                                 <div className="flex flex-wrap items-center gap-1.5 font-mono">
-                                  <Badge variant="default" className="text-[9px] py-0 font-bold bg-[#111111] text-zinc-300 border-white/10">
+                                  <Badge variant="default" className="text-[9px] py-0 font-bold bg-surface-secondary text-muted-foreground border-border">
                                     {topic.skillName}
                                   </Badge>
                                   <Badge variant="default" className="text-[9px] py-0 font-bold bg-[#FFD400]/20 text-[#FFD400] border-[#FFD400]">
@@ -518,7 +520,7 @@ export default function LearningPage() {
                                   </Badge>
                                 </div>
 
-                                <h4 className="font-condensed font-bold text-lg text-white uppercase leading-snug">
+                                <h4 className="font-bold text-lg text-card-foreground uppercase leading-snug">
                                   {topic.title}
                                 </h4>
                               </div>
@@ -537,20 +539,20 @@ export default function LearningPage() {
                               </Badge>
                             </div>
 
-                            <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed font-sans">
+                            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed font-sans">
                               {topic.description}
                             </p>
 
                             {/* Video Resource Quick Display */}
                             {topic.learningResource && (
-                              <div className="p-2.5 rounded-sm bg-[#111111] border border-rose-500/40 flex items-center justify-between text-xs gap-2 font-mono">
+                              <div className="p-2.5 rounded-sm bg-surface-secondary border border-rose-500/40 flex items-center justify-between text-xs gap-2 font-mono">
                                 <div className="flex items-center gap-2 min-w-0">
-                                  <Youtube className="h-4 w-4 text-rose-400 shrink-0" />
-                                  <span className="font-bold text-white truncate text-[11px] font-sans">
+                                  <Youtube className="h-4 w-4 text-rose-500 dark:text-rose-400 shrink-0" />
+                                  <span className="font-bold text-card-foreground truncate text-[11px] font-sans">
                                     {topic.learningResource.title}
                                   </span>
                                 </div>
-                                <span className="text-[10px] text-zinc-400 shrink-0">
+                                <span className="text-[10px] text-muted-foreground shrink-0">
                                   {topic.learningResource.duration}
                                 </span>
                               </div>
@@ -558,25 +560,25 @@ export default function LearningPage() {
 
                             {/* Prerequisites Lock Warning */}
                             {isTopicLocked && topic.prerequisites && topic.prerequisites.length > 0 && (
-                              <div className="p-2 rounded-sm bg-[#111111] text-[10px] text-zinc-400 font-mono flex items-center gap-1.5 border border-white/10">
-                                <Lock className="h-3 w-3 text-zinc-400 shrink-0" />
+                              <div className="p-2 rounded-sm bg-surface-secondary text-[10px] text-muted-foreground font-mono flex items-center gap-1.5 border border-border">
+                                <Lock className="h-3 w-3 text-muted-foreground shrink-0" />
                                 <span>Requires: {topic.prerequisites.join(', ')}</span>
                               </div>
                             )}
 
                             {/* Progress Bar & Controls */}
                             <div className="space-y-1.5 pt-1">
-                              <div className="flex justify-between text-[11px] font-mono text-zinc-400">
+                              <div className="flex justify-between text-[11px] font-mono text-muted-foreground">
                                 <span>~{topic.estimatedHours} hrs</span>
                                 <span className="font-bold text-[#FFD400]">
                                   {topic.progress}%
                                 </span>
                               </div>
-                              <Progress value={topic.progress} className="h-1.5 bg-zinc-800" />
+                              <Progress value={topic.progress} className="h-1.5 bg-surface-secondary" />
                             </div>
 
                             {/* Card Actions */}
-                            <div className="pt-2 flex justify-between items-center border-t border-white/10 font-mono">
+                            <div className="pt-2 flex justify-between items-center border-t border-border font-mono">
                               <button
                                 onClick={() => {
                                   setSelectedTopic(topic);
@@ -591,9 +593,10 @@ export default function LearningPage() {
                                 {topic.status === 'AVAILABLE' && (
                                   <Button
                                     size="sm"
+                                    variant="primary"
                                     onClick={() => fetchResourceMutation.mutate(topic.topicId)}
                                     isLoading={fetchResourceMutation.isPending}
-                                    className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-[11px] uppercase h-7 px-3 gap-1"
+                                    className="font-bold text-[11px] uppercase h-7 px-3 gap-1"
                                   >
                                     <Play className="h-3 w-3 text-black fill-black" />
                                     Start Topic ↗
@@ -604,19 +607,20 @@ export default function LearningPage() {
                                   <>
                                     <Button
                                       size="sm"
-                                      variant="outline"
+                                      variant="secondary"
                                       onClick={() => fetchResourceMutation.mutate(topic.topicId)}
                                       isLoading={fetchResourceMutation.isPending}
-                                      className="text-rose-400 border-rose-500/40 hover:bg-rose-950 font-mono text-[11px] uppercase h-7 px-2.5 gap-1"
+                                      className="font-mono text-[11px] uppercase h-7 px-2.5 gap-1"
                                     >
-                                      <Youtube className="h-3.5 w-3.5 text-rose-400" />
+                                      <Youtube className="h-3.5 w-3.5 text-rose-500 dark:text-rose-400" />
                                       Watch ↗
                                     </Button>
                                     <Button
                                       size="sm"
+                                      variant="primary"
                                       onClick={() => completeTopicMutation.mutate(topic.topicId)}
                                       isLoading={completeTopicMutation.isPending}
-                                      className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-[11px] uppercase h-7 px-2.5 gap-1"
+                                      className="font-bold text-[11px] uppercase h-7 px-2.5 gap-1"
                                     >
                                       <CheckCircle2 className="h-3.5 w-3.5 text-black" />
                                       Done
@@ -646,7 +650,7 @@ export default function LearningPage() {
       {/* Recommended YouTube Tutorial Modal */}
       <Dialog open={!!videoModalTopic} onOpenChange={(open) => !open && setVideoModalTopic(null)}>
         {videoModalTopic && (
-          <DialogContent className="max-w-xl bg-[#0A0A0A] border-white/10 text-white font-mono">
+          <DialogContent className="max-w-xl bg-card border-border text-card-foreground font-mono">
             <DialogHeader>
               <div className="flex items-center gap-2">
                 <Badge variant="default" className="text-[10px] bg-[#FFD400]/20 text-[#FFD400]">
@@ -656,10 +660,10 @@ export default function LearningPage() {
                   <Youtube className="h-3 w-3" /> YouTube Recommended
                 </Badge>
               </div>
-              <DialogTitle className="font-condensed text-2xl font-bold uppercase text-white">
+              <DialogTitle className="text-2xl font-bold uppercase text-card-foreground">
                 {videoModalTopic.title}
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-400 font-sans">
+              <DialogDescription className="text-xs text-muted-foreground font-sans">
                 Top rated educational video matching your current topic gap.
               </DialogDescription>
             </DialogHeader>
@@ -667,9 +671,9 @@ export default function LearningPage() {
             <div className="space-y-4 py-2">
               {/* Video Preview Card */}
               {activeResource && (
-                <div className="p-4 rounded-sm bg-[#111111] text-white space-y-3 border border-white/10">
+                <div className="p-4 rounded-sm bg-surface-secondary text-card-foreground space-y-3 border border-border">
                   {activeResource.thumbnail && (
-                    <div className="relative aspect-video rounded-sm overflow-hidden bg-black border border-white/10">
+                    <div className="relative aspect-video rounded-sm overflow-hidden bg-background border border-border">
                       <img
                         src={activeResource.thumbnail}
                         alt={activeResource.title}
@@ -682,26 +686,26 @@ export default function LearningPage() {
                   )}
 
                   <div className="space-y-1 font-sans">
-                    <h4 className="font-condensed font-bold text-base text-white leading-snug">
+                    <h4 className="font-bold text-base text-card-foreground leading-snug">
                       {activeResource.title}
                     </h4>
-                    <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground font-mono">
                       <span>{activeResource.channelName}</span>
                       {activeResource.viewCount > 0 && (
                         <span className="flex items-center gap-1">
-                          <Eye className="h-3 w-3 text-zinc-400" /> {activeResource.viewCount.toLocaleString()} views
+                          <Eye className="h-3 w-3 text-muted-foreground" /> {activeResource.viewCount.toLocaleString()} views
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <div className="pt-2 flex flex-wrap gap-2 justify-between items-center border-t border-white/10 font-mono">
+                  <div className="pt-2 flex flex-wrap gap-2 justify-between items-center border-t border-border font-mono">
                     <Button
                       size="sm"
-                      variant="outline"
+                      variant="secondary"
                       onClick={() => refreshResourceMutation.mutate(videoModalTopic.topicId)}
                       isLoading={refreshResourceMutation.isPending}
-                      className="border-white/20 text-white uppercase text-xs font-semibold gap-1.5"
+                      className="uppercase text-xs font-semibold gap-1.5"
                     >
                       <RefreshCw className="h-3.5 w-3.5" />
                       Find Another Video
@@ -722,13 +726,14 @@ export default function LearningPage() {
             </div>
 
             <DialogFooter className="mt-4 font-mono">
-              <Button variant="outline" className="border-white/20 text-white uppercase" onClick={() => setVideoModalTopic(null)}>
+              <Button variant="secondary" className="uppercase" onClick={() => setVideoModalTopic(null)}>
                 Close
               </Button>
               <Button
                 onClick={() => completeTopicMutation.mutate(videoModalTopic.topicId)}
                 isLoading={completeTopicMutation.isPending}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase gap-1.5"
+                variant="primary"
+                className="font-bold text-xs uppercase gap-1.5"
               >
                 <CheckCircle2 className="h-4 w-4 text-black" />
                 Mark Topic Complete
@@ -741,35 +746,35 @@ export default function LearningPage() {
       {/* Topic Detail Modal */}
       <Dialog open={!!selectedTopic} onOpenChange={(open) => !open && setSelectedTopic(null)}>
         {selectedTopic && (
-          <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white font-mono">
+          <DialogContent className="max-w-md bg-card border-border text-card-foreground font-mono">
             <DialogHeader>
               <div className="flex items-center gap-2">
                 <Badge variant="default" className="text-[10px] bg-[#FFD400]/20 text-[#FFD400]">
                   {selectedTopic.skillName}
                 </Badge>
-                <Badge variant="default" className="text-[10px] bg-zinc-800 text-zinc-300">
+                <Badge variant="default" className="text-[10px] bg-surface text-muted-foreground">
                   {selectedTopic.difficulty}
                 </Badge>
               </div>
-              <DialogTitle className="font-condensed text-2xl font-bold uppercase text-white">
+              <DialogTitle className="text-2xl font-bold uppercase text-card-foreground">
                 {selectedTopic.title}
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-400 font-sans">
+              <DialogDescription className="text-xs text-muted-foreground font-sans">
                 {selectedTopic.description}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4 py-2 text-xs font-mono">
               {selectedTopic.reason && (
-                <div className="p-3 rounded-sm bg-[#111111] border border-white/10 text-zinc-300 font-sans leading-relaxed">
+                <div className="p-3 rounded-sm bg-surface-secondary border border-border text-muted-foreground font-sans leading-relaxed">
                   <strong className="text-[#FFD400] uppercase font-mono">Why this topic:</strong> {selectedTopic.reason}
                 </div>
               )}
 
               <div className="space-y-3">
                 <div className="flex justify-between items-center font-mono">
-                  <span className="font-bold text-zinc-400 uppercase">Set Topic Progress:</span>
-                  <span className="font-condensed text-xl font-extrabold text-[#FFD400]">
+                  <span className="font-bold text-muted-foreground uppercase">Set Topic Progress:</span>
+                  <span className="text-xl font-black text-[#FFD400]">
                     {sliderProgress}%
                   </span>
                 </div>
@@ -781,10 +786,10 @@ export default function LearningPage() {
                   step="5"
                   value={sliderProgress}
                   onChange={(e) => setSliderProgress(parseInt(e.target.value))}
-                  className="w-full h-2 bg-zinc-800 rounded-sm appearance-none cursor-pointer accent-[#FFD400]"
+                  className="w-full h-2 bg-surface-secondary rounded-sm appearance-none cursor-pointer accent-[#FFD400]"
                 />
 
-                <div className="flex justify-between text-[10px] text-zinc-400 font-mono">
+                <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
                   <span>0% (Not Started)</span>
                   <span>50% (In Progress)</span>
                   <span>100% (Completed)</span>
@@ -793,7 +798,7 @@ export default function LearningPage() {
             </div>
 
             <DialogFooter className="mt-4 font-mono">
-              <Button variant="outline" className="border-white/20 text-white uppercase" onClick={() => setSelectedTopic(null)}>
+              <Button variant="secondary" className="uppercase" onClick={() => setSelectedTopic(null)}>
                 Close
               </Button>
               <Button
@@ -804,7 +809,8 @@ export default function LearningPage() {
                   })
                 }
                 isLoading={updateProgressMutation.isPending}
-                className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
+                variant="primary"
+                className="font-bold text-xs uppercase"
               >
                 Save Progress
               </Button>
@@ -815,25 +821,26 @@ export default function LearningPage() {
 
       {/* Regenerate Confirmation Modal */}
       <Dialog open={isRegenerateModalOpen} onOpenChange={setIsRegenerateModalOpen}>
-        <DialogContent className="max-w-md bg-[#0A0A0A] border-white/10 text-white font-mono">
+        <DialogContent className="max-w-md bg-card border-border text-card-foreground font-mono">
           <DialogHeader>
-            <DialogTitle className="font-condensed text-2xl font-bold uppercase flex items-center gap-2 text-white">
+            <DialogTitle className="text-2xl font-bold uppercase flex items-center gap-2 text-card-foreground">
               <RotateCw className="h-5 w-5 text-[#FFD400]" />
               Regenerate Learning Roadmap?
             </DialogTitle>
-            <DialogDescription className="text-xs text-zinc-400 leading-relaxed font-sans">
+            <DialogDescription className="text-xs text-muted-foreground leading-relaxed font-sans">
               This will calculate a fresh learning sequence based on your latest skill gaps. Your completed topic progress will be automatically preserved for matching topics.
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter className="mt-4 font-mono">
-            <Button variant="outline" className="border-white/20 text-white uppercase" onClick={() => setIsRegenerateModalOpen(false)}>
+            <Button variant="secondary" className="uppercase" onClick={() => setIsRegenerateModalOpen(false)}>
               Cancel
             </Button>
             <Button
               onClick={() => regenerateMutation.mutate()}
               isLoading={regenerateMutation.isPending}
-              className="bg-[#FFD400] hover:bg-[#FFE033] text-black font-extrabold text-xs uppercase"
+              variant="primary"
+              className="font-bold text-xs uppercase"
             >
               Confirm & Regenerate
             </Button>

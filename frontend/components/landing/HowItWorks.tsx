@@ -36,7 +36,7 @@ export function HowItWorks() {
           <Badge variant="default" className="text-xs font-mono font-bold uppercase tracking-widest bg-[#FFD400]/10 text-[#FFD400] border border-[#FFD400]/30 mb-3">
             4-STEP PROCESS
           </Badge>
-          <h2 className="font-condensed font-black text-4xl sm:text-5xl uppercase tracking-tight text-white">
+          <h2 className="font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-white">
             HOW SKILLTRACK AI <span className="text-[#FFD400]">WORKS.</span>
           </h2>
           <p className="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed">
@@ -60,7 +60,7 @@ export function HowItWorks() {
                     <Icon className="h-4 w-4" />
                   </div>
                 </div>
-                <h3 className="font-condensed text-xl font-bold uppercase text-white mb-2 tracking-wide">
+                <h3 className="text-xl font-bold uppercase text-white mb-2 tracking-wide">
                   {step.title}
                 </h3>
                 <p className="text-xs text-zinc-400 leading-relaxed font-sans">
